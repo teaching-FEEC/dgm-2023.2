@@ -36,6 +36,18 @@ O projeto usará a base de dados Food-101, que pode ser acessada em https://data
 
 Caso não seja suficiente, serão abordadas técnicas de *few-shot learning*, ou seja, aprendizado com poucas amostras de treinamento.
 
+
+<Artigos>
+
+A principal ferramenta a ser utilizada é o Google Colaboratory, que permite o desenvolvimento online de notebooks python. Com ele, serão usadas as bibliotecas pytorch e pandas para processar a base de dados, criar e treinar a rede. Posteriormente, bibliotecas como numpy, matplot e seaborn serão usadas para produzir gráficos e outras ferramentas de análise.
+
+Espera-se que a rede seja capaz de produzir imagens convincentes de comidas existentes, ou seja, que um humano consiga reconhecer como um prato. Porém, não se descarta a possibilidade de gerar imagens semelhantes a comidas reais, mas com detalhes anômalos, como coloração diferente do usual. Também há a possibilidade de gerar arranjos e pratos diferentes dos apresentados no grupo de treino.
+
+Serão usadas técnicas tradicionais como caminhada pelo espaço latente e *drop-out* para verificar se a rede "aprendeu" mesmo ou se os resultados são cópias de imagens apresentadas durante o treinamento. Também será realizada uma avaliação humana, com voluntários avaliando as imagens com os seguintes critérios:
+1. Semelhança com fotos reais (tentar adivinhar se a imagem foi gerada ou não)
+2. Aparência da comida (se parece algo gostoso ou detestável)
+3. Presença ou ausência de artefatos ou anomalias (borrões, cores estranhas)
+
 ## Cronograma
 > Proposta de cronograma. Procure estimar quantas semanas serão gastas para cada etapa do projeto.
 
@@ -56,3 +68,5 @@ O projeto pode ser dividido em 6 etapas:
 
 ## Referências Bibliográficas
 > Apontar nesta seção as referências bibliográficas adotadas no projeto.
+
+<Food-101>
