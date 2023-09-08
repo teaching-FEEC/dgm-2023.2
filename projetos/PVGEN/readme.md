@@ -1,4 +1,4 @@
-# `PV GEN`
+# `Synthetic Photovoltaic Power Curve using GANs and Transformers`
 
 ## Project Presentation
 
