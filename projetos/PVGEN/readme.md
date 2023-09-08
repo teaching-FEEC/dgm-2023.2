@@ -16,6 +16,7 @@ Group:
 The increase of Distributed Energy Resources (DERs) integration into the distribution grid has heightened the need for Energy Management Systems (EMSs) to achieve optimal control of devices such as Battery Energy Storage Systems (BESS) and Electric Vehicle Charging Stations (EVCSs). Figure 1 illustrates an example environment in which an EMS is required to optimize Electric Vehicles (EVs) charging.
 
 ![image info](./Figs/Example.svg)
+
 Figure 1: Example os environment that need to be controlled with an EMS
 
 To enhance the quality of energy management, predictions such as load and photovoltaic (PV) generation are necessary. However, how can an EMS be applied in a system without historical data? How can a PV forecasting model be trained to assist an EMS in a system installed in a new location?
@@ -45,6 +46,7 @@ The [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871) was publis
 The creation of synthetic data will be carried out using two different architectures. One of them will be based on a conditional GAN, as shown in Figure 2. Additionally, another architecture based on flow models or transformers will be proposed for synthetic PV data generation.
 
 ![image info](./Figs/GAN.svg)
+
 Figure 2: Proposed Conditional GAN 
 
 * Tools:
@@ -89,9 +91,11 @@ Table I: Solcast features
 With the generated data, the aim is to train a PV generation forecasting model based on LSTM. Using the PV production dataset from a GECAD rooftop at the Polytechnic Institute of Porto (IPP), as depicted in Figure 3, the PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
 
 ![image info](./Figs/GECAD.jpg)
+
 Figure 3: GECAD 
 
 ![image info](./Figs/Evaluation.svg)
+
 Figure 4: Evaluation method
 
                                                
