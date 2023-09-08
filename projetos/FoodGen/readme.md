@@ -15,14 +15,13 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 
 
 ## Descrição Resumida do Projeto
-
-A proposta deste projeto é criar uma rede generativa capaz de gerar imagens convincentes de alimentos.
-
 > Descrição do tema do projeto, incluindo contexto gerador, motivação.
 > Descrição do objetivo principal do projeto.
 > Esclarecer qual será a saída do modelo generativo.
 > 
 > Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
+
+A proposta deste projeto é criar uma rede generativa capaz de gerar imagens convincentes de alimentos.
 
 ## Metodologia Proposta
 > Para a primeira entrega, a metodologia proposta deve esclarecer:
@@ -39,6 +38,21 @@ Caso não seja suficiente, serão abordadas técnicas de *few-shot learning*, ou
 
 ## Cronograma
 > Proposta de cronograma. Procure estimar quantas semanas serão gastas para cada etapa do projeto.
+
+O projeto pode ser dividido em 6 etapas:
+
+1. Setup do projeto e da hierarquia
+   - 04/09 até 17/09
+2. Leitura da base de dados e pré-processamento
+   - 18/09 até 24/09
+3. Estudo de artigos e escolha do método para geração
+   - 25/09 até 08/10
+4. Planejamento da arquitetura
+   - 09/10 até 22/10
+5. Treinamento
+   - 23/10 até 05/11
+6. Análise dos resultados
+   - 06/11 até 19/11
 
 ## Referências Bibliográficas
 > Apontar nesta seção as referências bibliográficas adotadas no projeto.
