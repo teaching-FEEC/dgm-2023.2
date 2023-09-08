@@ -1,9 +1,9 @@
 # `Synthetic Photovoltaic Power Curve using GANs and Transformers`
 
-[Video](https://youtu.be/TmnOccnPoUU)
-
 
 ## Project Presentation
+
+[Video on YouTube for the first assignment](https://youtu.be/TmnOccnPoUU)
 
 This project was developed in the post-graduate class IA376 - Deep Learning Applied to Signal Synthesis, offered in the second semester of 2023 at the University of Campinas (UNICAMP), supervised by Prof. Paula Dornhofer Paro Costa, Ph.D., from the Department of Computer Engineering and Automation (DCA) of the School of Electrical and Computer Engineering (FEEC)
 
