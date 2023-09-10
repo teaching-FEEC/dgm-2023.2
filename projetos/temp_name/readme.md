@@ -23,7 +23,7 @@ Eletroencefalograma (EEG) são sinais que registram, aproximadamente, a atividad
 
 ![Descrição Resumida do Projeto](./references/eeg_freqs.png)
 
-Junto de técnicas de inteligência artificial, a aplicabilidade de tais dados é vasta. Dentro do âmbito tipo MI (*motor imagery*), tais dados de EEG permite com que pessoas com paralizia severa possam desenhar [7](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas), para tratar epilepsia [8](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) e, também para jogos [9](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) e uso de veículos [10](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
+Junto de técnicas de inteligência artificial, a aplicabilidade de tais dados é vasta. Dentro do âmbito tipo MI (*motor imagery*), tais dados de EEG permite com que pessoas com paralizia severa possam desenhar [[7]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas), para tratar epilepsia [[8]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) e, também para jogos [[9]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) e uso de veículos [[10]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
 
 Entretanto, o uso de sinais MI dentro de aprendizado profundo necessita de quantidades grandes de dados para que o modelo seja treinado. Junto disso, a coleta desse tipo de dado em laboratório pode ser exaustivo para o paciente, a ponto de prejudicar a qualidade dos dados obtidos. 
 
@@ -44,18 +44,18 @@ Uma apresentação em vídeo da proposta pode ser acessada [aqui](https://www.yo
 
 ### Bases de Dados
 
-Utilizando como referência alguns artigos ([1](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)-[3](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)), os conjuntos de dados utilizados variam, sendo similares, entretanto, em terem os sinais já separados por classes. Seja por emoção (SEED V, [1](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)), por objeto (EEG-image, [5](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)) ou do tipo *motor imagery* (MOABB, [6](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)). 
+Utilizando como referência alguns artigos ([[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)-[[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)), os conjuntos de dados utilizados variam, sendo similares, entretanto, em terem os sinais já separados por classes. Seja por emoção (SEED V, [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)), por objeto (EEG-image, [[5]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)) ou do tipo *motor imagery* (MOABB, [[6]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)). 
 
-Para o treinamento, inicialmente, escolheremos um ou mais conjuntos de dados do MOABB [6](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas), pois...
+Para o treinamento, inicialmente, escolheremos um ou mais conjuntos de dados do MOABB [[6]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas), pois...
 
 ### Abordagens de Modelagem Generativa e Artigos de Referência
 
 
-- [1](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Usou DDPM (*denoising diffusion probabilistic model*) para a geração de dados EEG, à partir de EFDMs (*electrode-frequency distribution*) do *dataset* SEED V rotulados com base nas emoções *sad* (triste) e *happy* (feliz).
+- [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Usou DDPM (*denoising diffusion probabilistic model*) para a geração de dados EEG, à partir de EFDMs (*electrode-frequency distribution*) do *dataset* SEED V rotulados com base nas emoções *sad* (triste) e *happy* (feliz).
 
-- [2](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Trás um comparativo da geração de sinais de EEG através de 5 GANs com diferentes arquiteturas. O artigo trás a aplicação de métricas interessantes para a avaliação dos dados gerados frente aos dados originais.
+- [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Trás um comparativo da geração de sinais de EEG através de 5 GANs com diferentes arquiteturas. O artigo trás a aplicação de métricas interessantes para a avaliação dos dados gerados frente aos dados originais.
 
-- [3](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Usou uma conditional TTS-WGAN-GP (transformer-encoder-based generator and discriminator for time series - TTS) com a informação adicional de *input* (rótulos) sendo a condição das amostras de EEG; *win* ou *lose*, mais informção no conjunto de dados vide [4](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
+- [[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Usou uma conditional TTS-WGAN-GP (transformer-encoder-based generator and discriminator for time series - TTS) com a informação adicional de *input* (rótulos) sendo a condição das amostras de EEG; *win* ou *lose*, mais informção no conjunto de dados vide [[4]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
 
 ### Ferramentas
 À princípio, as ferramentas que serão utilizadas serão: 
@@ -67,19 +67,19 @@ Para o treinamento, inicialmente, escolheremos um ou mais conjuntos de dados do 
 
 
 ### Resultados Esperados e Propostas de Avaliação
-Como resultado final, esperamos um modelo generativo capaz de gerar dados sintéticos de EEG (séries temporais), trazendo resultados práticos similares aos obtidos com os dados reais, porém se atendendo para uma pergunta pertinente na geração de dados sintéticos: "O modelos proposto está gerando novos dados ou simplemente replicando as amostras do dado original?" [1](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
+Como resultado final, esperamos um modelo generativo capaz de gerar dados sintéticos de EEG (séries temporais), trazendo resultados práticos similares aos obtidos com os dados reais, porém se atendendo para uma pergunta pertinente na geração de dados sintéticos: "O modelos proposto está gerando novos dados ou simplemente replicando as amostras do dado original?" [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
 
 Para avaliar tais dados propõem-se, inicialmente, as seguintes métricas:
 
 | Métrica | Referência |
 | --- | --- |
-| TSTR (*Train on Synthetic, Test on Real*) | [3](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| TRTR (*Train on Real, Test on Real*) | [3](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Inception score (IS) | [2](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Frechet Inception Distance (FID) | [2](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Euclidean distance | [2](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Sliced Wasserstein distance | [2](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Acurácia de classificação | [1](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| TSTR (*Train on Synthetic, Test on Real*) | [[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| TRTR (*Train on Real, Test on Real*) | [[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| Inception score (IS) | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| Frechet Inception Distance (FID) | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| Euclidean distance | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| Sliced Wasserstein distance | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| Acurácia de classificação | [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
 
 ## Cronograma
 O cronograma proposto é uma estimativa temporal das principais etapas pelo projeto. Ademais, junto marcamos os *checkpoints* previstos para guiar e lembrar-nos das entregas e da geração das *release tags*.
