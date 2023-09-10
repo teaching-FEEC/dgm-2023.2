@@ -1,5 +1,5 @@
-# `Geração de Dados de EEG`
-# `EEG Data Augmentation`
+# `EEGen: Geração de Dados de EEG para BCI`
+# `EEGen: EEG Synthetic Data Generation for BCI`
 
 ## Apresentação
 
@@ -19,17 +19,15 @@ O presente projeto foi originado no contexto das atividades da disciplina de pó
 > Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
 -->
 
-Eletroencefalograma (EEG) são sinais que registram, aproximadamente, a atividade do córtex cerebral. Os sinais são medidos em microvolts possuindo como frequência, principalmente, Delta, Theta, Alpha ou Beta, como exemplificado abaixo.
+Uma Interface Cérebro-Computador (BCI) é um sistema que permite identificar padrões cerebrais estáveis de indivíduos durante a execução de determinadas tarefas mentais. Uma vez identificados é possível utilizá-los para diversas tarefas como controlar outros sistemas ou máquinas. Medir a atividade cerebral de forma eficaz é o primeiro passo crítico em um sistema de BCI. Existem técnicas de gravação invasivas e não invasivas, que permitem monitorar a atividade elétrica do cérebro ao longo do tempo e em diferentes áreas cerebrais.
+
+A Eletroencefalografia é um método não invasivo que nos permite monitorar a atividade elétrica do cérebro. O registro gerado pela eletroencefalografia é o eletroencefalograma (EEG), que mede, principalmente, a soma dos potenciais pós-sinápticos gerados por milhares de neurônios com a mesma orientação radial em relação a seu escalpo. Os sinais são medidos em microvolts possuindo como frequência, principalmente, Delta, Theta, Alpha ou Beta, como exemplificado abaixo.
 
 ![Descrição Resumida do Projeto](./references/eeg_freqs.png)
 
-Junto de técnicas de inteligência artificial, a aplicabilidade de tais dados é vasta. Dentro do âmbito tipo MI (*motor imagery*), tais dados de EEG permite com que pessoas com paralizia severa possam desenhar [[7]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas), para tratar epilepsia [[8]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) e, também para jogos [[9]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) e uso de veículos [[10]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
+Junto de técnicas de inteligência artificial, a aplicabilidade de tais dados é vasta. Dentro do âmbito tipo MI (*motor imagery*), tais dados de EEG permite com que pessoas com paralizia severa possam desenhar [[7]](#referências-bibliográficas), para tratar epilepsia [[8]](#referências-bibliográficas) e, também para jogos [[9]](#referências-bibliográficas) e uso de veículos [[10]](#referências-bibliográficas). Entretanto, dados de eletroencefalograma, visto que se enquadram como dados médicos, não são simples de se coletar e não são distribuídos em grandes quantidades. Especialmente quando se busca mecanismos específicos de extração de informação de atividade cerebral. Nesse sentido, nos propomos a desenvolver um sistema de geração de dados de eletroencefalograma com a ideia de realizar um Data Augmentation nestes dados e auxiliar nas pesquisas em BCI. Os dados gerados devem ser do modelo de extração de informação de atividade cerebral conhecido como imagética motora (*motor imagery*).
 
-Entretanto, o uso de sinais MI dentro de aprendizado profundo necessita de quantidades grandes de dados para que o modelo seja treinado. Junto disso, a coleta desse tipo de dado em laboratório pode ser exaustivo para o paciente, a ponto de prejudicar a qualidade dos dados obtidos. 
-
-Nesse sentido, a proposta do projeto visa obter um modelo generativo de sinais de eletroencefalograma (EEG), sob uma classe/categoria específica. 
-
-Uma apresentação em vídeo da proposta pode ser acessada [aqui](https://www.youtube.com/)
+Uma apresentação em vídeo da proposta pode ser acessada [aqui](https://youtu.be/mS_asNZQ8po)
 
 ## Metodologia Proposta
 <!--
@@ -44,42 +42,45 @@ Uma apresentação em vídeo da proposta pode ser acessada [aqui](https://www.yo
 
 ### Bases de Dados
 
-Utilizando como referência alguns artigos ([[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)-[[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)), os conjuntos de dados utilizados variam, sendo similares, entretanto, em terem os sinais já separados por classes. Seja por emoção (SEED V, [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)), por objeto (EEG-image, [[5]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)) ou do tipo *motor imagery* (MOABB, [[6]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas)). 
+Utilizando como referência alguns artigos de geração de dados EEG ([[1]](#referências-bibliográficas)-[[3]](#referências-bibliográficas)), os conjuntos de dados utilizados variam, sendo similares, entretanto, em terem os sinais já estarem separados por classes - seja por emoção (SEED V, [[1]](#referências-bibliográficas)), por objeto (EEG-image, [[5]](#referências-bibliográficas)) ou do tipo *motor imagery* (MOABB, [[6]](#referências-bibliográficas)). 
 
-Para o treinamento, inicialmente, escolheremos um ou mais conjuntos de dados do MOABB [[6]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas), pois...
+Para o treinamento, inicialmente, escolheremos um ou mais conjuntos de dados do MOABB [[6]](#referências-bibliográficas), visto que este contém alguns dos dados mais utilizados na literatura para imagética motora, os dados da [BCI Competition IV](https://moabb.neurotechx.com/docs/generated/moabb.datasets.BNCI2014_001.html#moabb.datasets.BNCI2014_001).
 
 ### Abordagens de Modelagem Generativa e Artigos de Referência
 
+O projeto será feito, inicialmente, utilizando como modelo generativo os modelos de difusão, LSTM-VAE GAN e Transformers, seguindo a literatura de referência como ponto de partida para a implementação ([1], [2], [3]).
 
-- [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Usou DDPM (*denoising diffusion probabilistic model*) para a geração de dados EEG, à partir de EFDMs (*electrode-frequency distribution*) do *dataset* SEED V rotulados com base nas emoções *sad* (triste) e *happy* (feliz).
 
-- [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Trás um comparativo da geração de sinais de EEG através de 5 GANs com diferentes arquiteturas. O artigo trás a aplicação de métricas interessantes para a avaliação dos dados gerados frente aos dados originais.
+- [[1]](#referências-bibliográficas) Usou DDPM (*denoising diffusion probabilistic model*) para a geração de dados EEG, à partir de EFDMs (*electrode-frequency distribution*) do *dataset* SEED V rotulados com base somente nas emoções *sad* (triste) e *happy* (feliz).
 
-- [[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) Usou uma conditional TTS-WGAN-GP (transformer-encoder-based generator and discriminator for time series - TTS) com a informação adicional de *input* (rótulos) sendo a condição das amostras de EEG; *win* ou *lose*, mais informção no conjunto de dados vide [[4]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
+- [[2]](#referências-bibliográficas) Trás um comparativo da geração de sinais de EEG através de 5 GANs com diferentes arquiteturas. O artigo trás a aplicação de métricas interessantes para a avaliação dos dados gerados frente aos dados originais.
+
+- [[3]](#referências-bibliográficas) Usou uma conditional TTS-WGAN-GP (transformer-encoder-based generator and discriminator for time series - TTS) com a informação adicional de *input* (rótulos) sendo a condição das amostras de EEG; *win* ou *lose*, mais informação do *dataset* vide [[4]](#referências-bibliográficas).
 
 ### Ferramentas
 À princípio, as ferramentas que serão utilizadas serão: 
 
 - [Pytorch](https://pytorch.org/)
-- [Pytorch Lightning](https://lightning.ai/)
-- [TorchMetrics](https://torchmetrics.readthedocs.io/en/stable/)
 - Notebook interfaces ([GoogleColab](https://colab.google/), [JupyterLab](https://jupyter.org/))
 
 
 ### Resultados Esperados e Propostas de Avaliação
-Como resultado final, esperamos um modelo generativo capaz de gerar dados sintéticos de EEG (séries temporais), trazendo resultados práticos similares aos obtidos com os dados reais, porém se atendendo para uma pergunta pertinente na geração de dados sintéticos: "O modelos proposto está gerando novos dados ou simplemente replicando as amostras do dado original?" [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas).
+Como resultado final, esperamos um modelo generativo capaz de gerar dados sintéticos de EEG (séries temporais), trazendo resultados práticos similares aos obtidos com os dados reais, porém se atendendo para uma pergunta pertinente na geração de dados sintéticos: "O modelos proposto está gerando novos dados ou simplemente replicando as amostras do dado original?" [[1]](#referências-bibliográficas).
 
 Para avaliar tais dados propõem-se, inicialmente, as seguintes métricas:
 
 | Métrica | Referência |
 | --- | --- |
-| TSTR (*Train on Synthetic, Test on Real*) | [[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| TRTR (*Train on Real, Test on Real*) | [[3]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Inception score (IS) | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Frechet Inception Distance (FID) | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Euclidean distance | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Sliced Wasserstein distance | [[2]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
-| Acurácia de classificação | [[1]](https://github.com/Matias157/GenModels/tree/P1/projetos/temp_name#refer%C3%AAncias-bibliogr%C3%A1ficas) |
+| TSTR (*Train on Synthetic, Test on Real*) | [[3]](#referências-bibliográficas)  |
+| TRTR (*Train on Real, Test on Real*) | [[3]](#referências-bibliográficas)  |
+| Inception score (IS) | [[2]](#referências-bibliográficas)  |
+| Frechet Inception Distance (FID) | [[2]](#referências-bibliográficas)  |
+| Euclidean Distance (ED) | [[2]](#referências-bibliográficas)  |
+| Sliced Wasserstein distance (S-WD) | [[2]](#referências-bibliográficas)  |
+| Acurácia de classificação | [[1]](#referências-bibliográficas) |
+
+
+Outras métricas, usadas para a análise de séries temporais síntetizadas por modelos de aprendizado profundo, como verifiado em [[11]]((#referências-bibliográficas)) se mostram interessantes também para a análise de dados de EEG sintetizados, por exemplo, a Maximum Mean Discrepancy (MMD), Dynamic Time Warping (DTW), Pearson Correlation Coefficient (PCC), Mean Absolute Error (MAE), Percentage Relative Difference (PRD) e Fractal Dimension (FD).
 
 ## Cronograma
 O cronograma proposto é uma estimativa temporal das principais etapas pelo projeto. Ademais, junto marcamos os *checkpoints* previstos para guiar e lembrar-nos das entregas e da geração das *release tags*.
@@ -107,3 +108,5 @@ O cronograma proposto é uma estimativa temporal das principais etapas pelo proj
 [9] Marshall, D., Coyle, D., Wilson, S., & Callaghan, M. (2013). Games, gameplay, and BCI: the state of the art. IEEE Transactions on Computational Intelligence and AI in Games, 5(2), 82-99.
 
 [10] Zhuang, J., & Yin, G. (2017, July). Motion control of a four-wheel-independent-drive electric vehicle by motor imagery EEG based BCI system. In 2017 36th Chinese Control Conference (CCC) (pp. 5449-5454). IEEE.
+
+[11] Brophy, E., Wang, Z., She, Q., & Ward, T. (2023). Generative adversarial networks in time series: A systematic literature review. ACM Computing Surveys, 55(10), 1-31.
