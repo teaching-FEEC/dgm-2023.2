@@ -1,5 +1,5 @@
-# Síntese de Dados de EEG por meio de Redes Generativas Adversárias
-# EEG Data Synthesis through Generative Adversarial Networks
+# Estudo de Caso: Síntese de Dados de EEG utilizando Redes Generativas Adversárias
+# Case Study: EEG Data Synthesis through Generative Adversarial Networks
 
 ## Apresentação
 
