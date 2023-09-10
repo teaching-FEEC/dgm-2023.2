@@ -17,10 +17,12 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 O objetivo do projeto é gerar títulos de notícias com vieses positivos e negativos para porterior utilização
 em projetos de Processamento de Linguagem Natural (PLN) no escopo de análise de sentimentos aplicada ao 
 mercado financeiro.
+
 A ideia é prover uma base de dados que possibilite a comparação de diferentes arquiteturas e abordagens para
 problemas relacionados à análise de sentimentos de maneira mais padronizada e normalizada, eliminando o esforço
 e custo da coleta de grandes quantidades de dados em API de notícias ou redes sociais, ou ainda a contrução de
 scapers de dados.
+
 Como resultado, o objetivo é ter uma coleção de títulos de notícias gerados sinteticamente que possam ser úteis
 em tarefas de aprendizado de máquina na área de Análise de Sentimentos.
 
@@ -37,10 +39,12 @@ O desenvolvimento do projeto se dará através de base de dados disponível em: 
 A partir daí, a ideia do projeto é treinar modelos gerativos pré-treinados (T-PTLMs) ou outros modelos
 que apresentem desempenho equivalente ao estado da arte para obterem o vocabulário específico da área
 e gerarem textos de melhor qualidade.
+
 As bases serão, então, submetida a várias métricas de desempenho e qualidade a serem especificadas
 conforme o avançar dos trabalhos sendo possíveis atividades a classificação dos títulos gerados em positivos e negativos,
 utilização de modelos de machine learning para prever cotações de ações baseado nas notícias reais e sintéticas e
 análise qualitativa dos títulos gerados.
+
 A expectativa é que sejam gerados dados utilizáveis em uma ampla gama de tarefas da área de PLN em mercado de ações.
 
 > Para a primeira entrega, a metodologia proposta deve esclarecer:
