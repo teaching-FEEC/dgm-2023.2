@@ -80,7 +80,7 @@ Para avaliar tais dados propõem-se, inicialmente, as seguintes métricas:
 | Acurácia de classificação | [[1]](#referências-bibliográficas) |
 
 
-Outras métricas, usadas para a análise de séries temporais síntetizadas por modelos de aprendizado profundo, como verifiado em [[11]]((#referências-bibliográficas)) se mostram interessantes também para a análise de dados de EEG sintetizados, por exemplo, a Maximum Mean Discrepancy (MMD), Dynamic Time Warping (DTW), Pearson Correlation Coefficient (PCC), Mean Absolute Error (MAE), Percentage Relative Difference (PRD) e Fractal Dimension (FD).
+Outras métricas, usadas para a análise de séries temporais síntetizadas por modelos de aprendizado profundo, como verifiado em [[11]](#referências-bibliográficas) se mostram interessantes também para a análise de dados de EEG sintetizados, por exemplo, a Maximum Mean Discrepancy (MMD), Dynamic Time Warping (DTW), Pearson Correlation Coefficient (PCC), Mean Absolute Error (MAE), Percentage Relative Difference (PRD) e Fractal Dimension (FD).
 
 ## Cronograma
 O cronograma proposto é uma estimativa temporal das principais etapas pelo projeto. Ademais, junto marcamos os *checkpoints* previstos para guiar e lembrar-nos das entregas e da geração das *release tags*.
