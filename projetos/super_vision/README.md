@@ -9,14 +9,31 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  |Nome  | RA | Curso|
  |--|--|--|
  | Alexsandro Barros | 233768  | Eng. Eletricista|
- | Jonyelison Morais | 123456  | Eng. Eletricista|
+ | Jonyelison Morais Alves | 123456  | Eng. Eletricista|
 
 ## Descrição Resumida do Projeto
 > Descrição do tema do projeto, incluindo contexto gerador, motivação.
 
-Este projeto tem como tema a aplicação de Redes Generativas Adversariais (GANs) para melhorar a resolução de imagens de baixa qualidade. Isso se insere no contexto mais amplo de processamento de imagens, com ênfase na melhoria da qualidade visual.
+Este projeto tem como objetivo a implementação e avaliação de Redes Gerativas Adversariais, GANs, na
+super-resolução de imagem única (Single Image Super-Resolution - SISR). A tarefa principal consiste
+no mapeamento direto da imagem de baixa resolução para a imagem de saída de alta resolução.
 
-A motivação surge da necessidade de melhoria de qualidade de imagens em diversas áreas, muitas vezes as imagens disponíveis em sistemas de segurança, imagens médicas, possuem baixa qualidade ou até para aplicações em sistemas de fotografia fazendo upscaling de resoluções menores 1080p para 4K por exemplo.
+> Motivação: 
+
+A recuperação de imagens de alta resolução a partir de imagens de baixa resolução é uma questão
+clássica em visão computacional. Aplicações se estedem em diversas áreas como sistemas de
+segurança, imagens médicas, sistemas de fotografia, entre outras. A super-resolução é inerentemente um
+problema mal-posto ("ill-posed"), visto que múltiplas soluções existem para cada pixel da imagem de baixa
+resolução, ou seja, é um problema inverso indeterminado para o qual a solução não é única.  
+
+Apesar dos avanços em velocidade e acurácia de SISR usando redes neurais convolucionais profundas (CNNs), um
+problema central ainda permanece não resolvido: como recuperar os detalhes finos de textura quando resolvendo
+para altos valores de escala? Os trabalhos com CNNs focam na diminuição do erro quadrático médio (MSE) da imagem
+resolvida. Os resultados apresentam altos valores de relação sinal-ruído de pico mas carecem 
+de detalhes de alta frequência, de modo que são perceptualmente insatisfatórios.
+
+É nesse contexto que se insere o uso das GANs para SISR, visto que as mesmas são uma ferramenta
+poderosa na geração de imagens plausíveis com alta qualidade perceptual.
 
 > Descrição do objetivo principal do projeto.
 
@@ -49,6 +66,8 @@ Inicialmente as GANs são as mais utilizadas no contexto de Super Resolution, a 
     - Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2017)
     - Image Super-Resolution Using Deep Convolutional Networks  (Chao Dong, 2014)
     - ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks (Xintao Wang, 2018)
+    - Evaluation and development of deep neural networks for image super-resolution in optical microscopy (Chang Qiao, 2021)
+    - Deep Neural Networks for Image Super-Resolution in Optical Microscopy by Using Modified Hybrid Task Cascade U-Net (Dawei Gong, 2021)
 
 > * Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
 
