@@ -36,27 +36,31 @@ Este projeto tem como foco a geração sintética de dados de velocidade, altitu
 | Altitude      |     Ambientais    |
 | Temperatura   |     Ambientais    |
 | Umidade       |     Ambientais    |
+| GPS      |     Localização    |
+| Data          |     Tempo    |
+
+
 
 
 <h2 id="metodologia">Metodologia</h2>
 
-### Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas. 
+### Banco de dado do projeto.
  Os dados propostos a serem sintetizados fazem parte do banco de dados de monitoramento do Ônibus Elétrico na Unicamp (2021-2022), dado que 2 membros fazem parte do projeto, o que permitirá a inclusão de mais perfis com outros tipos de ônibus, sejam eles convencionais ou elétricos.
 
-### Quais abordagens de modelagem generativa o grupo já enxerga como interessantes de serem estudadas.
+### A abordagem de modelagem generativa.
 Realizar uma análise estatística em cada etapa da geração de dados sintéticos, a fim de fornecer ao modelo de Deep Learning dados mais processados que permitam uma melhor captura da relação entre as variáveis. Serão utilizadas técnicas estatísticas descritivas, análises inferenciais e séries temporais, para posteriormente empregar GANs ou VAEs.
 
-### Artigos de referência já identificados e que serão estudados ou usados como parte do planejamento do projeto.
+### Artigos de referência já identificados.
 trajGANs: Using generative adversarial networks for geo-privacy protection of trajectory data
 
-### Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
+### Ferramentas a serem utilizadas.
 
 - Google Colab / IDE Web
 - Github / Control de Versões
 - Pytorch / Framework
 - Python / Linguagem de programação
 
-### Resultados esperados
+### Resultados esperados.
 Criar um conjunto de dados ou subconjunto dos dados originais que permitam, com base em variáveis como GPS (latitude e longitude), estimar outras variáveis como giroscópio ou acelerômetro. Isso possibilitará a simulação ou teste de diferentes tipos de veículos.
 
 ### Proposta de avaliação dos resultados de síntese
