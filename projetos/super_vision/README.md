@@ -27,9 +27,11 @@ resolução, ou seja, é um problema inverso indeterminado para o qual a soluç�
 
 Apesar dos avanços em velocidade e acurácia de SISR usando redes neurais convolucionais profundas (CNNs), um
 problema central ainda permanece não resolvido: como recuperar os detalhes finos de textura quando resolvendo
-para altos valores de escala? Os trabalhos com CNNs focam na diminuição do erro quadrático médio (MSE) da imagem
-resolvida. Os resultados apresentam altos valores de relação sinal-ruído de pico mas carecem 
-de detalhes de alta frequência, de modo que são perceptualmente insatisfatórios.
+para altos valores de escala? Os trabalhos com CNNs focam na diminuição do erro quadrático médio (MSE) da imagem resolvida. Os resultados apresentam altos valores de relação sinal-ruído de pico mas carecem 
+de detalhes de alta frequência, de modo que são perceptualmente insatisfatórios. Abaixo é possível ver um comparativo entre diferentes abordagens para a resolução do problema: 
+
+![sisr](https://github.com/alexbjr/super_vision/tree/main/projetos/super_vision/sisr_img.png)
+Fonte: Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2016)
 
 É nesse contexto que se insere o uso das GANs para SISR, visto que as mesmas são uma ferramenta
 poderosa na geração de imagens plausíveis com alta qualidade perceptual.
@@ -38,7 +40,7 @@ poderosa na geração de imagens plausíveis com alta qualidade perceptual.
 > Para a primeira entrega, a metodologia proposta deve esclarecer:
 > * Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas.
 
-Ao pesquisar referências nos deparamos com algumas base de dados bastante citadas dentro do contexto de
+Ao pesquisar referências nos deparamos com algumas bases de dados bastante citadas dentro do contexto de
 super-resolução como a CelebA e Unplash, usadas para treinamento de modelos, a BSD e a Set14 , usadas para
 validação, por fim, a base de dados biológica para super-resolução microscópica BioSR. 
 
@@ -48,21 +50,20 @@ validação, por fim, a base de dados biológica para super-resolução microsc�
     - Unsplash: https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash
     - BioSR: https://figshare.com/articles/dataset/BioSR/13264793
 
-> * Quais abordagens de modelagem generativa o grupo já enxerga como interessantes de serem estudadas.
+Visto que é o primeiro contato dos participantes do projeto com modelos gerativos, optou-se por explorar
+o uso de GANs na tarefa de SISR a partir da reprodução, avaliação e comparação de resultados de arquiteturas
+já difundidas na literatura da área. Os principais artigos que vão nortear o trabalho são: 
 
-Inicialmente as GANs são as mais utilizadas no contexto de Super Resolution, a ideia seria explorar novas arquiteturas e métodos de treinamento, além de expandir os métodos de validação da qualidade das imagens.
-
-> * Artigos de referência já identificados e que serão estudados ou usados como parte do planejamento do projeto
-
-    - Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2017)
     - Image Super-Resolution Using Deep Convolutional Networks  (Chao Dong, 2014)
+    - Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2016)
     - ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks (Xintao Wang, 2018)
     - Evaluation and development of deep neural networks for image super-resolution in optical microscopy (Chang Qiao, 2021)
     - Deep Neural Networks for Image Super-Resolution in Optical Microscopy by Using Modified Hybrid Task Cascade U-Net (Dawei Gong, 2021)
 
-> * Ferramentas a serem utilizadas:
+Objetiva-se iniciar os trabalhos a partir da implementação e avaliação da SRGAN com a base de dados CelebA. Em seguida, deseja-se implementar e avaliar as arquiteturas DCGAN e MHTCUN na base de dados biológicos BioSR. 
 
-Neste início de projeto, elencamos as seguintes ferramentas:
+Neste início de projeto, elencamos as seguintes ferramentas a serem utilizadas:
+
 > |Ferramenta | Descrição|
 > |--|--|
 > | [Google Colab](https://colab.research.google.com/) | Ferramenta para elaboração dos notebooks e códigos em linguagem Python 3.8 |
@@ -76,13 +77,14 @@ saída de alta resolução a partir da imagem de entrada de baixa resolução. A
 espera-se que o modelo seja capaz de realizar a tarefa de SISR com um grau de qualidade aceitável, sendo
 aplicado a cenários do mundo real, como por exemplo em imagens médicas de microscopia. 
 
-> * Proposta de avaliação dos resultados de síntese
+> * Proposta de avaliação dos resultados de síntese:
 
-Além das métricas tradicionais, como PSNR e o índice de similaridade estrutural (Structural Similarity Index Measure - SSIM), pretendemos explorar técnicas de avaliação visual, como o julgamento humano por meio de estudos de avaliação de qualidade de imagem e tentar trazer uma abordagem que leve em consideração a
+Além das métricas tradicionais na área, como PSNR e o índice de similaridade estrutural (Structural Similarity Index Measure - SSIM), pretendemos incorporar uma avaliação visual através de pesquisa
+com os próprios colegas de turma, e tentar trazer uma abordagem que leve em consideração a
 densidade de pixels (ppi) do display no qual a imagem será visualizada. 
 
 ## Cronograma
-> Proposta de cronograma:
+> Proposta inicial de cronograma:
 >
 > |Atividade  | Descrição | Tempo estimado|
 > |--|--|--|
