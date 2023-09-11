@@ -1,5 +1,5 @@
 # `Super-Resolução de Imagem Única`
-# `Single Image Super-Resolution`
+# `Single Image Super-Resolution (SISR)`
 
 ## Apresentação
 
@@ -38,8 +38,11 @@ poderosa na geração de imagens plausíveis com alta qualidade perceptual.
 > Para a primeira entrega, a metodologia proposta deve esclarecer:
 > * Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas.
 
-Ao pesquisar referências nos deparamos com alguns datasets bastante citados para validação de modelos generativos para super resolution, como o BSD e Set14, para treinamento encontramos datasets genéricos (Unsplash) e um específico para imagens de microscópio (BioSR) que pode ser utilizado como principal resultado gerado em vez de imagens genéricas.
+Ao pesquisar referências nos deparamos com algumas base de dados bastante citadas dentro do contexto de
+super-resolução como a CelebA e Unplash, usadas para treinamento de modelos, a BSD e a Set14 , usadas para
+validação, por fim, a base de dados biológica para super-resolução microscópica BioSR. 
 
+    - CelebA: http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
     - BSD: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
     - Set14: https://huggingface.co/datasets/eugenesiow/Set14
     - Unsplash: https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash
@@ -57,21 +60,43 @@ Inicialmente as GANs são as mais utilizadas no contexto de Super Resolution, a 
     - Evaluation and development of deep neural networks for image super-resolution in optical microscopy (Chang Qiao, 2021)
     - Deep Neural Networks for Image Super-Resolution in Optical Microscopy by Using Modified Hybrid Task Cascade U-Net (Dawei Gong, 2021)
 
-> * Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
+> * Ferramentas a serem utilizadas:
 
-    - PyTorch: Biblioteca fundamental para implementação
-    - GPU: Hardware para acelerar o treinamento do modelo, possibilitando um maior tempo de exploração de arquiteturas e hiperparâmetros
+Neste início de projeto, elencamos as seguintes ferramentas:
+> |Ferramenta | Descrição|
+> |--|--|
+> | [Google Colab](https://colab.research.google.com/) | Ferramenta para elaboração dos notebooks e códigos em linguagem Python 3.8 |
+> | [Pytorch](https://pytorch.org/) | Ferramenta principal de manipulação de tensores e construção da GAN |
+> | [Seaborn](https://seaborn.pydata.org/) | Ferramenta para visualização de dados |
 
-> * Resultados esperados
+> * Resultados Esperados:
 
-Espera-se ter um modelo generativo (baseado em GANs ou outras abordagens) treinado com sucesso para aprimorar a resolução de imagens de baixa qualidade. Pretende-se aplicar o modelo gerado a cenários do mundo real, demonstrando sua utilidade, como por exemplo, utilizando o banco de dados de imagens microscópicas ou para upscaling de fotos de câmera.
+Conforme elucidado na sessão de descrição do projeto, o resultado principal esperado é uma imagem de 
+saída de alta resolução a partir da imagem de entrada de baixa resolução. Assim, ao final do projeto, 
+espera-se que o modelo seja capaz de realizar a tarefa de SISR com um grau de qualidade aceitável, sendo
+aplicado a cenários do mundo real, como por exemplo em imagens médicas de microscopia. 
 
 > * Proposta de avaliação dos resultados de síntese
 
-Além das métricas tradicionais, como PSNR e SSIM, pretendemos explorar técnicas de avaliação visual, como o julgamento humano por meio de estudos de avaliação de qualidade de imagem e tentar trazer uma abordagem relacionando a densidade de pixels (ppi) no display e a imagem sendo visualizada.
+Além das métricas tradicionais, como PSNR e o índice de similaridade estrutural (Structural Similarity Index Measure - SSIM), pretendemos explorar técnicas de avaliação visual, como o julgamento humano por meio de estudos de avaliação de qualidade de imagem e tentar trazer uma abordagem que leve em consideração a
+densidade de pixels (ppi) do display no qual a imagem será visualizada. 
 
 ## Cronograma
-> Proposta de cronograma. Procure estimar quantas semanas serão gastas para cada etapa do projeto.
+> Proposta de cronograma:
+>
+> |Atividade  | Descrição | Tempo estimado|
+> |--|--|--|
+> | Entendimento do Problema | Análise do problema e busca de artigos para encontrarmos uma boa metodologia a para a síntese de timbre instrumental  | 16/03 a 06/04 (3 semanas)|
+> | Entendimento dos Dados  | Busca e avaliação dos dados necessários para o projeto   | 06/04 a 20/04 (2 semanas)|
+> | Entrega E1  | Discussão, formalização e elaboração do *commit* da E1 no Github do projeto | 20/04 a 27/04 (1 semana) |
+> | Finalização de Leitura  | Finalização da leitura dos artigos selecionados | 11/09 a 17/09 (1 semana) |
+> | SRGAN | Execução e tentativa de reprodução dos resultados da SRGAN. | 18/09 a 24/09 (1 semana) |
+> | SRGAN | Execução e tentativa de reprodução dos resultados da SRGAN. | 03/10 a 10/10 (1 semana) |
+> | Entrega E2 - Checkpoint  | Discussão, formalização e elaboração do *commit* da E2 no Github do projeto | 03/10 a 10/10 (1 semana) |
+> | Análises dos Dados Sintetizados | Elaboração do código para a síntese, avaliação dos dados sintetizados e análises dos resultados | 11/05 a 08/06 (4 semanas) |
+> | Finalização | Ajustes finais para a entrega do projeto e análise crítica dos resultados e suas contribuições | 08/06 a 15/06 (1 semana) |
+> | Entrega E3 – Código Final  | Discussão, formalização e elaboração do *commit* da E3 no Github do projeto | 15/06 a 22/06 (1 semana) |
+> | Entrega E4 – Apresentação do Projeto  | Discussão, formalização e elaboração do *commit* da E4 no Github do projeto | 22/06 a 06/07 (2 semanas) |
 
 ## Referências Bibliográficas
 
