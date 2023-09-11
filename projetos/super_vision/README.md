@@ -1,5 +1,5 @@
-# `Geração de Imagens em Super Resolução`
-# `Super Resolution Image Generation`
+# `Super-Resolução de Imagem Única`
+# `Single Image Super-Resolution`
 
 ## Apresentação
 
@@ -78,6 +78,8 @@ Além das métricas tradicionais, como PSNR e SSIM, pretendemos explorar técnic
 [1] [Dong, C., Loy, C. C., He, K., & Tang, X. (2015). Image Super-Resolution Using Deep Convolutional Networks. Computing Research Repository (CoRR).](https://arxiv.org/pdf/1501.00092.pdf)
 
 [2] [Ledig, C., Theis, L., Huszar, F., Caballero, J., Aitken, A. P., Tejani, A., Totz, J., Wang, Z., & Shi, W. (2016). Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network. Computing Research Repository (CoRR).](https://arxiv.org/pdf/1609.04802.pdf)
+
+[3] [Wang, X., Yu, K., Wu, S., Gu, J., Liu, Y., Dong, C., Loy, C. C., Qiao, Y., & Tang, X. (2018). ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks. Computing Research Repository (CoRR).](https://arxiv.org/pdf/1809.00219.pdf)
 
 [3] [Qiao, C., Li, D., Guo, Y., Liu, C., Jiang, T., Dai, Q., & Li, D. (2021). Evaluation and development of deep neural networks for image super-resolution in optical microscopy. Nature Methods 18 (pp. 194-202)](https://www.nature.com/articles/s41592-020-01048-5)
 
