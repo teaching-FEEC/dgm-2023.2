@@ -40,10 +40,15 @@ análise qualitativa dos títulos gerados.
 A expectativa é que sejam gerados dados utilizáveis em uma ampla gama de tarefas da área de PLN em mercado de ações.
 
 ## Cronograma
-|Etapa  | 09-S3 | 09-S4 | 10-S1 | 10-S2 | 10-S3 | 10-S4 | 11-S1 | 11-S2 | 11-S3 | 11-S4 |
-|--|--|--|--|--|--|--|--|--|--|--|
-| | | | | | | | | | | |
-| | | | | | | | | | | |
+|Etapa  | 09-S2 | 09-S3 | 09-S4 | 10-S1 | 10-S2 | 10-S3 | 10-S4 | 11-S1 | 11-S2 | 11-S3 | 11-S4 |
+|--|--|--|--|--|--|--|--|--|--|--|--|
+| Estudo de modelos pré-treinados | X | X | | | | | | | | |
+| Treinamento de modelos e geração dos primeiros resultados |  |  | X | X | X | | | | | |
+| Entrega 2 | | | | | | X | | | | |
+| Estudo de métricas quantitativas e qualitativas para avaliação de dados gerados | | | | | | X | X | | | |
+| Retreinamentos e fine tuning dos modelos | | | | | | | | X | X | |
+| Reavaliação dos novos dados gerados e conclusões | | | | | | | | X | X | |
+| Entrega 3 | | | | | | | | | | X |
 
 
 ## Referências Bibliográficas
