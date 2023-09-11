@@ -32,12 +32,11 @@ A proposta deste projeto é criar uma rede generativa capaz de gerar imagens con
 > * Resultados esperados
 > * Proposta de avaliação dos resultados de síntese
 
-O projeto usará a base de dados Food-101, que pode ser acessada em https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/, feita por Lukas Bossard, Matthieu Guillaumin, Luc Van Gool. Essa base contém 1000 imagens para cada uma das 101 categorias presentes na base, totalizando então 101000 imagens. Por estar bem organizada, documentada e anotada, deve conter um número adequado de imagens para treinar uma rede geradora.
+O projeto usará a base de dados Food-101, que pode ser acessada em https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/, feita por Lukas Bossard, Matthieu Guillaumin, Luc Van Gool. Essa base contém 1000 imagens para cada uma das 101 categorias presentes na base, totalizando então 101000 imagens. Por estar bem organizada, documentada e anotada, deve conter um número adequado de imagens para treinar uma rede geradora. Adicionalmente, as bases de dados Food-11 (16643 imagens anotadas) e ChineseFoodNet (185628 imagens) também serão usadas para adicionar mais imagens caso necessário.
 
-Caso não seja suficiente, serão abordadas técnicas de *few-shot learning*, ou seja, aprendizado com poucas amostras de treinamento.
+Caso o conjunto das três bases não seja suficiente, serão abordadas técnicas de *few-shot learning*, ou seja, aprendizado com poucas amostras de treinamento.
 
-
-<Artigos>
+As redes CookGAN, StyleGAN3 e cGAN foram identificadas como boas inspirações para o projeto. Todas elas geram imagens fotorrealistas de alimentos e usam a estrutura de GAN.
 
 A principal ferramenta a ser utilizada é o Google Colaboratory, que permite o desenvolvimento online de notebooks python. Com ele, serão usadas as bibliotecas pytorch e pandas para processar a base de dados, criar e treinar a rede. Posteriormente, bibliotecas como numpy, matplot e seaborn serão usadas para produzir gráficos e outras ferramentas de análise.
 
