@@ -25,7 +25,7 @@ scapers de dados.
 Como resultado, o objetivo é ter uma coleção de títulos de notícias gerados sinteticamente que possam ser úteis
 em tarefas de aprendizado de máquina na área de Análise de Sentimentos.
 
-**Vídeo descritivo:** [Vídeo](https://drive.google.com/drive/folders/1iUkC0U0VpS7tMlUG3911w4Mu8GstKf0A?usp=sharing)
+**Vídeo descritivo:** [Vídeo](https://youtu.be/eHPE9ebIPyA)
 
 ## Metodologia Proposta
 
