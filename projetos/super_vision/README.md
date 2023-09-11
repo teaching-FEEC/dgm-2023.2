@@ -30,15 +30,14 @@ problema central ainda permanece não resolvido: como recuperar os detalhes fino
 para altos valores de escala? Os trabalhos com CNNs focam na diminuição do erro quadrático médio (MSE) da imagem resolvida. Os resultados apresentam altos valores de relação sinal-ruído de pico mas carecem 
 de detalhes de alta frequência, de modo que são perceptualmente insatisfatórios. Abaixo é possível ver um comparativo entre diferentes abordagens para a resolução do problema: 
 
-![sisr](https://github.com/alexbjr/super_vision/tree/main/projetos/super_vision/sisr_img.png)
+![sisr](https://github.com/alexbjr/super_vision/blob/tree/main/projetos/super_vision/sisr_img.png)
+![sisr](sisr_img.png?raw=True "SISR")
 Fonte: Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2016)
 
 É nesse contexto que se insere o uso das GANs para SISR, visto que as mesmas são uma ferramenta
 poderosa na geração de imagens plausíveis com alta qualidade perceptual.
 
 ## Metodologia Proposta
-> Para a primeira entrega, a metodologia proposta deve esclarecer:
-> * Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas.
 
 Ao pesquisar referências nos deparamos com algumas bases de dados bastante citadas dentro do contexto de
 super-resolução como a CelebA e Unplash, usadas para treinamento de modelos, a BSD e a Set14 , usadas para
