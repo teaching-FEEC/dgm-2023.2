@@ -58,7 +58,7 @@ já difundidas na literatura da área. Os principais artigos que vão nortear o 
     - Evaluation and development of deep neural networks for image super-resolution in optical microscopy (Chang Qiao, 2021)
     - Deep Neural Networks for Image Super-Resolution in Optical Microscopy by Using Modified Hybrid Task Cascade U-Net (Dawei Gong, 2021)
 
-Objetiva-se iniciar os trabalhos a partir da implementação e avaliação da SRGAN com a base de dados CelebA. Em seguida, deseja-se implementar e avaliar as arquiteturas DCGAN e MHTCUN na base de dados biológicos BioSR. 
+Objetiva-se iniciar os trabalhos a partir da implementação e avaliação da SRGAN com a base de dados CelebA. Em seguida, deseja-se implementar e avaliar as arquiteturas DFGAN e MHTCUN na base de dados biológicos BioSR. 
 
 Neste início de projeto, elencamos as seguintes ferramentas a serem utilizadas:
 
@@ -91,9 +91,9 @@ densidade de pixels (ppi) do display no qual a imagem será visualizada.
 | Ambiente de Experimentos | Setup do ambiente de experimentos | 18/09 a 24/09 (1 semana) |
 | SRGAN pt.1 | Execução e tentativa de reprodução dos resultados da SRGAN. | 25/09 a 01/10 (1 semana) |
 | SRGAN pt.2 | Avaliação dos dos resultados da SRGAN. | 02/10 a 08/10 (1 semana) |
-| DCGAN pt.1 | Início da reprodução/execução do modelo DCGAN | 09/10 a 15/10 (1 semana) |
+| DFGAN pt.1 | Início da reprodução/execução do modelo DFGAN | 09/10 a 15/10 (1 semana) |
 | Entrega E2 | Discussão, formalização e elaboração da E2 no Github do projeto | 16/10 a 18/10 (3 dias) |
-| DCGAN pt.2 | Continuação dos trabalhos com a DCGAN e levantamento de resultados | 19/10 a 29/10 (1 semama e meia) |
+| DFGAN pt.2 | Continuação dos trabalhos com a DFGAN e levantamento de resultados | 19/10 a 29/10 (1 semama e meia) |
 | MHTCUN pt.1 | Início da reprodução/execução do modelo MHTCUN | 30/10 a 05/11 (1 semama) |
 | MHTCUN pt.2 | Levantamento de resultados do modelo MHTCUN | 06/11 a 12/11 (1 semama) |
 | Análises dos Dados Sintetizados | Avaliação dos dados sintetizados e análises dos resultados | 13/11 a 19/11 (1 semana) |
