@@ -27,7 +27,7 @@ A Eletroencefalografia é um método não invasivo que nos permite monitorar a a
 
 Junto de técnicas de inteligência artificial, a aplicabilidade de tais dados é vasta. Dentro do âmbito tipo MI (*motor imagery*), tais dados de EEG permite com que pessoas com paralizia severa possam desenhar [[7]](#referências-bibliográficas), para tratar epilepsia [[8]](#referências-bibliográficas) e, também para jogos [[9]](#referências-bibliográficas) e uso de veículos [[10]](#referências-bibliográficas). Entretanto, dados de eletroencefalograma, visto que se enquadram como dados médicos, não são simples de se coletar e não são distribuídos em grandes quantidades. Especialmente quando se busca mecanismos específicos de extração de informação de atividade cerebral. Nesse sentido, nos propomos a desenvolver um sistema de geração de dados de eletroencefalograma com a ideia de realizar um Data Augmentation nestes dados e auxiliar nas pesquisas em BCI. Os dados gerados devem ser do modelo de extração de informação de atividade cerebral conhecido como imagética motora (*motor imagery*).
 
-Uma apresentação em vídeo da proposta pode ser acessada [aqui](https://youtu.be/mS_asNZQ8po)
+Uma apresentação em vídeo da proposta pode ser acessada [aqui](https://youtu.be/mS_asNZQ8po).
 
 ## Metodologia Proposta
 <!--
