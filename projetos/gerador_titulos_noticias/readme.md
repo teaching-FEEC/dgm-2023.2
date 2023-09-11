@@ -25,6 +25,8 @@ scapers de dados.
 Como resultado, o objetivo é ter uma coleção de títulos de notícias gerados sinteticamente que possam ser úteis
 em tarefas de aprendizado de máquina na área de Análise de Sentimentos.
 
+**Vídeo descritivo:** [Vídeo](https://youtube.com)
+
 ## Metodologia Proposta
 
 O desenvolvimento do projeto se dará através de base de dados disponível em: https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK
