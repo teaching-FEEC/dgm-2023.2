@@ -50,10 +50,11 @@ Realizar uma análise estatística em cada etapa da geração de dados sintétic
 trajGANs: Using generative adversarial networks for geo-privacy protection of trajectory data
 
 ### Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
--Python / Linguagem de programação
--Google Colab / IDE Web
+
+- Google Colab / IDE Web
 - Github / Control de Versões
 - Pytorch / Framework
+- Python / Linguagem de programação
 
 ### Resultados esperados
 Criar um conjunto de dados ou subconjunto dos dados originais que permitam, com base em variáveis como GPS (latitude e longitude), estimar outras variáveis como giroscópio ou acelerômetro. Isso possibilitará a simulação ou teste de diferentes tipos de veículos.
