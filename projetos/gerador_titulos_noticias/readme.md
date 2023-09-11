@@ -8,7 +8,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 
 |Nome  | RA | Especialização|
 |--|--|--|
-| Mário Mitsuo Akita  | 123456  | Ciência da Computação/Tecnologia|
+| Mário Mitsuo Akita  | 082246  | Ciência da Computação/Tecnologia|
 | Victor Gomes Moreno   | 272318  | Eng. de Computação|
 
 
