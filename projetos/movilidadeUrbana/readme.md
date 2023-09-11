@@ -64,6 +64,7 @@ Criar um conjunto de dados ou subconjunto dos dados originais que permitam, com 
  -Avaliações qualitativas, como EDA (Análise Exploratória de Dados)."
 
 <h2 id="crono">Cronologia</h2>
+
 ![cronograma](https://github.com/anamabri/dgm-2023.2/assets/35360195/358967d8-7535-4848-bc4f-5e6875b63c25)
 
 <h2 id="video">Link do Video Explicativo</h2>
