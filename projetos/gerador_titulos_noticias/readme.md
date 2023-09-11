@@ -25,13 +25,6 @@ scapers de dados.
 Como resultado, o objetivo é ter uma coleção de títulos de notícias gerados sinteticamente que possam ser úteis
 em tarefas de aprendizado de máquina na área de Análise de Sentimentos.
 
-
-> Descrição do tema do projeto, incluindo contexto gerador, motivação.
-> Descrição do objetivo principal do projeto.
-> Esclarecer qual será a saída do modelo generativo.
-> 
-> Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
-
 ## Metodologia Proposta
 
 O desenvolvimento do projeto se dará através de base de dados disponível em: https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK
@@ -45,14 +38,6 @@ utilização de modelos de machine learning para prever cotações de ações ba
 análise qualitativa dos títulos gerados.
 
 A expectativa é que sejam gerados dados utilizáveis em uma ampla gama de tarefas da área de PLN em mercado de ações.
-
-> Para a primeira entrega, a metodologia proposta deve esclarecer:
-> * Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas.
-> * Quais abordagens de modelagem generativa o grupo já enxerga como interessantes de serem estudadas.
-> * Artigos de referência já identificados e que serão estudados ou usados como parte do planejamento do projeto
-> * Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
-> * Resultados esperados
-> * Proposta de avaliação dos resultados de síntese
 
 ## Cronograma
 |Etapa  | 09-S3 | 09-S4 | 10-S1 | 10-S2 | 10-S3 | 10-S4 | 11-S1 | 11-S2 | 11-S3 | 11-S4 |
