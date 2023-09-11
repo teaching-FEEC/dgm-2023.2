@@ -12,7 +12,6 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  | Jonyelison Morais Alves | 123456  | Eng. Eletricista|
 
 ## Descrição Resumida do Projeto
-> Descrição do tema do projeto, incluindo contexto gerador, motivação.
 
 Este projeto tem como objetivo a implementação e avaliação de Redes Gerativas Adversariais, GANs, na
 super-resolução de imagem única (Single Image Super-Resolution - SISR). A tarefa principal consiste
@@ -34,17 +33,6 @@ de detalhes de alta frequência, de modo que são perceptualmente insatisfatóri
 
 É nesse contexto que se insere o uso das GANs para SISR, visto que as mesmas são uma ferramenta
 poderosa na geração de imagens plausíveis com alta qualidade perceptual.
-
-> Descrição do objetivo principal do projeto.
-
-Desenvolver um modelo generativo baseado em GANs que seja capaz de aumentar a resolução de imagens.
-Avaliar a eficácia do modelo gerado usando métricas de qualidade de imagem.
-
-> Esclarecer qual será a saída do modelo generativo.
-
-A partir de uma imagem de baixa resolução como entrada, a saída principal do modelo será uma imagem de alta resolução mantendo todos os componentes presente na imagem original, ou seja, uma versão mais nítida.
-
-> Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
 
 ## Metodologia Proposta
 > Para a primeira entrega, a metodologia proposta deve esclarecer:
@@ -86,4 +74,11 @@ Além das métricas tradicionais, como PSNR e SSIM, pretendemos explorar técnic
 > Proposta de cronograma. Procure estimar quantas semanas serão gastas para cada etapa do projeto.
 
 ## Referências Bibliográficas
-> Apontar nesta seção as referências bibliográficas adotadas no projeto.
+
+[1] [Dong, C., Loy, C. C., He, K., & Tang, X. (2015). Image Super-Resolution Using Deep Convolutional Networks. Computing Research Repository (CoRR).](https://arxiv.org/pdf/1501.00092.pdf)
+
+[2] [Ledig, C., Theis, L., Huszar, F., Caballero, J., Aitken, A. P., Tejani, A., Totz, J., Wang, Z., & Shi, W. (2016). Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network. Computing Research Repository (CoRR).](https://arxiv.org/pdf/1609.04802.pdf)
+
+[3] [Qiao, C., Li, D., Guo, Y., Liu, C., Jiang, T., Dai, Q., & Li, D. (2021). Evaluation and development of deep neural networks for image super-resolution in optical microscopy. Nature Methods 18 (pp. 194-202)](https://www.nature.com/articles/s41592-020-01048-5)
+
+[4] [Gong, D., Ma, T., Evans, J., He, S. (2021). Deep Neural Networks for Image Super-Resolution in Optical Microscopy by Using Modified Hybrid Task Cascade U-Net. Progress In Electromagnetics Research, Vol. 171, 185–199.](https://www.jpier.org/issues/volume.html?paper=21110904)
