@@ -30,9 +30,8 @@ problema central ainda permanece não resolvido: como recuperar os detalhes fino
 para altos valores de escala? Os trabalhos com CNNs focam na diminuição do erro quadrático médio (MSE) da imagem resolvida. Os resultados apresentam altos valores de relação sinal-ruído de pico mas carecem 
 de detalhes de alta frequência, de modo que são perceptualmente insatisfatórios. Abaixo é possível ver um comparativo entre diferentes abordagens para a resolução do problema: 
 
-![sisr](https://github.com/alexbjr/super_vision/blob/tree/main/projetos/super_vision/sisr_img.png)
 ![sisr](sisr_img.png?raw=True "SISR")
-Fonte: Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2016)
+Fonte: *Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2016)*
 
 É nesse contexto que se insere o uso das GANs para SISR, visto que as mesmas são uma ferramenta
 poderosa na geração de imagens plausíveis com alta qualidade perceptual.
@@ -87,17 +86,19 @@ densidade de pixels (ppi) do display no qual a imagem será visualizada.
 >
 > |Atividade  | Descrição | Tempo estimado|
 > |--|--|--|
-> | Entendimento do Problema | Análise do problema e busca de artigos para encontrarmos uma boa metodologia a para a síntese de timbre instrumental  | 16/03 a 06/04 (3 semanas)|
-> | Entendimento dos Dados  | Busca e avaliação dos dados necessários para o projeto   | 06/04 a 20/04 (2 semanas)|
-> | Entrega E1  | Discussão, formalização e elaboração do *commit* da E1 no Github do projeto | 20/04 a 27/04 (1 semana) |
-> | Finalização de Leitura  | Finalização da leitura dos artigos selecionados | 11/09 a 17/09 (1 semana) |
-> | SRGAN | Execução e tentativa de reprodução dos resultados da SRGAN. | 18/09 a 24/09 (1 semana) |
-> | SRGAN | Execução e tentativa de reprodução dos resultados da SRGAN. | 03/10 a 10/10 (1 semana) |
-> | Entrega E2 - Checkpoint  | Discussão, formalização e elaboração do *commit* da E2 no Github do projeto | 03/10 a 10/10 (1 semana) |
-> | Análises dos Dados Sintetizados | Elaboração do código para a síntese, avaliação dos dados sintetizados e análises dos resultados | 11/05 a 08/06 (4 semanas) |
-> | Finalização | Ajustes finais para a entrega do projeto e análise crítica dos resultados e suas contribuições | 08/06 a 15/06 (1 semana) |
-> | Entrega E3 – Código Final  | Discussão, formalização e elaboração do *commit* da E3 no Github do projeto | 15/06 a 22/06 (1 semana) |
-> | Entrega E4 – Apresentação do Projeto  | Discussão, formalização e elaboração do *commit* da E4 no Github do projeto | 22/06 a 06/07 (2 semanas) |
+> | Entrega E1 | Discussão, formalização e elaboração da proposta de projeto (E1) | 11/09 |
+> | Finalização de Leitura | Finalização da leitura dos artigos selecionados | 11/09 a 17/09 (1 semana) |
+> | Ambiente de Experimentos | Setup do ambiente de experimentos | 18/09 a 24/09 (1 semana) |
+> | SRGAN pt.1 | Execução e tentativa de reprodução dos resultados da SRGAN. | 25/09 a 01/10 (1 semana) |
+> | SRGAN pt.2 | Avaliação dos dos resultados da SRGAN. | 02/10 a 08/10 (1 semana) |
+> | DCGAN pt.1 | Início da reprodução/execução do modelo DCGAN | 09/10 a 15/10 (1 semana) |
+> | Entrega E2 | Discussão, formalização e elaboração da E2 no Github do projeto | 16/10 a 18/10 (3 dias) |
+> | DCGAN pt.2 | Continuação dos trabalhos com a DCGAN e levantamento de resultados | 19/10 a 29/10 (1 semama e meia) |
+> | MHTCUN pt.1 | Início da reprodução/execução do modelo MHTCUN | 30/10 a 05/11 (1 semama) |
+> | MHTCUN pt.2 | Levantamento de resultados do modelo MHTCUN | 06/11 a 12/11 (1 semama) |
+> | Análises dos Dados Sintetizados | Avaliação dos dados sintetizados e análises dos resultados | 13/11 a 19/11 (1 semana) |
+> | Finalização | Ajustes finais para a entrega do projeto e análise crítica dos resultados | 20/11 a 24/11 (4 dias) |
+> | Entrega E3 – Código Final  | Discussão, formalização e elaboração do *commit* da E3 no Github do projeto | 25/11 a 26/11 (2 dias) |
 
 ## Referências Bibliográficas
 
