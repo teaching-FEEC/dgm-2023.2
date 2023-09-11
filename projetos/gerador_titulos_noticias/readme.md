@@ -47,8 +47,8 @@ A expectativa é que sejam gerados dados utilizáveis em uma ampla gama de taref
 | Entrega 2 | | | | | | X | | | | |
 | Estudo de métricas quantitativas e qualitativas para avaliação de dados gerados | | | | | | X | X | | | |
 | Retreinamentos e fine tuning dos modelos | | | | | | | | X | X | |
-| Reavaliação dos novos dados gerados e conclusões | | | | | | | | X | X | |
-| Entrega 3 | | | | | | | | | | X |
+| Reavaliação dos novos dados gerados e conclusões | | | | | | | | | X | X | |
+| Entrega 3 | | | | | | | | | | | | X |
 
 
 ## Referências Bibliográficas
