@@ -10,7 +10,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 > |Nome  | RA | Especialização|
 > |--|--|--|
 > | Rafael Pedrosa Silva Clerici  | 273034  | Eng. de Computação|
-> | Nome2  | 123456  | XXX|
+> | Marco Antonio Cáceres Choqque  | 239271  | Eng. de Sistemas|
 > | Nome3  | 123456  | XXX|
 
 
