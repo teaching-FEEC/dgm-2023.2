@@ -62,11 +62,11 @@ Objetiva-se iniciar os trabalhos a partir da implementação e avaliação da SR
 
 Neste início de projeto, elencamos as seguintes ferramentas a serem utilizadas:
 
-> |Ferramenta | Descrição|
-> |--|--|
-> | [Google Colab](https://colab.research.google.com/) | Ferramenta para elaboração dos notebooks e códigos em linguagem Python 3.8 |
-> | [Pytorch](https://pytorch.org/) | Ferramenta principal de manipulação de tensores e construção da GAN |
-> | [Seaborn](https://seaborn.pydata.org/) | Ferramenta para visualização de dados |
+|Ferramenta | Descrição|
+|--|--|
+| [Google Colab](https://colab.research.google.com/) | Ferramenta para elaboração dos notebooks e códigos em linguagem Python 3.8 |
+| [Pytorch](https://pytorch.org/) | Ferramenta principal de manipulação de tensores e construção da GAN |
+| [Seaborn](https://seaborn.pydata.org/) | Ferramenta para visualização de dados |
 
 > * Resultados Esperados:
 
@@ -84,21 +84,21 @@ densidade de pixels (ppi) do display no qual a imagem será visualizada.
 ## Cronograma
 > Proposta inicial de cronograma:
 >
-> |Atividade  | Descrição | Tempo estimado|
-> |--|--|--|
-> | Entrega E1 | Discussão, formalização e elaboração da proposta de projeto (E1) | 11/09 |
-> | Finalização de Leitura | Finalização da leitura dos artigos selecionados | 11/09 a 17/09 (1 semana) |
-> | Ambiente de Experimentos | Setup do ambiente de experimentos | 18/09 a 24/09 (1 semana) |
-> | SRGAN pt.1 | Execução e tentativa de reprodução dos resultados da SRGAN. | 25/09 a 01/10 (1 semana) |
-> | SRGAN pt.2 | Avaliação dos dos resultados da SRGAN. | 02/10 a 08/10 (1 semana) |
-> | DCGAN pt.1 | Início da reprodução/execução do modelo DCGAN | 09/10 a 15/10 (1 semana) |
-> | Entrega E2 | Discussão, formalização e elaboração da E2 no Github do projeto | 16/10 a 18/10 (3 dias) |
-> | DCGAN pt.2 | Continuação dos trabalhos com a DCGAN e levantamento de resultados | 19/10 a 29/10 (1 semama e meia) |
-> | MHTCUN pt.1 | Início da reprodução/execução do modelo MHTCUN | 30/10 a 05/11 (1 semama) |
-> | MHTCUN pt.2 | Levantamento de resultados do modelo MHTCUN | 06/11 a 12/11 (1 semama) |
-> | Análises dos Dados Sintetizados | Avaliação dos dados sintetizados e análises dos resultados | 13/11 a 19/11 (1 semana) |
-> | Finalização | Ajustes finais para a entrega do projeto e análise crítica dos resultados | 20/11 a 24/11 (4 dias) |
-> | Entrega E3 – Código Final  | Discussão, formalização e elaboração do *commit* da E3 no Github do projeto | 25/11 a 26/11 (2 dias) |
+|Atividade  | Descrição | Tempo estimado|
+|--|--|--|
+| Entrega E1 | Discussão, formalização e elaboração da proposta de projeto (E1) | 11/09 |
+| Finalização de Leitura | Finalização da leitura dos artigos selecionados | 11/09 a 17/09 (1 semana) |
+| Ambiente de Experimentos | Setup do ambiente de experimentos | 18/09 a 24/09 (1 semana) |
+| SRGAN pt.1 | Execução e tentativa de reprodução dos resultados da SRGAN. | 25/09 a 01/10 (1 semana) |
+| SRGAN pt.2 | Avaliação dos dos resultados da SRGAN. | 02/10 a 08/10 (1 semana) |
+| DCGAN pt.1 | Início da reprodução/execução do modelo DCGAN | 09/10 a 15/10 (1 semana) |
+| Entrega E2 | Discussão, formalização e elaboração da E2 no Github do projeto | 16/10 a 18/10 (3 dias) |
+| DCGAN pt.2 | Continuação dos trabalhos com a DCGAN e levantamento de resultados | 19/10 a 29/10 (1 semama e meia) |
+| MHTCUN pt.1 | Início da reprodução/execução do modelo MHTCUN | 30/10 a 05/11 (1 semama) |
+| MHTCUN pt.2 | Levantamento de resultados do modelo MHTCUN | 06/11 a 12/11 (1 semama) |
+| Análises dos Dados Sintetizados | Avaliação dos dados sintetizados e análises dos resultados | 13/11 a 19/11 (1 semana) |
+| Finalização | Ajustes finais para a entrega do projeto e análise crítica dos resultados | 20/11 a 24/11 (4 dias) |
+| Entrega E3 – Código Final  | Discussão, formalização e elaboração do *commit* da E3 no Github do projeto | 25/11 a 26/11 (2 dias) |
 
 ## Referências Bibliográficas
 
