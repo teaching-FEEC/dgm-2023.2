@@ -16,7 +16,7 @@ Como resultado dessa exploração, é possível que você/seu grupo tenham decid
 
 ## Orientações para edição do arquivo README.md do projeto
 
-Para a entrega E2, o README.md do repositório deve ser formatado prevendo o formato de entrega final do projeto [segundo o modelo disponibilizado neste link](https://github.com/pdpcosta/dgm/blob/main/templates/E2-E3_template.md).
+Para a entrega E2, o README.md do repositório deve ser formatado prevendo o formato de entrega final do projeto [segundo o modelo disponibilizado neste link](https://github.com/teaching-FEEC/dgm-2023.2/blob/main/templates/E2-E3_template.md).
 
 ## Estrutura do Repositório
 
