@@ -12,7 +12,7 @@ Na entrega final do seu projeto, seu grupo deverá:
 
 ## Orientações para edição do arquivo README.md do projeto
 
-Para a entrega E3, o README.md do repositório deve conter as seções previstas no modelo de entrega final do projeto [disponibilizado neste link](https://github.com/pdpcosta/dgm/blob/main/templates/E2-E3_template.md).
+Para a entrega E3, o README.md do repositório deve conter as seções previstas no modelo de entrega final do projeto [disponibilizado neste link](https://github.com/teaching-FEEC/dgm-2023.2/blob/main/templates/E2-E3_template.md).
 
 ## Estrutura do Repositório
 
