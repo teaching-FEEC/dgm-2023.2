@@ -1,4 +1,4 @@
-# `Gerador de títulos de notícias do mercado financeiro`
+# `Gerador de títulos de notícias do mercado financeiro [AKA: Estagiário da Folha]`
 # `Stock market news headlines generator`
 
 ## Apresentação
@@ -12,20 +12,22 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 | Victor Gomes Moreno   | 272318  | Eng. de Computação|
 
 
-## Descrição Resumida do Projeto
-O objetivo do projeto é gerar títulos de notícias com vieses positivos e negativos para posterior utilização
-em projetos de Processamento de Linguagem Natural (PLN) no escopo de análise de sentimentos aplicada ao 
-mercado financeiro.
+## Abstract
+Para tomar decisões de investimento de sucesso no mercado financeiro, é relevante analisar as principais notícias em tempo real. Muitas empresas buscam automatizar essa abordagem utilizando modelos de Análise de Sentimentos baseados em Processamento de Linguagem Natural (PLN) para extrair os vieses das notícias mais recentes. Essas informações alimentam algoritmos de previsão de preços futuros de ações, fundamentando assim a decisão de compra ou venda de ativos financeiros. É crucial, portanto, a utilização de conjuntos de dados que incluem uma ampla variedade de títulos de notícias, bem como a análise de seus sentimentos correspondentes. Entretanto, a disponibilidade de conjuntos de dados padronizados para a análise de sentimentos no contexto do mercado financeiro, especialmente em língua portuguesa, é limitada. Além disso, criar bases de dados reais é uma tarefa custosa devido à necessidade de integração com APIs de redes sociais, agregadores de notícias e desenvolvimento de scrapers para coletar dados em sites especializados.
 
-A ideia é prover uma base de dados que possibilite a comparação de diferentes arquiteturas e abordagens para
-problemas relacionados à análise de sentimentos de maneira mais padronizada e normalizada, eliminando o esforço
-e custo da coleta de grandes quantidades de dados em API de notícias ou redes sociais, ou ainda a contrução de
-scapers de dados.
+Este projeto tem como objetivo criar uma base de dados pública em língua portuguesa que contenha títulos de notícias sintéticos, acompanhados da classificação de seu sentimento correspondente. Para alcançar esse fim, utilizaremos técnicas de PLN e análise de sentimentos em texto. Além disso, realizaremos testes quantitativos, qualitativos e de benchmarking da nova base de dados para avaliar sua qualidade. Os resultados serão disponibilizados para comunidade, a fim de colaborar com outros projetos da área. 
 
-Como resultado, o objetivo é ter uma coleção de títulos de notícias gerados sinteticamente que possam ser úteis
-em tarefas de aprendizado de máquina na área de Análise de Sentimentos.
 
 **Vídeo descritivo:** [Vídeo](https://youtu.be/eHPE9ebIPyA)
+
+## Motivação
+A crescente digitalização e automatização da compra e venda de ativos financeiros diferentes abordagens têm sido desenvolvidas com o intuito de maximizar os ganhos financeiros advindos das estratégias de trocas de ações. Neste contexto, a análise de sentimentos extraídos de textos como postagens em redes sociais ou notícias da seção de economia vêm ganhando destaque ao correlacionar a variação no preços de ativos financeiros com o tom presente nos textos analisados.
+
+O desenvolvimento de modelos computacionais baseado em redes neurais profundas e similares, tem como prerequisito a aquisição de grandes massas de dados para treinamento, atividade que vem sendo dificultada pelo [fechamento de API's antes abertas e gratuitas](https://olhardigital.com.br/2023/06/01/internet-e-redes-sociais/twitter-api-cara-impede-uso-para-pesquisas-academicas/) ou [criação de mecanismos para dificultar a atividade de data scrapping](https://www.adweek.com/media/the-new-york-times-updates-terms-of-service-to-prevent-ai-scraping-its-content/). Neste cenário, a utilização de modelos gerativos passa a fazer sentido de modo a prover uma maior massa de dados para treinamento de modelos preditivos.
+
+Além de prover aumento na quantidade das amostras, o desenvolvimento de datasets para a área pode facilitar a comparação de diferentes abordagens estudadas além de facilitar o desenvolvimento de novos trabalhos na área ao prover um dataset de referência balanceado e padronizado.
+
+## Objetivo
 
 ## Metodologia Proposta
 
@@ -41,17 +43,13 @@ análise qualitativa dos títulos gerados.
 
 A expectativa é que sejam gerados dados utilizáveis em uma ampla gama de tarefas da área de PLN em mercado de ações.
 
-## Cronograma
-|Etapa  | 09-S2 | 09-S3 | 09-S4 | 10-S1 | 10-S2 | 10-S3 | 10-S4 | 11-S1 | 11-S2 | 11-S3 | 11-S4 |
-|--|--|--|--|--|--|--|--|--|--|--|--|
-| Estudo de modelos pré-treinados | X | X | | | | | | | | | |
-| Treinamento de modelos e geração dos primeiros resultados |  |  | X | X | X | | | | | | |
-| **Entrega 2** | | | | | | **X** | | | | | |
-| Estudo de métricas quantitativas e qualitativas para avaliação de dados gerados | | | | | | X | X | | | |
-| Retreinamentos e fine tuning dos modelos | | | | | | | | X | X | | |
-| Reavaliação dos novos dados gerados e conclusões | | | | | | | | | X | X | |
-| **Entrega 3** | | | | | | | | | | | **X** |
+### Bases de dados e Evolução
 
+### Workflow
+
+## Experimentos, Resultados e Discussão dos Resultados
+
+## Conclusão
 
 ## Referências Bibliográficas
 Touseef Iqbal, Shaima Qureshi. The survey: Text generation models in deep learning. In: Journal of King Saud University - Computer and Information Sciences, Volume 34, Issue 6, Part A. 2022. Pages 2515-2528. ISSN 1319-1578. https://doi.org/10.1016/j.jksuci.2020.04.001. Disponível em: https://www.sciencedirect.com/science/article/pii/S1319157820303360
