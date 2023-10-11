@@ -1,0 +1,36 @@
+The weights were obtained using the following configuration
+
+n_epochs = 500
+z_dim = 64
+display_step = 500
+batch_size = 128
+lr = 0.00002
+device = 'cuda'
+
+
+Additionally, no scaling factor on the preprocessor was used:
+
+def preprocessor(
+    dataset,
+    low_cut_hz = 4.,   # low cut frequency for filtering
+    high_cut_hz = 38., # high cut frequency for filtering
+    newfreq = 100, # Paramater for resampling
+#     factor = 1e6, # Parameter for scaling
+    ):
+
+    preprocessors = [
+        Preprocessor('pick_types', eeg=True, meg=False, stim=False),  # Keep EEG sensors
+#         Preprocessor(lambda data: np.multiply(data, factor)),  # Convert from V to uV
+        Preprocessor("resample", sfreq=newfreq), # Resampling
+        Preprocessor('filter', l_freq=low_cut_hz, h_freq=high_cut_hz),  # Bandpass filter
+        Preprocessor("set_eeg_reference", ref_channels="average", ch_type="eeg") # Common Average Reference
+    ]
+    
+    # Transform the data
+    # return preprocess(dataset, preprocessors, n_jobs = -1)
+    return preprocess(dataset, preprocessors)
+
+
+Electrodes: picks = ['C3', 'Cz', 'C4']
+
+And subjects: my_eeg_data = EEG(subject_id=[1,2,3,4])
