@@ -60,7 +60,9 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 2. Remoção de títulos com 3 palavras ou menos
 3. Remoção dos títulos meramente descritivos de páginas
   > "Bovespa - Opções - Parte 9".
+
   > "Fundos: Papéis de Índice Brasil Bovespa".
+
   > "Fundos: Ações Ibovespa Indexado".
 4. Remoção da marcação de data e hora
 
