@@ -53,7 +53,7 @@ O dataset contém diversos títulos de notícias no formato texto (txt) sem qual
   *  352 notícias classificadas como negativas
   *  296 notícias classificadas como positivas
 
-### Preprocessamento
+### Pré-processamento
 
 Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns procedimentos com o objetivo de sanear o conjunto de dados não rotulado:
 1. Remoção de duplicatas
