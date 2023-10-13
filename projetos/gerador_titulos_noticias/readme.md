@@ -44,6 +44,25 @@ análise qualitativa dos títulos gerados.
 A expectativa é que sejam gerados dados utilizáveis em uma ampla gama de tarefas da área de PLN em mercado de ações.
 
 ### Bases de dados e Evolução
+|Base de Dados | Endereço na Web | Resumo descritivo|
+|----- | ----- | -----|
+|Replication data for: predicting the brazilian stock market using sentiment analysis, technical indicators, and stock prices | [Repositório de dados Unicamp](https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK) | Base de títulos de notícias em língua portuguesa contendo aproximadamente 550 notícias rotuladas e 185 mil notícias não rotuladas para utilização em treinamento de rede neural profunda semisupervisionada utilizada na tese "[Previsão do mercado de ações brasileiro com o uso de análise de sentimentos, indicadores técnicos e valores de ações](https://repositorio.unicamp.br/Acervo/Detalhe/1247846)".|4
+
+O dataset contém diversos títulos de notícias no formato texto (txt) sem qualquer tipo de formatação. O conjunto contém:
+  *  ~187 mil títulos não rotulados
+  *  352 notícias classificadas como negativas
+  *  296 notícias classificadas como positivas
+
+### Preprocessamento
+
+Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns procedimentos com o objetivo de sanear o conjunto de dados não rotulado:
+1. Remoção de duplicatas
+2. Remoção de títulos com 3 palavras ou menos
+3. Remoção dos títulos meramente descritivos de páginas
+> "Bovespa - Opções - Parte 9"
+> "Fundos: Papéis de Índice Brasil Bovespa"
+> "Fundos: Ações Ibovespa Indexado"
+4. Remoção da marcação de data e hora
 
 ### Workflow
 
