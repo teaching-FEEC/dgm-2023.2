@@ -1,7 +1,7 @@
 # `Synthetic Photovoltaic Power Curve using GANs and Transformers`
 
 
-## Project Presentation
+## Presentation
 
 [Video on YouTube for the first assignment](https://youtu.be/TmnOccnPoUU)
 
@@ -14,7 +14,11 @@ Group:
 | Juan Carlos Cortez Aucapiña            | 265568          | <p align="center">Ph.D. Student of Electrical Engineering </br> (Energy)</p>|
 | Lucas Zenichi Terada                   | 182775          | <p align="center">M.Sc. Student of Electrical Engineering </br> (Energy)</p>|
 
-## Project Description
+## Abstract
+
+This project proposes to create synthetic data of daily PV generation curves from historical data of PV power and weather features from two real datasets. The synthetic data will train PV forecast models as augmentation data. Using the synthetic curves is expected to improve the day ahead forecast in terms of mean absolute error (MAE) and root mean square error (RMSE).
+
+## Description
 
 The increase of Distributed Energy Resources (DERs) integration into the distribution grid has heightened the need for Energy Management Systems (EMSs) to achieve optimal control of devices such as Battery Energy Storage Systems (BESS) and Electric Vehicle Charging Stations (EVCSs). Figure 1 illustrates an example environment in which an EMS is required to optimize Electric Vehicles (EVs) charging.
 
@@ -26,7 +30,7 @@ To enhance the quality of energy management, predictions such as load and photov
 
 Therefore, this project aims to generate synthetic PV generation data based on climatic data. The synthetic data will be used to train a prediction model, and an evaluation will be conducted to quantify the performance of these approaches.
 
-## Related works
+### Related works
 
 The following papers address GANs for time series generation and will be used as a guide for this work.
 
@@ -39,10 +43,9 @@ The following papers address GANs for time series generation and will be used as
 
   * *[TimeGAN](https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf)* (Time-series Generative Adversarial Network) is a framework for generating synthetic time-series data. The goal is to create smoothed time series data via a GAN. The paper proposes a novel approach for generating realistic time-series data using supervised and unsupervised learning techniques. (Yoon, Jordon, & van der Schaar, 2019).
 
-
   * *[TSGAN](https://arxiv.org/pdf/2006.16477.pdf)* (Time Series GAN) is a novel architecture that uses two GANs in unison to model fake time series examples. TSGAN focuses on one dimensional times series and explores the few shot approach, which is the ability of an algorithm to perform well with limited data (Wang, Zhang, & Zhang, 2020).
 
-The [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871) was published in Applied Energy and will serve as the foundation for this study.
+The groundwork for this study is rooted in the [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871), a publication featured in Applied Energy. The paper introduces a deep learning technique known as normalizing flows(NF), which is designed to produce accurate scenario-based probabilistic forecasts. It compares NF with other state-of-the-art DL generative models, such as generative adversarial networks and variational autoencoders, in generating weather-based wind, PV power, and load scenarios.
 
 ## Methodology
 
