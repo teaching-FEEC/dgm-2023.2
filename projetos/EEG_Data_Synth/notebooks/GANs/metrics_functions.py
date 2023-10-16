@@ -25,7 +25,7 @@ def generate_samples_with_labels(label, n_samples, generator, z_dim = 64, channe
         label = get_one_hot_labels(torch.Tensor([label]).long(), n_classes).repeat(n_samples,1)
         
         noise_and_labels = combine_vectors(noise_4_gen, label)
-        fake = gen(noise_and_labels)
+        fake = generator(noise_and_labels)
 
         if extra_dim == False:
             fake = fake.reshape((fake.shape[0], fake.shape[2], fake.shape[3]))
@@ -35,7 +35,7 @@ def generate_samples_with_labels(label, n_samples, generator, z_dim = 64, channe
         label = get_one_hot_labels(torch.Tensor([label]).long(), n_classes).repeat(n_samples,1)
         
         noise_and_labels = combine_vectors(noise_4_gen, label)
-        fake = gen(noise_and_labels)
+        fake = generator(noise_and_labels)
         filtered_channel_fake = torch.select(fake, dim = 2, index = channel)
         
         if extra_dim == False:
