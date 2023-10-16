@@ -18,6 +18,7 @@ def generate_samples_with_labels(label, n_samples, generator, z_dim = 64, channe
         channel: electrode {'C3': 0, 'Cz': 1, 'C4': 2} -> Default: All channels
         generator: the trained generator
     '''
+    
     n_classes = 4
     
     if channel == None:
@@ -68,22 +69,31 @@ def generate_samples_for_classification(n_samples, generator, z_dim = 64):
     fake = generator(noise_and_labels)
 
     original_labels = torch.argmax(label_concat,dim = 1)
-    return (fake,original_labels)
+    return (fake , original_labels)
 
 
 
-def filter_label_and_channel(eeg_data, classe, canal):
+def filter_label_and_channel(eeg_data, label, channel):
     '''
     Function to filter label and channel of original eeg data. 
         eeg_data: raw eeg data
-        classe: class of movement
-        canal: electrode --   {'C3': 0, 'Cz': 1, 'C4': 2}
+        label: class of movement
+        channel: electrode --   {'C3': 0, 'Cz': 1, 'C4': 2}
     '''
 
-    
-    mask = torch.where(eeg_data[:][1] == classe, 1, 0)
+    mask = torch.where(eeg_data[:][1] == label, 1, 0)
     filtered_eeg = eeg_data[:][0][torch.nonzero(mask).flatten()]
     filtered_eeg = filtered_eeg.reshape((filtered_eeg.shape[0], filtered_eeg.shape[2], filtered_eeg.shape[3] ))
-    filtered_channel_eeg = torch.select(filtered_eeg, dim = 1, index = canal)
+    filtered_channel_eeg = torch.select(filtered_eeg, dim = 1, index = channel)
 
     return filtered_channel_eeg
+
+def add_real_fake(real_eeg, fake_eeg):
+    
+    real_data = real_eeg[:]
+    fake_data = fake_eeg
+
+    complete_eeg_data = torch.cat((real_data[0], fake_data[0]), dim = 0)
+    complete_label_data = torch.cat((real_data[1], fake_data[1]), dim = 0)
+
+    return (complete_eeg_data, complete_label_data)
