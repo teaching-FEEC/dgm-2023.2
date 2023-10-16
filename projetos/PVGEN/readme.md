@@ -55,13 +55,11 @@ The proposed framework uses two datasets to extrapolate PV power behavior from t
 
 Figure 2: Proposed Framework
 
-
 <!--The creation of synthetic data will be carried out using three different architectures. One of them will be based on a conditional GAN, as shown in Figure 3. Additionally, another architecture based on flow models or transformers will be proposed for synthetic PV data generation.
 
 ![image info](./Figs/GAN.svg)
 
 Figure 3: Proposed Conditional GAN -->
-
 
 * Tools:
   * Python 3
@@ -98,20 +96,44 @@ Table I: Solcast features
 | **Zenith**           | The position of the sun in relation to the zenith, representing the vertical angle between the sun and the point directly above a location. |
 | **AlbedoDaily**      | Daily albedo, which is a measure of Earth's surface reflectance and can influence the amount of absorbed solar radiation. |
 
+With the generated data, the aim is to train a PV generation forecasting model based on LSTM. Using the PV production dataset from a GECAD rooftop at the Polytechnic Institute of Porto (IPP), as depicted in Figure 4.
 
-## Expected Results and Evaluation
+![image info](./Figs/UNICAMP.jpg)
 
-With the generated data, the aim is to train a PV generation forecasting model based on LSTM. Using the PV production dataset from a GECAD rooftop at the Polytechnic Institute of Porto (IPP), as depicted in Figure 3, the PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
+Figure 3: UNICAMP
+
 
 ![image info](./Figs/GECAD.jpg)
 
-Figure 3: GECAD 
+Figure 4: GECAD 
+
+
+## Experiments, Results and Discussion
+
+As a first step, a code available in a GitHub repository made by the authors of the reference paper is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the reference paper and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the reference paper uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. 
+
+![image info](./Figs/bayesian_optimizacion.png)
+
+Figure 5: Optimization History
+
+![image info](./Figs/search_space.png)
+
+Figure 6: Parallel coordinates plot 
+
+![image info](./Figs/PVforecasting50_test.png)
+
+Figure 7: 50 synthetic PV curves for a single day
+
+![image info](./Figs/PVforecasting1_test.png)
+
+Figure 8: Average PV curve for a single day
+
+The PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
 
 ![image info](./Figs/Evaluation.svg)
 
-Figure 4: Evaluation method
-
-                                               
+Figure 9: Evaluation method
+                                             
 
 ## Tasks
 
