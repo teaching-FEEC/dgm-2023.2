@@ -16,7 +16,7 @@ Group:
 
 ## Abstract
 
-This project proposes to create synthetic data of daily PV generation curves from historical data of PV power and weather features from two real datasets. The synthetic data will train PV forecast models as augmentation data. Using the synthetic curves is expected to improve the day ahead forecast in terms of mean absolute error (MAE) and root mean square error (RMSE).
+This project proposes generating synthetic daily photovoltaic (PV) generation curves by leveraging historical PV power and weather data using generative models such as normalizing flows, conditional generative adversarial networks (GANs), and transformers. Subsequently, the trained model generates synthetic data for a different geographical location to complete missing data and train a day ahead PV forecasting model where only weather data is available. The forecasting model will be constructed using a Long Short-Term Memory (LSTM) network. The forecasting algorithm's performance will be evaluated based on Mean Absolute Error (MAE) and Root Mean Square Error (RMSE).
 
 ## Description
 
@@ -49,18 +49,25 @@ The groundwork for this study is rooted in the [Reference Paper](https://doi.org
 
 ## Methodology
 
-The creation of synthetic data will be carried out using two different architectures. One of them will be based on a conditional GAN, as shown in Figure 2. Additionally, another architecture based on flow models or transformers will be proposed for synthetic PV data generation.
+The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses normalizing flows (NF), CGAN, and Transformers as generative models. Upon training the generative model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The final evaluation of the approach is carried out using MAE and RMSE for the forecasting model. The proposed framework is shown in Figure 2.
+
+![image info](./Figs/PVGAN_framework.svg)
+
+Figure 2: Proposed Framework
+
+
+<!--The creation of synthetic data will be carried out using three different architectures. One of them will be based on a conditional GAN, as shown in Figure 3. Additionally, another architecture based on flow models or transformers will be proposed for synthetic PV data generation.
 
 ![image info](./Figs/GAN.svg)
 
-Figure 2: Proposed Conditional GAN 
+Figure 3: Proposed Conditional GAN -->
+
 
 * Tools:
   * Python 3
-  * PyTorch
   * Google Colab
-  * Jupyter Notebook
-
+  * PyTorch
+  * Weights & Biases
 
 ## Dataset
 
