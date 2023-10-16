@@ -9,7 +9,7 @@ import torch.nn.functional as F
 import numpy as np
 
 
-def generate_samples_with_labels(label, n_samples, generator, channel = None, extra_dim = True):
+def generate_samples_with_labels(label, n_samples, generator, z_dim = 64, channel = None, extra_dim = True):
     '''
     Function for generating samples, once the generator has been trained
         label: label of the movement to be sampled. See dictionary below
@@ -18,7 +18,8 @@ def generate_samples_with_labels(label, n_samples, generator, channel = None, ex
         channel: electrode {'C3': 0, 'Cz': 1, 'C4': 2} -> Default: All channels
         generator: the trained generator
     '''
-
+    n_classes = 4
+    
     if channel == None:
         noise_4_gen = get_noise(n_samples, z_dim)
         label = get_one_hot_labels(torch.Tensor([label]).long(), n_classes).repeat(n_samples,1)
@@ -43,13 +44,14 @@ def generate_samples_with_labels(label, n_samples, generator, channel = None, ex
         return filtered_channel_fake
 
 
-def generate_samples_for_classification(n_samples, generator):
+def generate_samples_for_classification(n_samples, generator, z_dim = 64):
     '''
     Function for generating equal label samples for the classifier. 
         n_samples: number of samples to be generated
         generator: the trained generator
     '''
-    n_samples = n_samples
+    n_classes = 4
+    
     n_samples_partial = int(n_samples/n_classes)
     noise_4_gen = get_noise(n_samples, z_dim)
     
@@ -65,7 +67,9 @@ def generate_samples_for_classification(n_samples, generator):
     
     fake = generator(noise_and_labels)
 
-    return fake
+    original_labels = torch.argmax(label_concat,dim = 1)
+    return (fake,original_labels)
+
 
 
 def filter_label_and_channel(eeg_data, classe, canal):
