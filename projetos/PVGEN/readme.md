@@ -3,7 +3,13 @@
 
 ## Presentation
 
+### Assigment 1
+
 [Video on YouTube for the first assignment](https://youtu.be/TmnOccnPoUU)
+
+### Assigment 2
+
+[Slides](https://docs.google.com/presentation/d/1MgKqQnf7F7JzvSkJVg6RY7zdao9B-Bte/edit?usp=sharing&ouid=105026589240211170070&rtpof=true&sd=true)
 
 This project was developed in the post-graduate class IA376 - Deep Learning Applied to Signal Synthesis, offered in the second semester of 2023 at the University of Campinas (UNICAMP), supervised by Prof. Paula Dornhofer Paro Costa, Ph.D., from the Department of Computer Engineering and Automation (DCA) of the School of Electrical and Computer Engineering (FEEC)
 
@@ -45,7 +51,7 @@ The following papers address GANs for time series generation and will be used as
 
   * *[TSGAN](https://arxiv.org/pdf/2006.16477.pdf)* (Time Series GAN) is a novel architecture that uses two GANs in unison to model fake time series examples. TSGAN focuses on one dimensional times series and explores the few shot approach, which is the ability of an algorithm to perform well with limited data (Wang, Zhang, & Zhang, 2020).
 
-The groundwork for this study is rooted in the [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871), a publication featured in Applied Energy. The paper introduces a deep learning technique known as normalizing flows(NF), which is designed to produce accurate scenario-based probabilistic forecasts. It compares NF with other state-of-the-art DL generative models, such as generative adversarial networks and variational autoencoders, in generating weather-based wind, PV power, and load scenarios.
+The groundwork for this study is rooted in the [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871), a publication featured in Applied Energy. The paper introduces a deep learning technique known as normalizing flows (NF), which is designed to produce accurate scenario-based probabilistic forecasts. It compares NF with other state-of-the-art DL generative models, such as generative adversarial networks and variational autoencoders, in generating weather-based wind, PV power, and load scenarios.
 
 ## Methodology
 
@@ -143,7 +149,7 @@ Figure 10: Q-Q plot
 
 In delivery 1, it had been planned to initially carry out a CGAN and then use transformers to generate synthetic PV power curves. However, when trying to make a code from scratch, the results were wrong. Therefore, based on the reference paper where the superiority of NF over CGAN is highlighted, and considering that its authors made their code available on GitHub, it was decided to use NF as the first option. After understanding the code and partially modifying it, the experiments reported in the previous subsections were carried out. The results obtained metrics are similar to the original paper, so it can be concluded that the NF model is adequate to generate PV power curves.
 
-In order to compare NF, transformers will be implemented, and the CGAN model will persist in development, trying to find similar or better results. In parallel, the development of the proposed framework will continue. Climate data from the GCAD database will be used to generate synthetic PV power curves. Once the different models generate these curves, they will be used to train LSTM forecast models, starting from the assumption that there is no PV power data from the GECAD database. This approach will be compared to simply performing transfer learning assuming the existence of a few PV power data from the GECAD dataset. This transfer learning assumes that a forecast model trained with the UNICAMP dataset is available and that a fine adjustment can be made using partial data from the GECAD dataset. Finally, these forecasting results regarding RSME and MAE will be compared with a forecast model based on actual PV power data in the GECAD.
+In order to compare NF, transformers will be implemented, and the CGAN model will persist in development, trying to find similar or better results. In parallel, the development of the proposed framework will continue. Climate data from the GECAD database will be used to generate synthetic PV power curves. Once the different models generate these curves, they will be used to train LSTM forecast models, starting from the assumption that there is no PV power data from the GECAD database. This approach will be compared to simply performing transfer learning assuming the existence of a few PV power data from the GECAD dataset. This transfer learning assumes that a forecast model trained with the UNICAMP dataset is available and that a fine adjustment can be made using partial data from the GECAD dataset. Finally, these forecasting results regarding RSME and MAE will be compared with a forecast model based on actual PV power data in the GECAD.
 
 <!--The PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
 
