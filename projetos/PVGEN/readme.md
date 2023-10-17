@@ -69,36 +69,15 @@ Figure 3: Proposed Conditional GAN -->
 
 ## Dataset
 
-For the training of PV generation models, historical PV generation data from UNICAMP and data from weather telemetry services, such as Solcast and OpenWeather, will be used. Table I displays all the features available in the Solcast database that can be utilized. Additionally, information from the OpenWeather API will be incorporated to enhance the feature set.
+The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table I.
 
-Table I: Solcast features
-| Field                | Explanation                                                                                   |
-|----------------------|-----------------------------------------------------------------------------------------------|
-| **PeriodEnd**        | The end time of a specific time period, typically used in time series data. |
-| **PeriodStart**      | The start time of a specific time period, also used in time series data. |
-| **Period**           | The duration or time interval represented by the data record, usually in minutes, hours, or another unit. |
-| **AirTemp**          | The air temperature at a specific location and time, typically measured in degrees Celsius or Fahrenheit. |
-| **Azimuth**          | The horizontal angle in relation to true north, often used in astronomy and solar energy. |
-| **CloudOpacity**     | A measure of cloud opacity, indicating how covered the sky is, often expressed as a percentage. |
-| **DewpointTemp**     | The dew point temperature, representing the temperature at which air would become saturated and form dew. |
-| **Dhi**              | Diffuse horizontal solar irradiance, the amount of diffuse solar radiation reaching a horizontal surface. |
-| **Dni**              | Direct normal solar irradiance, the amount of direct solar radiation reaching a surface perpendicular to the sun's rays. |
-| **Ebh**              | Global horizontal solar irradiance, the total amount of solar radiation reaching a horizontal surface. |
-| **Ghi**              | Global tilted solar irradiance, the amount of solar radiation reaching a surface tilted relative to the horizontal. |
-| **GtiFixedTilt**     | Global tilted solar irradiance at a fixed angle relative to the horizontal, often used in fixed solar systems. |
-| **GtiTracking**      | Global tilted solar irradiance in a solar tracking system that follows the sun's movement. |
-| **PrecipitableWater**| The amount of water in the atmosphere that could potentially precipitate, typically measured in millimeters or inches. |
-| **RelativeHumidity** | The relative humidity of the air, expressed as a percentage, indicating the amount of moisture relative to its maximum capacity. |
-| **SnowWater**        | The equivalent amount of water in the form of snow on the ground, measured in millimeters or inches. |
-| **SurfacePressure**  | The atmospheric pressure at ground level at a specific location and time, usually measured in hectopascals (hPa) or millibars. |
-| **WindDirection10m** | The wind direction at 10 meters above ground level, typically expressed in degrees, indicating the direction from which the wind is blowing. |
-| **WindSpeed10m**     | The wind speed at 10 meters above ground level, usually measured in meters per second (m/s) or kilometers per hour (km/h). |
-| **Zenith**           | The position of the sun in relation to the zenith, representing the vertical angle between the sun and the point directly above a location. |
-| **AlbedoDaily**      | Daily albedo, which is a measure of Earth's surface reflectance and can influence the amount of absorbed solar radiation. |
+Table I: Datasets
+| **ID** | **Dataset** |     **Availability**          |                                                                               **Description**  |
+|:------:|:-----------:|:----------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|    1   |   UNICAMP   | Not Public. Available upon request | PV power data from a solar farm located in Campinas, Brazil at UNICAMP, of 276.5 kWp. Weather data was obtained from a meteorological station, and complementary features such as irradiation were obtained from [Solcast](https://solcast.com/). The timestamp of the dataset is 15 minutes and spans four years. |
+|    2   |    GECAD    | Not Public. Available upon request | PV power data from rooftop PV arrays of 7.5 kWp, located in Porto, Weather data for this location is sourced from [Solcast](https://solcast.com/), and the dataset comprises timestamps at 5-minute intervals, covering a period of nearly four years.|
 
-With the generated data, the aim is to train a PV generation forecasting model based on LSTM. Using the PV production dataset from a GECAD rooftop at the Polytechnic Institute of Porto (IPP), as depicted in Figure 4.
-
-![image info](./Figs/UNICAMP.svg)
+![image info](./Figs/UNICAMP.jpg)
 
 Figure 3: UNICAMP
 
@@ -107,10 +86,14 @@ Figure 3: UNICAMP
 
 Figure 4: GECAD 
 
+The datasets are used as follows. Historical PV generation data from UNICAMP and data are employed to train PV generative models. Synthetic PV power data is obtained using the generative model, and the weather features from the GECAD dataset. Finally, the synthetic PV data and weather features are used to train a day-ahead PV power forecasting model.
+
+## Workflow
+
 
 ## Experiments, Results and Discussion
 
-As a first step, a code available in a GitHub repository made by the authors of the reference paper is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the reference paper and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the reference paper uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. 
+As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. 
 
 ![image info](./Figs/bayesian_optimizacion.png)
 
