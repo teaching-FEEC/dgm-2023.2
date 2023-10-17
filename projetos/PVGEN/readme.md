@@ -122,7 +122,7 @@ After hyperparameter optimization, the NF model is evaluated using the MAE and R
 
 Figure 8: 100 synthetic PV curves for a single day
 
-![image info](./Figs/PVforecasting10_test.png)
+![image info](./Figs/PVforecasting_d10_real_predicted.png)
 
 Figure 9: Average PV curve for a single day
 
