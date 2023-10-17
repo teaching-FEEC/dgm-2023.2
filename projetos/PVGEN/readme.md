@@ -78,7 +78,7 @@ Table I: Description of the datasets
 |    1   |   UNICAMP   | Not Public. Available upon request | PV power data from a solar farm located in Campinas, Brazil at UNICAMP, of 276.5 kWp. Weather data was obtained from a meteorological station, and complementary features such as irradiation were obtained from [Solcast](https://solcast.com/). The timestamp of the dataset is 15 minutes and spans four years. |
 |    2   |    GECAD    | Not Public. Available upon request | PV power data from rooftop PV arrays of 7.5 kWp, located in Porto, Weather data for this location is sourced from [Solcast](https://solcast.com/), and the dataset comprises timestamps at 5-minute intervals, covering a period of nearly four years.|
 
-![image info](./Figs/UNICAMP.jpg)
+![image info](./Figs/unicamp.jpg)
 
 Figure 3: UNICAMP
 
@@ -118,7 +118,7 @@ Figure 7: Training and Validation Loss
 
 After hyperparameter optimization, the NF model is evaluated using the MAE and RMSE metrics. This evaluation involves utilizing weather data from the UNICAMP set as input for the NF model. The model generates 100 distinct PV curves, as illustrated in Figure 8. The average of these curves, depicted in Figure 9, is regarded as the forecast for that day. Finally, the MAE and RMSE are computed by comparing this forecast with the actual PV power output. These evaluation metrics are summarized in Table II for valid and train sets.
 
-![image info](./Figs/PVforecasting100_test.png)
+![image info](./Figs/PVforecasting100_d100_synthetic.png)
 
 Figure 8: 100 synthetic PV curves for a single day
 
