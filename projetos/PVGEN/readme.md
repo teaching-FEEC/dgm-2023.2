@@ -71,7 +71,8 @@ Figure 3: Proposed Conditional GAN -->
 
 The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table I.
 
-Table I: Datasets
+Table I: Description of the datasets
+
 | **ID** | **Dataset** |     **Availability**          |                                                                               **Description**  |
 |:------:|:-----------:|:----------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 |    1   |   UNICAMP   | Not Public. Available upon request | PV power data from a solar farm located in Campinas, Brazil at UNICAMP, of 276.5 kWp. Weather data was obtained from a meteorological station, and complementary features such as irradiation were obtained from [Solcast](https://solcast.com/). The timestamp of the dataset is 15 minutes and spans four years. |
@@ -90,42 +91,73 @@ The datasets are used as follows. Historical PV generation data from UNICAMP and
 
 ## Workflow
 
+On working...
 
 ## Experiments, Results and Discussion
 
-As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. 
+### Experiments
+
+As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. Finally, Figure 7 shows the loss curve for the training, validation and test set.
+
 
 ![image info](./Figs/bayesian_optimizacion.png)
 
 Figure 5: Optimization History
 
+
 ![image info](./Figs/search_space.png)
 
 Figure 6: Parallel coordinates plot 
 
+
+![image info](./Figs/loss_epoch.png)
+
+Figure 7: Training and Validation Loss
+
+### Results
+
+After hyperparameter optimization, the NF model is evaluated using the MAE and RMSE metrics. This evaluation involves utilizing weather data from the UNICAMP set as input for the NF model. The model generates 100 distinct PV curves, as illustrated in Figure 8. The average of these curves, depicted in Figure 9, is regarded as the forecast for that day. Finally, the MAE and RMSE are computed by comparing this forecast with the actual PV power output. These evaluation metrics are summarized in Table II for valid and train sets.
+
 ![image info](./Figs/PVforecasting100_test.png)
 
-Figure 7: 100 synthetic PV curves for a single day
+Figure 8: 100 synthetic PV curves for a single day
 
 ![image info](./Figs/PVforecasting10_test.png)
 
-Figure 8: Average PV curve for a single day
+Figure 9: Average PV curve for a single day
 
-The PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
+Table II: Metrics for NF model
+
+| Metric    | Valid    | Test     |
+|-----------|----------|----------|
+| MAE       | 1.81     | 2.85     |
+| RMSE      | 2.01     | 3.29     |
+
+A Q-Q (Quantile-Quantile) plot commonly used in statistical analysis is also used to evaluete the performance of the model. This plot lets to assess how well a dataset adheres to a theoretical normal distribution. A perfect adherence to this distribution would result in all data points forming an identity line. Deviations from this line offer insights into the distributional characteristics of data. Figure 10 shows the Q-Q plot for valid and test sets.
+
+![image info](./Figs/qq_plot.png)
+
+Figure 10: Q-Q plot
+
+### Discussion
+
+In delivery 1, it had been planned to initially carry out a CGAN and then use transformers to generate synthetic PV power curves. However, when trying to make a code from scratch, the results were wrong. Therefore, based on the reference paper where the superiority of NF over CGAN is highlighted, and considering that its authors made their code available on GitHub, it was decided to use NF as the first option. After understanding the code and partially modifying it, the experiments reported in the previous subsections were carried out. The results obtained metrics are similar to the original paper, so it can be concluded that the NF model is adequate to generate PV power curves.
+
+In order to compare NF, transformers will be implemented, and the CGAN model will persist in development, trying to find similar or better results. In parallel, the development of the proposed framework will continue. Climate data from the GCAD database will be used to generate synthetic PV power curves. Once the different models generate these curves, they will be used to train LSTM forecast models, starting from the assumption that there is no PV power data from the GECAD database. This approach will be compared to simply performing transfer learning assuming the existence of a few PV power data from the GECAD dataset. This transfer learning assumes that a forecast model trained with the UNICAMP dataset is available and that a fine adjustment can be made using partial data from the GECAD dataset. Finally, these forecasting results regarding RSME and MAE will be compared with a forecast model based on actual PV power data in the GECAD.
+
+<!--The PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
 
 ![image info](./Figs/Evaluation.svg)
 
-Figure 9: Evaluation method
+Figure 10: Evaluation method -->
                                              
-
 ## Tasks
 
-- [ ] Search for additional datasets: Look for more datasets to enhance your research.
-- [ ] Dataset preparation, filtering, and correction: Clean, preprocess, and rectify the dataset to ensure data quality.
-- [ ] Creation of the CGAN-based architecture: Develop a Conditional Generative Adversarial Network (CGAN) architecture.
-- [ ] Creation of a more suitable architecture for time series data: Develop an architecture specifically tailored for time series data.
-- [ ] Analysis of the distribution of generated data: Assess the distribution of the synthetic data.
-- [ ] Evaluation of the proposal based on the proposed methodology: Conduct an evaluation of your research based on the outlined methodology.
+- [ ] Implement Transformers
+- [ ] Continue CGAN Model Development.
+- [ ] Compare Synthetic data (NF, CGAN, and Transformers) in terms of MAE and RMSE
+- [ ] Train LSTM Forecast Models for day ahead PV power for GECAD dataset
+- [ ] Compare Forecasting Results in terms of MAE and RMSE
 - [ ] Project finished </sub> :tada: 
 
 ## References
