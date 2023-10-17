@@ -120,11 +120,11 @@ Figure 5: Optimization History
 
 Figure 6: Parallel coordinates plot 
 
-![image info](./Figs/PVforecasting50_test.png)
+![image info](./Figs/PVforecasting100_test.png)
 
-Figure 7: 50 synthetic PV curves for a single day
+Figure 7: 100 synthetic PV curves for a single day
 
-![image info](./Figs/PVforecasting1_test.png)
+![image info](./Figs/PVforecasting10_test.png)
 
 Figure 8: Average PV curve for a single day
 
