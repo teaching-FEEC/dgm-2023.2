@@ -98,7 +98,7 @@ Table I: Solcast features
 
 With the generated data, the aim is to train a PV generation forecasting model based on LSTM. Using the PV production dataset from a GECAD rooftop at the Polytechnic Institute of Porto (IPP), as depicted in Figure 4.
 
-![image info](./Figs/UNICAMP.jpg)
+![image info](./Figs/UNICAMP.svg)
 
 Figure 3: UNICAMP
 
