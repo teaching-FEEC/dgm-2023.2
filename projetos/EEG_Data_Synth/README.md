@@ -17,7 +17,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  -->
 Este projeto tem como objetivo sintetizar dados de eletroencefalografia (EEG) gerados por uma interface cérebro-computador (BCI, do inglês Brain-Computer Interface) utilizando o paradigma de imagética motora. Esse sistema apresenta um vasto potencial para aplicações inovadoras, com benefícios notáveis, sobretudo considerando a população que enfrenta diversos tipos de deficiências (sejam elas visuais, auditivas, motoras ou cognitivas), bem como o crescente mercado das tecnologias assistivas e interativas. A principal motivação subjacente à implementação das BCIs é o estudo e a compreensão do funcionamento cerebral, abrindo caminhos para aplicações nos campos da saúde e entretenimento. 
 
-Uma abordagem notável dentro desse contexto é a utilização do paradigma de imagética motora, que envolve a aquisição de sinais cerebrais gerados pela imaginação ou execução de movimentos de partes do corpo, como membros superiores (braços) e inferiores (pernas). Buscando a melhor reprodutibilidades desses sinais de EEG, a geração de dados sintéticos será realizada por meio de uma Rede Generativa Adversária (GAN), que produzirá séries temporais dos sinais de EEG reais. Tal abordagem oferece a capacidade de criar conjuntos de dados EEG diversificados e representativos, que podem ser usados para desenvolver e aprimorar sistemas BCI, tornando-os mais precisos e eficazes e abrangendo uma ampla variedade de cenários e condições. 
+Uma abordagem notável dentro desse contexto é a utilização do paradigma de imagética motora, que envolve a aquisição de sinais cerebrais gerados pela imaginação ou execução de movimentos de partes do corpo, como membros superiores (braços) e inferiores (pernas). Buscando uma melhor reprodutibilidades desses sinais, a geração de dados sintéticos será realizada por meio de uma Rede Generativa Adversária (GAN), que produzirá séries temporais dos sinais de EEG reais. Tal abordagem oferece a capacidade de criar conjuntos de dados EEG diversificados e representativos, que podem ser usados para desenvolver e aprimorar sistemas BCI de classificação, tornando-os mais precisos e eficazes e abrangendo uma ampla variedade de cenários e condições. 
 
 [Vídeo da Apresentação - 1ª entrega ](https://drive.google.com/file/d/1T1XJYjW1v4Qm5PvELuSoJu00xOpP94OW/view)
 
@@ -38,12 +38,37 @@ Uma abordagem notável dentro desse contexto é a utilização do paradigma de i
 |----- | ----- | -----|
 |BNCI2014_001| https://encurtador.com.br/lpsAK| Dados de EEG de 9 indivíduos, adquiridos por meio 22 eletrodos dispostos no escalpo de cada indivíduo, durante o experimento de realização de 4 movimentos diferentes. 
 
-A base de dados utilizada no projeto estava no formato `braindecode.datasets.moabb.MOABBDataset`, que é o padrão da toolboox [Braindecode](https://braindecode.org/stable/index.html), disponível em Python. Antes dos experimentos foi feito o pré-processamento dos dados usando a biblioteca ['braindecode.preprocessing.Preprocessor'](https://braindecode.org/stable/generated/braindecode.preprocessing.Preprocessor.html#braindecode.preprocessing.Preprocessor), que  aplica a função de pré-processamento fornecida como parâmetro aos dados brutos. 
+<!---
 
-A primeira transformação realizada foi a mudança de escala dos dados, que estavam em Volts (V) para microVolts (uV). Em seguida foi feito uma reamostragem para 100 Hz e uma filtragem utilizando um filtro passa-faixa com frequências de corte de 4 e 38 Hz, para eliminar frequências irrelevantes, por exemplo 60 Hz oriunda da rede elétrica. Além disso, foi utilizado um filtro CAR - [Common Average Reference](https://pressrelease.brainproducts.com/referencing/#:~:text=When%20applying%20the%20so%2Dcalled,resulting%20signal%20from%20each%20channel.) - para remover os ruídos internos e externos da aquisição. Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes, mas também para reduzir a quantidade de amostras  processadas pelo o algoritmo, reduzindo também o tempo de processamento. Dentre os 22 eletrodos, foram selecionados apenas os 'C3', 'Cz', 'C4', pois estes estão localizados na região do córtex motor do cérebro, aonde os sinais cerebrais referentes á movimentação são mais evidentes. 
+> Faça uma descrição sobre o que concluiu sobre esta base. Sugere-se que respondam perguntas ou forneçam informações indicadas a seguir:
+>
+> 
+> * Qual o formato dessa base, tamanho, tipo de anotação? 
+-->
 
-## Estatísticas descritivas da base de estudo:
-A tabela a seguir mostra as estatísticas descritivas da base de estudo, em que Q1 e Q3 são os quartis.  
+ A base de dados utilizada possui formato "braindecode.datasets.moabb.MOABBDataset", que é o formato padrão da toolboox Braindecode.  O [Braindecode](https://braindecode.org/stable/index.html) é uma biblioteca open-source em Python usada decodificar dados brutos de EEG, ECoG e MEG, contendo funções como dataset fetchers, ferramentas de pre-processamento e visualização de dados, além de algumas arquiteturas de aprendizado profundo.
+
+ Em seu formato original, para apenas um indivíduo, a base possui 12 runs, sendo seis runs de treinamento e seis de validação. Uma run contém dados de EEG totalizando 6:27 minutos, coletados através de 22 eletrodos com frequências entre 0 Hz e 125 Hz, e amostragem de 250 Hz (ou seja, 250 amostras por segundo). No formato tensorial, uma run pode ser descrita como uma matriz de (96750 x 22), onde as linhas são as medições dos eletrodos e as colunas os eletrodos.
+
+<!---
+> * Quais as transformações e tratamentos feitos? Limpeza, reanotação, etc.
+your comment goes here
+and here
+-->
+
+As transformações foram feitas usando a biblioteca 'braindecode.preprocessing.Preprocessor', que  aplica a função de pré-processamento fornecida aos dados brutos. 
+
+A primeira transformação realizada foi a mudança de escala dos dados, que estavam em Volts (V) para microVolts (μV). Em seguida foi feito uma reamostragem para 100 Hz e uma filtragem utilizando um filtro passa-faixa com frequências de corte de 4 e 38 Hz, para eliminar frequências irrelevantes, por exemplo  60 Hz oriunda da rede elétrica. Além disso, foi utilizado um filtro CAR - [Common Average Reference](https://pressrelease.brainproducts.com/referencing/#:~:text=When%20applying%20the%20so%2Dcalled,resulting%20signal%20from%20each%20channel.) - para remover os ruídos internos e externos da aquisição. 
+
+Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes e reduzir a quantidade de amostras processadas pelo o algoritmo, melhorando também o tempo de processamento.
+
+Dentre os 22 eletrodos, foram selecionados 'C3', 'Cz', 'C4', pois estes estão localizados na região do córtex motor do cérebro, onde os sinais cerebrais referentes á movimentação são mais evidentes. 
+
+<!---
+> * Inclua um sumário com estatísticas descritivas da(s) base(s) de estudo.
+-->
+
+A tabela a seguir mostra as estatísticas descritivas da base de estudo após o pré-processamento, sendo Q1 o primeiro quartil e Q3 o terceiro quartil.  
 
 | ch  | name  | type | unit | min           | Q1          | median  | Q3          | max          |
 |----:|-------|------|------|--------------:|------------:|--------:|------------:|------------:|
@@ -70,18 +95,26 @@ A tabela a seguir mostra as estatísticas descritivas da base de estudo, em que 
 |  20 | P2    | EEG  | µV   | -30192611.43  | -2272931.93 |   255.07 | 2316270.46  | 18435264.58 |
 |  21 | POz   | EEG  | µV   | -36473536.55  | -3385989.48 | -12468.79 | 3385965.87  | 29828793.42 |
 
-## Aspectos principais da base elevantes para o projeto:
 
-As informações relevantes da base de dados usadas para o projeto foram: *(colocar o plot do sinal dos 3 eletrodos)*
+<!---
+> * Utilize tabelas e/ou gráficos que descrevam os aspectos principais da base que são relevantes para o projeto.
+> -->
+
+![Windows Singals](./figure/example_windows_eeg_signals.png)
+
+As informações relevantes da base de dados usadas para o projeto foram: 
+(colocar o plot do sinal dos 3 eletrodos)
 Informações  | Descrição
 --------- | ------
 Eletrodos | 'C3', 'Cz', 'C4'
-Janelas | Nº de Janleas: 96, Janelas/classe: 24
+Janelas | Nº de Janleas: 96
+Janelas/classe| 24
 
 
-## Workflow
 
-![Workflow](./figure/workflow.png) Figura 01 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica.
+## workflow
+
+![Workflow](./figure/workflow.png)Figura 01 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica.
 
 ### Criação de ruído
 O ruído para o treinamento do gerador foi criado usando xxxx. Além do ruído representando o sinal EEG (4,64), também é criado a label para este sinal (4,4). Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador (68,4) e por fim, uma conversão para transformar o sinal EEG (4,68,1,1). Este é o sinal ruído passado para o treinamento do gerador.
