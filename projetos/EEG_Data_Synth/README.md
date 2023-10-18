@@ -96,10 +96,78 @@ Eletrodos | 'C3', 'Cz', 'C4'
 Janelas | Nº de Janleas: 96, Janelas/classe: 24
 
 
-### Workflow
-> Use uma ferramenta que permita desenhar o workflow e salvá-lo como uma imagem (Draw.io, por exemplo). Insira a imagem nessa seção.
-> Você pode optar por usar um gerenciador de workflow (Sacred, Pachyderm, etc) e nesse caso use o gerenciador para gerar uma figura para você.
-> Lembre-se que o objetivo de desenhar o workflow é ajudar a quem quiser reproduzir seus experimentos. 
+## workflow
+
+![Workflow](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/figure/workflow.png)*Figura 01 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica.
+
+### Criação de ruído
+O ruído para o treinamento do gerador foi criado usando xxxx. Além do ruído representando o sinal EEG (4,64), também é criado a label para este sinal (4,4). Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador (68,4) e por fim, uma conversão para transformar o sinal EEG (4,68,1,1). Este é o sinal ruído passado para o treinamento do gerador.
+
+### Rede generativa
+A rede generativa possui 4 camadas convolucionais, que recebe o sinal ruído e gera um sinal EEG de (4,1,3,400). As operações utilizados para obter a saída adequada foram stride e pooling. 
+
+### Rede discriminativa
+A rede discriminativa recebe como entrada um sinal EEG para o classificar em real ou fake. Note que este rede recebe como entrada o sinal real ou o sinal fake. Esta rede possui 2 camada convolucionais que realiza operações para obter uma saída (1,1).
+
+### Configuração de treinamento da GAN
+
+## Métricas de avaliação
+### Classificador
+Implementamos um [cassificador](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb) para classificar as classes dos dados reais e dados sintéticos. A estrutura e parametros do classificador é mostrada na tabela abaixo.
+
+| camada   |tipo de camada | tamanho do kernel | Stride| padding|
+|:--------:|:-------------:|:-----------------:|:-----:|:------:| 
+|  conv1   | Conv2d        |(1, 400)           |(1, 1) |-
+|batchnorm1|BatchNorm2d    | -                 | -     | -
+| tconv2d1 |ConvTranspose2d|(118, 1)           | (1, 1)| -
+| padding1 | ZeroPad2d     | -                 | -     |-
+|  conv2   | Conv2d        |(2, 2)             |(1, 1) |-
+|batchnorm2|BatchNorm2d    | -                 | -     | -
+| pooling2 | MaxPool2d     |2                  | 1     |0
+| padding2 | ZeroPad2d     |-                  | -     |-
+|  conv3   | Conv2d        |(8, 4)             |(1, 1) |-
+|batchnorm3|BatchNorm2d    | -                 | -     | -
+| pooling3 | MaxPool2d     |2                  | 1     |0
+| fc1      | -             |-                  | -     |-
+
+### Divergencia de Jensen Shannon (JS)
+A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para sua [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
+
+# Resultados Preliminares
+
+## Classificador
+Utilizamos o classificador da seguinte forma: treinamento apenas dos dados reias; treinamento utilizando os dados reais e dados sintéticos. A tabela abaixo resume os resultados obtidos.
+
+| Dados    |Learning rate | batch_size | Acurácia| 
+|:--------:|:------------:|:----------:|:-------:|
+| Reais    | 1e-05        |16          |0.448    |
+|          |1e-05         |64          |0.448    | 
+|          |1e-05         |256         |0.402    | 
+|          |0.0001        | 16         |0.483    |
+|          |0.0001        |64          |0.454    |
+|          |0.0001        |256         |0.48     |
+|          |0.001         |16          |0.471    |
+|          |0.001         |64          |0.46     |
+|          | 0.001        |256         |0.451    |
+| Reais e fake   | 1e-05        |16          |0.337    |
+|                |1e-05         |64          |0.327    | 
+|                |1e-05         |256         |0.301    | 
+|                |0.0001        | 16         |0.325    |
+|                |0.0001        |64          |0.344    |
+|                |0.0001        |256         |0.337     |
+|                |0.001         |16          |0.334    |
+|                |0.001         |64          |0.342     |
+|                | 0.001        |256         |0.382    |
+
+## Métrica JS
+Foi calculada a divergencia de JS entre o dados reais e gerados pela rede generativa. A comparação foi feita para cada classe: pé, mão esqueda, mão direita e língua e para cada canal: C1, Cz e C4. O conjunto de dados reais possui 288 dados de cada classe e para cada canal, logo para o calculo desta métrica, foi gerada a mesma quantidade de dados, permitindo o calculo. Observe que os resultados foram bons, o que não era espqerado, pois nosso modelo não apresentou bons resultados durante o treinamento. Esses resultados mostram grande semelhança entre os dados reais e os gerados pelo rede uma vez que estão mais proximo de 0. Note que para cada canal os resultados da label são bastante semelhantes entre as classes. 
+
+|                       |        |         |**Label**|       |
+|:---------------------:|:------:|:-------:|:-----:|:-------:|
+|  **Canal**            | feet   |left hand|right hand|tongue|
+|   C1                  | 0.200  | 0.199   | 0.197 | 0.200  | 
+| Cz                    | 0.024  | 0.025  | 0.024 |  0.027  | 
+| C4                    | 0.218  | 0.217   | 0.216 | 0.218  |
 
 ## Experimentos, Resultados e Discussão dos Resultados
 
