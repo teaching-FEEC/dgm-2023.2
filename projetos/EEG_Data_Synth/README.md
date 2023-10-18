@@ -38,27 +38,11 @@ Uma abordagem notável dentro desse contexto é a utilização do paradigma de i
 |----- | ----- | -----|
 |BNCI2014_001| https://encurtador.com.br/lpsAK| Dados de EEG de 9 indivíduos, adquiridos por meio 22 eletrodos dispostos no escalpo de cada indivíduo, durante o experimento de realização de 4 movimentos diferentes. 
 
-> Faça uma descrição sobre o que concluiu sobre esta base. Sugere-se que respondam perguntas ou forneçam informações indicadas a seguir:
->
-> 
-> * Qual o formato dessa base, tamanho, tipo de anotação? 
+A base de dados utilizada no projeto estava no formato `braindecode.datasets.moabb.MOABBDataset`, que é o padrão da toolboox [Braindecode](https://braindecode.org/stable/index.html), disponível em Python. Antes dos experimentos foi feito o pré-processamento dos dados usando a biblioteca ['braindecode.preprocessing.Preprocessor'](https://braindecode.org/stable/generated/braindecode.preprocessing.Preprocessor.html#braindecode.preprocessing.Preprocessor), que  aplica a função de pré-processamento fornecida como parâmetro aos dados brutos. 
 
- A base de dados utilizada estava em um formato "braindecode.datasets.moabb.MOABBDataset", que é o formato padrão da toolboox Braindecode, disponível em Python.  O [Braindecode](https://braindecode.org/stable/index.html) é uma fonte de dados abertos que contém informações sobre os sinais eletrofisiológicos do cérebro humano que podem ser usados em modelos de aprendizado profundo de máquina. 
+A primeira transformação realizada foi a mudança de escala dos dados, que estavam em Volts (V) para microVolts (uV). Em seguida foi feito uma reamostragem para 100 Hz e uma filtragem utilizando um filtro passa-faixa com frequências de corte de 4 e 38 Hz, para eliminar frequências irrelevantes, por exemplo 60 Hz oriunda da rede elétrica. Além disso, foi utilizado um filtro CAR - [Common Average Reference](https://pressrelease.brainproducts.com/referencing/#:~:text=When%20applying%20the%20so%2Dcalled,resulting%20signal%20from%20each%20channel.) - para remover os ruídos internos e externos da aquisição. Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes, mas também para reduzir a quantidade de amostras  processadas pelo o algoritmo, reduzindo também o tempo de processamento. Dentre os 22 eletrodos, foram selecionados apenas os 'C3', 'Cz', 'C4', pois estes estão localizados na região do córtex motor do cérebro, aonde os sinais cerebrais referentes á movimentação são mais evidentes. 
 
-
-> * Quais as transformações e tratamentos feitos? Limpeza, reanotação, etc.
-
-As transformações foram feitas usando a biblioteca 'braindecode.preprocessing.Preprocessor', que  aplica a função de pré-processamento fornecida aos dados brutos. 
-
-A primeira transformação realizada foi a mudança de escala dos dados, que estavam em Volts (V) para microVolts (uV). Em seguida foi feito uma reamostragem para 100 Hz e uma filtragem utilizando um filtro passa-faixa com frequências de corte de 4 e 38 Hz, para eliminar frequências irrelevantes, por exemplo  60 Hz oriunda da rede elétrica. Além disso, foi utilizado um filtro CAR - [Common Average Reference](https://pressrelease.brainproducts.com/referencing/#:~:text=When%20applying%20the%20so%2Dcalled,resulting%20signal%20from%20each%20channel.) - para remover os ruídos internos e externos da aquisição. 
-
-Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes, mas também para reduzir a quantidade de amostras  processadas pelo o algoritmo, reduzindo também o tempo de processamento.
-
-Dentre os 22 eletrodos, foram selecionados apenas  
-os 'C3', 'Cz', 'C4', pois estes estão localizados na região do córtex motor do cérebro, aonde os sinais cerebrais referentes á movimentação são mais evidentes. 
-
-> * Inclua um sumário com estatísticas descritivas da(s) base(s) de estudo.
-
+## Estatísticas descritivas da base de estudo:
 A tabela a seguir mostra as estatísticas descritivas da base de estudo, em que Q1 e Q3 são os quartis.  
 
 | ch  | name  | type | unit | min           | Q1          | median  | Q3          | max          |
@@ -86,10 +70,9 @@ A tabela a seguir mostra as estatísticas descritivas da base de estudo, em que 
 |  20 | P2    | EEG  | µV   | -30192611.43  | -2272931.93 |   255.07 | 2316270.46  | 18435264.58 |
 |  21 | POz   | EEG  | µV   | -36473536.55  | -3385989.48 | -12468.79 | 3385965.87  | 29828793.42 |
 
-> * Utilize tabelas e/ou gráficos que descrevam os aspectos principais da base que são relevantes para o projeto.
+## Aspectos principais da base elevantes para o projeto:
 
-As informações relevantes da base de dados usadas para o projeto foram: 
-(colocar o plot do sinal dos 3 eletrodos)
+As informações relevantes da base de dados usadas para o projeto foram: *(colocar o plot do sinal dos 3 eletrodos)*
 Informações  | Descrição
 --------- | ------
 Eletrodos | 'C3', 'Cz', 'C4'
