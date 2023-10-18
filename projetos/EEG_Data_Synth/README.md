@@ -98,7 +98,7 @@ Janelas | Nº de Janleas: 96, Janelas/classe: 24
 
 ## workflow
 
-![Workflow](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/figure/workflow.png)*Figura 01 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica.
+![Workflow](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/figure/workflow.png) Figura 01 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica.
 
 ### Criação de ruído
 O ruído para o treinamento do gerador foi criado usando xxxx. Além do ruído representando o sinal EEG (4,64), também é criado a label para este sinal (4,4). Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador (68,4) e por fim, uma conversão para transformar o sinal EEG (4,68,1,1). Este é o sinal ruído passado para o treinamento do gerador.
