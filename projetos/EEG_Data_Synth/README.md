@@ -1,3 +1,17 @@
+<!--
+Some HTML functions for simplicity of writing readme.md
+-->
+<style>
+    /* initialise the counter */
+    body { counter-reset: figureCounter; }
+    /* increment the counter for every instance of a figure even if it doesn't have a caption */
+    figure { counter-increment: figureCounter; }
+    /* prepend the counter to the figcaption content */
+    figure figcaption:before {
+        content: "Figura " counter(figureCounter) ": "
+    }
+</style>
+
 # Estudo de Caso: Síntese de Dados de EEG utilizando Redes Generativas Adversárias
 # Case Study: EEG Data Synthesis through Generative Adversarial Networks
 
@@ -100,30 +114,71 @@ A tabela a seguir mostra as estatísticas descritivas da base de estudo após o 
 > * Utilize tabelas e/ou gráficos que descrevam os aspectos principais da base que são relevantes para o projeto.
 > -->
 
-![Windows Singals](./figure/example_windows_eeg_signals.png)
+<figure id="Windows-Singals">
+	<img src="./figure/example_windows_eeg_signals.png" alt="Windows-Singals">
+	<figcaption>Exemplos de sinais de EEG dos eletrodos C3, C4 e Cz para diferentes classes de movimento.</figcaption>
+</figure>
 
-As informações relevantes da base de dados usadas para o projeto foram: 
-(colocar o plot do sinal dos 3 eletrodos)
+
+As informações relevantes da base de dados usadas para o projeto são:
+
 Informações  | Descrição
 --------- | ------
 Eletrodos | 'C3', 'Cz', 'C4'
+Runs | 12
 Janelas | Nº de Janleas: 96
 Janelas/classe| 24
+Classes | 'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3
+Tempo por Janela | 4s
+Amostras por Janela | 400
 
 
+## Workflow
 
-## workflow
+<figure id="Workflow">
+	<img src="./figure/workflow.png" alt="Workflow">
+	<figcaption> Workflow da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (n_amostras,68,1,1) e retorna dados sintéticos de dimensão (n_amostras,1,3,400). O discriminador possui duas camadas convolucionais para classificação dados em reais ou falsos. Na figura, utilizou-se n_amostras = 4.</figcaption>
+</figure>
 
-![Workflow](./figure/workflow.png)Figura 01 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica.
+<!-- ![Workflow](./figure/workflow.png)Figura 02 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica. -->
 
 ### Criação de ruído
-O ruído para o treinamento do gerador foi criado usando xxxx. Além do ruído representando o sinal EEG (4,64), também é criado a label para este sinal (4,4). Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador (68,4) e por fim, uma conversão para transformar o sinal EEG (4,68,1,1). Este é o sinal ruído passado para o treinamento do gerador.
+O ruído para o treinamento do gerador foi criado pela amostragem de dados aleatórios de uma distribuição normal, utilizando a função `torch.randn`. Além do ruído representando o sinal EEG `(n_amostras,64)`, também é criado a label para este sinal `(n_amostras,4)`. Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador `(n_amostras, 68)` e por fim, uma conversão para transformar o ruído no formato tensorial dos dados de EEG `(n_amostras,68,1,1)`. Este é o sinal ruído passado para o treinamento do gerador.
 
 ### Rede generativa
-A rede generativa possui 4 camadas convolucionais, que recebe o sinal ruído e gera um sinal EEG de (4,1,3,400). As operações utilizados para obter a saída adequada foram stride e pooling. 
+A rede generativa possui quatro camadas convolucionais, que recebe o sinal de ruído de dimensão `(n_amostras,68,1,1)` e gera um sinal fake de EEG de dimensão `(n_amostras,1,3,400)`. As três primeiras camadas realizam as operações:
+
+```python
+    nn.ConvTranspose2d(input_channels, output_channels, kernel_size = (1,60), stride = (1,1)),
+    nn.BatchNorm2d(output_channels),
+    nn.ReLU(inplace=True)
+```
+
+A última camada realiza uma convolução transposta acompanhada de uma função de ativação Tanh:
+
+```python
+    nn.ConvTranspose2d(input_channels, output_channels, kernel_size = (3,50), stride = (1,2), padding = (0,2)),
+    nn.Tanh()
+```
 
 ### Rede discriminativa
-A rede discriminativa recebe como entrada um sinal EEG para o classificar em real ou fake. Note que este rede recebe como entrada o sinal real ou o sinal fake. Esta rede possui 2 camada convolucionais que realiza operações para obter uma saída (1,1).
+A rede discriminativa classifica os dados de entrada como reais ou falsos. Ela recebe como entrada um tensor do sinal de EEG concatenado com os labels de cada amostra, produzindo um tensor de dimensão `(n_amostras,5,3,400)`. Esta rede possui três camadas convolucionais que realizam as seguintes operações:
+
+```python
+    # Layer 1
+    nn.Conv2d(5, 64,  kernel_size = (1,50), stride = (2,4)),
+    nn.BatchNorm2d(64),
+    nn.LeakyReLU(0.2, inplace=True)
+
+    # Layer 2
+    nn.Conv2d(64, 128,  kernel_size = (1,50), stride = (2,4)),
+    nn.BatchNorm2d(128),
+    nn.LeakyReLU(0.2, inplace=True)
+
+    # Layer 3
+    nn.Conv2d(128, 1, kernel_size = (1,10), stride = (2,1)),
+
+```
 
 ### Configuração de treinamento da GAN
 
