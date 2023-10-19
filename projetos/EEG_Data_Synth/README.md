@@ -142,6 +142,9 @@ Amostras por Janela | 400
 
 <!-- ![Workflow](./figure/workflow.png)Figura 02 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica. -->
 
+A arquitetura da CGAN pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/MyGAN.py).
+
+
 ### Criação de ruído
 O ruído para o treinamento do gerador foi criado pela amostragem de dados aleatórios de uma distribuição normal, utilizando a função `torch.randn`. Além do ruído representando o sinal EEG `(n_amostras,64)`, também é criado a label para este sinal `(n_amostras,4)`. Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador `(n_amostras, 68)` e por fim, uma conversão para transformar o ruído no formato tensorial dos dados de EEG `(n_amostras,68,1,1)`. Este é o sinal ruído passado para o treinamento do gerador.
 
@@ -182,9 +185,56 @@ A rede discriminativa classifica os dados de entrada como reais ou falsos. Ela r
 
 ### Configuração de treinamento da GAN
 
+O treinamento da GAN foi feito com os dados EEG do primeiro indivíduo do dataset, utilizando todas as 12 runs (treino + validação). Os eletrodos selecionados foram C3, C4 e Cz, e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador, e com as imagens (reais e falsas) na entrada do classificador.
+
+Nesta primeira abordagem, as configurações de treinamento da rede e o algoritmo de treinamento são mostrados a seguir:
+
+| Parâmetros | Input | 
+|:---------:|:-----:|
+|Número de épocas|1200|
+|Dimensão do ruído|64|
+|Tamanho do batch| 16|
+|Learning Rate| 1e-5|
+|Loss Function|`nn.BCEWithLogitsLoss`|
+
+
+### Algoritmo de Treinamento da CGAN
+
+#### Passo 1: Inicialização
+- Para cada época no número total de épocas (n_epochs):
+  - Para cada lote de imagens reais e suas labels no conjunto de dados:
+    - Converta as imagens reais em tensores e mova para o dispositivo de processamento (GPU).
+
+#### Passo 2: Atualizar o Discriminador
+- Zere os gradientes do discriminador.
+- Gere dados EEG falsos usando o gerador:
+  - Combine os vetores de ruído falsos com as labels one-hot correspondentes.
+  - Gere os dados EEG falsos condicionados.
+- Obtenha as previsões do discriminador para dados falsos e reais:
+  - Crie a entrada para o discriminador:
+    - Combine as imagens falsas com labels one-hot e desconecte o gerador para não retropropagar.
+    - Combine as imagens reais com labels one-hot.
+  - Obtenha a previsão do discriminador para os dados falsos.
+  - Obtenha a previsão do discriminador para os dados reais.
+- Calcule as perdas do discriminador:
+  - Calcule a perda para dados falsos usando uma função de perda que compara as previsões com um vetor de zeros.
+  - Calcule a perda para dados reais usando a mesma função de perda, comparando as previsões com um vetor de uns.
+- Calcule a perda total do discriminador como a média das perdas para dados falsos e reais dividida por dois.
+- Realize a retropropagação das perdas e atualize os gradientes do discriminador.
+- Armazene a perda média do discriminador na lista de perdas do discriminador.
+
+#### Passo 3: Atualizar o Gerador
+- Zere os gradientes do gerador.
+- Crie novamente a entrada para o discriminador usando os dados EEG falsos gerados e as labels one-hot.
+- Obtenha as previsões do discriminador para os dados EEG falsos gerados.
+- Calcule a perda do gerador (gen_loss) usando a função de perda que compara as previsões com um vetor de uns (indicando que os dados falsos devem parecer reais).
+- Realize a retropropagação da perda e atualize os gradientes do gerador.
+
+
 ## Métricas de avaliação
+
 ### Classificador
-Implementamos um [cassificador](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb) para classificar as classes dos dados reais e dados sintéticos. A estrutura e parametros do classificador é mostrada na tabela abaixo.
+Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Class.ipynb) para classificar as labels dos dados de EEG. A estrutura e parametros do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024) é mostrada na tabela abaixo.
 
 | camada   |tipo de camada | tamanho do kernel | Stride| padding|
 |:--------:|:-------------:|:-----------------:|:-----:|:------:| 
@@ -201,13 +251,25 @@ Implementamos um [cassificador](https://github.com/jbarbon/dgm-2023.2/tree/main/
 | pooling3 | MaxPool2d     |2                  | 1     |0
 | fc1      | -             |-                  | -     |-
 
+Inicialmente, treina-se o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da CGAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos do paradigma cérebro-computador. 
+
 ### Divergencia de Jensen Shannon (JS)
-A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para sua [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
+A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
 
 # Resultados Preliminares
+### Curvas de Loss da GAN
+
+Ao final do treinamento da CGAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas. A figura abaixo ilustra o comportamento observado, com o discriminador convergindo para valores de perda muito próximos de zero, e o gerador divergindo para valores de perda muito grandes, ambos resultados indesejáveis no treinamento. Idealmente, deseja-se que o discriminador tenha uma convergência para 0.5, e o gerador não apresente divergência.
+
+
+<figure id="gan_train">
+	<img src="./figure/disc_gen_loss.png" alt="gan_train">
+	<figcaption> Curvas de perda do discriminador e do gerador em função das épocas de treinamento.</figcaption>
+</figure>
+
 
 ## Classificador
-Utilizamos o classificador da seguinte forma: treinamento apenas dos dados reias; treinamento utilizando os dados reais e dados sintéticos. A tabela abaixo resume os resultados obtidos.
+A comparação do classificador para os dados reais e reais + dados sintéticos são mostrados n tabela abaixo.
 
 | Dados    |Learning rate | batch_size | Acurácia| 
 |:--------:|:------------:|:----------:|:-------:|
@@ -229,6 +291,8 @@ Utilizamos o classificador da seguinte forma: treinamento apenas dos dados reias
 |                |0.001         |16          |0.334    |
 |                |0.001         |64          |0.342     |
 |                | 0.001        |256         |0.382    |
+
+Nota-se que a adição 
 
 ## Métrica JS
 Foi calculada a divergencia de JS entre o dados reais e gerados pela rede generativa. A comparação foi feita para cada classe: pé, mão esqueda, mão direita e língua e para cada canal: C1, Cz e C4. O conjunto de dados reais possui 288 dados de cada classe e para cada canal, logo para o calculo desta métrica, foi gerada a mesma quantidade de dados, permitindo o calculo. Observe que os resultados foram bons, o que não era espqerado, pois nosso modelo não apresentou bons resultados durante o treinamento. Esses resultados mostram grande semelhança entre os dados reais e os gerados pelo rede uma vez que estão mais proximo de 0. Note que para cada canal os resultados da label são bastante semelhantes entre as classes. 
