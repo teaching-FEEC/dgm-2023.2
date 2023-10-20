@@ -142,7 +142,7 @@ Amostras por Janela | 400
 
 <!-- ![Workflow](./figure/workflow.png)Figura 02 - linha de base da proposta de geração de dados sintéticos: A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (4,68,1,1) e retorna dados sintéticos de dimensão (4,1,3,400), o discriminador tem duas camadas convolucionais classifica dados reais e gerados pela rede generatica. -->
 
-A arquitetura da CGAN pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/MyGAN.py).
+A arquitetura da CGAN utilizada neste trabalho pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/MyGAN.py).
 
 
 ### Criação de ruído
@@ -234,7 +234,7 @@ Nesta primeira abordagem, as configurações de treinamento da rede e o algoritm
 ## Métricas de avaliação
 
 ### Classificador
-Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Class.ipynb) para classificar as labels dos dados de EEG. A estrutura e parametros do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024) é mostrada na tabela abaixo.
+Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Class.ipynb) para classificar as labels dos dados de EEG. A estrutura e parametros do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024),e é mostrada na tabela abaixo.
 
 | camada   |tipo de camada | tamanho do kernel | Stride| padding|
 |:--------:|:-------------:|:-----------------:|:-----:|:------:| 
@@ -251,13 +251,18 @@ Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/mai
 | pooling3 | MaxPool2d     |2                  | 1     |0
 | fc1      | -             |-                  | -     |-
 
-Inicialmente, treina-se o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da CGAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos do paradigma cérebro-computador. 
+Inicialmente, treina-se o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da CGAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos para este paradigma cérebro-computador. 
 
 ### Divergencia de Jensen Shannon (JS)
-A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
+<!-- A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb). -->
+
+A divergência de Jensen-Shannon é um método de medir a similaridade entre duas distribuições de probabilidade. Também é conhecida como raio de informação ou divergência total em relação à média. Ela é baseada na divergência de Kullback-Leibler, simétrica e sempre com um valor finito. A raiz quadrada da divergência de Jensen-Shannon é referida como a distância de Jensen-Shannon.
+
+A fórmula para calcular a divergência de Jensen-Shannon é uma combinação ponderada das divergências de Kullback-Leibler entre as distribuições de probabilidade de interesse e sua média. Isso resulta em uma medida que captura tanto as semelhanças quanto as diferenças entre as distribuições, tornando-a uma métrica valiosa para tarefas de classificação, clusterização e recuperação de informações. A implementação utilizada neste trabalho pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
+
 
 # Resultados Preliminares
-### Curvas de Loss da GAN
+### Curvas de Loss da CGAN
 
 Ao final do treinamento da CGAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas. A figura abaixo ilustra o comportamento observado, com o discriminador convergindo para valores de perda muito próximos de zero, e o gerador divergindo para valores de perda muito grandes, ambos resultados indesejáveis no treinamento. Idealmente, deseja-se que o discriminador tenha uma convergência para 0.5, e o gerador não apresente divergência.
 
@@ -269,30 +274,30 @@ Ao final do treinamento da CGAN, gerou-se um gráfico exibindo as curvas de perd
 
 
 ## Classificador
-A comparação do classificador para os dados reais e reais + dados sintéticos são mostrados n tabela abaixo.
+A comparação do classificador para os dados reais e reais com dados sintéticos são mostrados n tabela abaixo. Nota-se que a adição dos dados falsos aos dados reais não gerou o resultado desejado, diminuindo o a acurácia total do experimento. Este resultado foi esperado, pois no treinamento da CGAN, as losses do discriminador e gerador não convergiram para os valores pretendidos, levando a geração de dados não representativos ao conjunto de dados reais.
 
 | Dados    |Learning rate | batch_size | Acurácia| 
 |:--------:|:------------:|:----------:|:-------:|
-| Reais    | 1e-05        |16          |0.448    |
+| Reais    | 1e-05        |16          |0.448     |
 |          |1e-05         |64          |0.448    | 
-|          |1e-05         |256         |0.402    | 
-|          |0.0001        | 16         |0.483    |
+|         |1e-05         |256         |0.402    | 
+|          |0.0001        | 16         |**0.483**   |
 |          |0.0001        |64          |0.454    |
-|          |0.0001        |256         |0.48     |
+|          |0.0001        |256         |0.48   |
 |          |0.001         |16          |0.471    |
 |          |0.001         |64          |0.46     |
 |          | 0.001        |256         |0.451    |
-| Reais e fake   | 1e-05        |16          |0.337    |
+| Reais + fake   | 1e-05        |16          |0.337    |
 |                |1e-05         |64          |0.327    | 
 |                |1e-05         |256         |0.301    | 
 |                |0.0001        | 16         |0.325    |
 |                |0.0001        |64          |0.344    |
-|                |0.0001        |256         |0.337     |
+|                |0.0001        |256         |0.337    |
 |                |0.001         |16          |0.334    |
 |                |0.001         |64          |0.342     |
-|                | 0.001        |256         |0.382    |
+|                | 0.001        |256         |**0.382** |
 
-Nota-se que a adição 
+
 
 ## Métrica JS
 Foi calculada a divergencia de JS entre o dados reais e gerados pela rede generativa. A comparação foi feita para cada classe: pé, mão esqueda, mão direita e língua e para cada canal: C1, Cz e C4. O conjunto de dados reais possui 288 dados de cada classe e para cada canal, logo para o calculo desta métrica, foi gerada a mesma quantidade de dados, permitindo o calculo. Observe que os resultados foram bons, o que não era espqerado, pois nosso modelo não apresentou bons resultados durante o treinamento. Esses resultados mostram grande semelhança entre os dados reais e os gerados pelo rede uma vez que estão mais proximo de 0. Note que para cada canal os resultados da label são bastante semelhantes entre as classes. 
