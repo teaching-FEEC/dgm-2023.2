@@ -276,18 +276,17 @@ Ao final do treinamento da CGAN, gerou-se um gráfico exibindo as curvas de perd
 ## Classificador
 A comparação do classificador para os dados reais e reais com dados sintéticos são mostrados n tabela abaixo. Nota-se que a adição dos dados falsos aos dados reais não gerou o resultado desejado, diminuindo o a acurácia total do experimento. Este resultado foi esperado, pois no treinamento da CGAN, as losses do discriminador e gerador não convergiram para os valores pretendidos, levando a geração de dados não representativos ao conjunto de dados reais.
 
-| Learning rate| batch_size |      |  Acurácia |                   | 
-|:------------:|:----------:|:-----------:|:--:|:-----------------:|
-|              |            | Dados Reais |    | Dados Reais e fake|
-| 1e-05        |16          |0.448        |    | 0.337             | 
-|1e-05         |64          |0.448        |    |  0.327            | 
-|1e-05         |256         |0.402        |    | 0.301             |
-|0.0001        | 16         |**0.483**    |    | 0.325             |
-|0.0001        |64          |0.454        |    | 0.344             |
-|0.0001        |256         |0.48         |    | 0.337             |
-|0.001         |16          |0.471        |    | 0.334             |
-|0.001         |64          |0.46         |    | 0.342             |
-| 0.001        |256         |0.451        |    | **0.382**         |
+| Learning rate| batch_size | Acurácia (dados reais) |  Acurácia (dados Reais e fake)|
+|:------------:|:----------:|:-----------:|:---------:|
+| 1e-05        |16          |0.448        | 0.337     | 
+|1e-05         |64          |0.448        |  0.327    | 
+|1e-05         |256         |0.402        |  0.301    |
+|0.0001        | 16         |**0.483**    |  0.325    |
+|0.0001        |64          |0.454        |  0.344    |
+|0.0001        |256         |0.48         |  0.337    |
+|0.001         |16          |0.471        |  0.334    |
+|0.001         |64          |0.46         | 0.342     |
+| 0.001        |256         |0.451        | **0.382** |
 
 ## Métrica JS
 Foi calculada a divergencia de JS entre o dados reais e gerados pela rede generativa. A comparação foi feita para cada classe: pé, mão esqueda, mão direita e língua e para cada canal: C1, Cz e C4. O conjunto de dados reais possui 288 dados de cada classe e para cada canal, logo para o calculo desta métrica, foi gerada a mesma quantidade de dados, permitindo o calculo. Observe que os resultados foram bons, o que não era espqerado, pois nosso modelo não apresentou bons resultados durante o treinamento. Esses resultados mostram grande semelhança entre os dados reais e os gerados pelo rede uma vez que estão mais proximo de 0. Note que para cada canal os resultados da label são bastante semelhantes entre as classes. 
