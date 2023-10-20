@@ -1,4 +1,21 @@
 
+
+<!--
+Some HTML functions for simplicity of writing readme.md
+-->
+
+<style>
+    /* initialise the counter */
+    body { counter-reset: figureCounter; }
+    /* increment the counter for every instance of a figure even if it doesn't have a caption */
+    figure { counter-increment: figureCounter; }
+    /* prepend the counter to the figcaption content */
+    figure figcaption:before {
+        content: "Figura " counter(figureCounter) ": "
+    }
+</style>
+
+
 # Estudo de Caso: Síntese de Dados de EEG utilizando Redes Generativas Adversárias
 # Case Study: EEG Data Synthesis through Generative Adversarial Networks
 
@@ -380,17 +397,3 @@ Caso a CGAN continue sem produzir resultados satisfatórios, uma opção alterna
   
   Paper: (https://ieeexplore.ieee.org/document/6046114)
 
-
-<!--
-Some HTML functions for simplicity of writing readme.md
--->
-<style>
-    /* initialise the counter */
-    body { counter-reset: figureCounter; }
-    /* increment the counter for every instance of a figure even if it doesn't have a caption */
-    figure { counter-increment: figureCounter; }
-    /* prepend the counter to the figcaption content */
-    figure figcaption:before {
-        content: "Figura " counter(figureCounter) ": "
-    }
-</style>
