@@ -294,9 +294,9 @@ Foi calculada a divergencia de JS entre o dados reais e gerados pela rede genera
 |                       |        |         |**Label**|       |
 |:---------------------:|:------:|:-------:|:-----:|:-------:|
 |  **Canal**            | feet   |left hand|right hand|tongue|
-|   C1                  | 0.200  | 0.199   | 0.197 | 0.200  | 
-| Cz                    | 0.024  | 0.025  | 0.024 |  0.027  | 
-| C4                    | 0.218  | 0.217   | 0.216 | 0.218  |
+|   C3                  | 0.478  | 0.636   | 0.447 | 0.797  | 
+| Cz                    | 0.403  | 0.050  | 0.267 |  0.159  | 
+| C4                    | 0.622  | 0.488   | 0.752 | 0.467  |
 
 ## Experimentos, Resultados e Discussão dos Resultados
 
