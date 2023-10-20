@@ -44,7 +44,7 @@ Uma abordagem notável dentro desse contexto é a utilização do paradigma de i
     - Biblioteca: Pythorch
     - Ambiente: Google Colab e Kaggle
   
-- Os resultados esperados serão distribuições de dados sintéticos de EEG que melhor se aproximam das distribuições reais. Para verificar se as distribuições são compatíveis, iremos mapear os dados para um manifold de menor dimensão utilizando técnicas como autoencoders, PCA ou tSNE. Como métrica de avaliação, serão utilizadas técnicas como distância Euclidiana, as divergências de Kullback-leibler e Jensen–Shannon e por fim uma análise comparativa de classificadores alimentados com dados sintéticos e dados reais.
+- Os resultados esperados serão distribuições de dados sintéticos de EEG que melhor se aproximam das distribuições reais. Para verificar se as distribuições são compatíveis, iremos mapear os dados para um manifold de menor dimensão utilizando técnicas como autoencoders e PCA. Como métrica de avaliação, serão utilizadas técnicas como distância Euclidiana, as divergências de Kullback-leibler e Jensen–Shannon e por fim uma análise comparativa de classificadores alimentados com dados sintéticos e dados reais.
 
 ### Bases de Dados e Evolução
 
@@ -297,7 +297,7 @@ Foi calculada a divergencia de JS entre o dados reais e gerados pela rede genera
 |   C3                  | 0.478  | 0.636   | 0.447 | 0.797  | 
 | Cz                    | 0.403  | 0.050  | 0.267 |  0.159  | 
 | C4                    | 0.622  | 0.488   | 0.752 | 0.467  |
-
+<!--
 ## Experimentos, Resultados e Discussão dos Resultados
 
 > Na entrega parcial do projeto (E2), essa seção pode conter resultados parciais, explorações de implementações realizadas e 
@@ -311,7 +311,7 @@ Foi calculada a divergencia de JS entre o dados reais e gerados pela rede genera
 > O que se espera da seção de resultados é que ela **apresente e discuta** somente os resultados mais **relevantes**, que mostre os **potenciais e/ou limitações** da metodologia, que destaquem aspectos
 > de **performance** e que contenha conteúdo que possa ser classificado como **compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade**. 
 
-## Cronograma
+ ## Cronograma
 > Proposta de cronograma.
 
 |                                       | Setembro     |             | Outubro     |             | Novembro    |             |
@@ -331,31 +331,67 @@ Foi calculada a divergencia de JS entre o dados reais e gerados pela rede genera
 | Consolidação da síntese dos dados     |              |             |             |             | X           |             |
 | Resultado das métricas de avaliação   |              |             |             |             | X           | X           |
 | Escrita final do projeto              |              |             |             |             |             | X           |
-
+-->
 ## Conclusão
 
+<!--
 > A seção de Conclusão deve ser uma seção que recupera as principais informações já apresentadas no relatório e que aponta para trabalhos futuros.
 > Na entrega parcial do projeto (E2) pode conter informações sobre quais etapas ou como o projeto será conduzido até a sua finalização.
-> Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto.
+> Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto. --> 
+
+Até a entrega 2 foram feitos os experimentos preliminares e com os resultados pode-se observar que o modelo está funcional, porém a configuração proposta da CGAN ainda não obteve o resultado esperado. Portanto, para as etapas seguintes alguns testes devem ser feitos para tentar reduzir o número de parâmetros treináveis, realizando convoluções menores, reduzindo a quantidade de camadas intermediárias, alterar o tipo de normalização do dados, o tamanho do kernel, etc. Após estes testes, pretende-se usar as métricas propostas inicialmente que ainda não foram testadas como a divergência KL e a comparação dos espaços latentes usando um autoencoder ou uma PCA usando os dados Reais Vs. Gerados.
+
+
+> Tabela: Configuração e Número de Parâmetros treináveis da CGAN inicial.
+
+| Layer (type)        | Output Shape      | Param #   |
+|---------------------|-------------------|----------|
+| ConvTranspose2d-1   | [-1, 256, 1, 60]  | 1,044,736 |
+| BatchNorm2d-2       | [-1, 256, 1, 60]  | 512      |
+| ReLU-3              | [-1, 256, 1, 60]  | 0        |
+| ConvTranspose2d-4   | [-1, 128, 1, 119] | 1,966,208 |
+| BatchNorm2d-5       | [-1, 128, 1, 119] | 256      |
+| ReLU-6              | [-1, 128, 1, 119] | 0        |
+| ConvTranspose2d-7   | [-1, 64, 1, 178]  | 491,584  |
+| BatchNorm2d-8       | [-1, 64, 1, 178]  | 128      |
+| ReLU-9              | [-1, 64, 1, 178]  | 0        |
+| ConvTranspose2d-10  | [-1, 1, 3, 400]   | 9,601    |
+| Tanh-11             | [-1, 1, 3, 400]   | 0        |
+| Total params: 3,513,025                              |
+| Trainable params: 3,513,025                          |
+| Non-trainable params: 0                             |
+
+Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo seria alterar o formato da entrada para matrizes de covariância, como proposto nos trabalhos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso seria tentar trocar o tipo de modelo generativo, por exemplo o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). 
 
 ## Referências Bibliográficas
 - Tese Sarah Negreiros de Carvalho Leite - Contribuições ao desenvolvimento de interfaces cérebro-computador baseadas em potenciais evocados visualmente em regime estacionário
 
-Tese: (https://doi.org/10.47749/T/UNICAMP.2016.970748)
+  Tese: (https://doi.org/10.47749/T/UNICAMP.2016.970748)
 
 - Augmenting EEG with Generative Adversarial Networks Enhances Brain Decoding Across Classifiers and Sample Sizes
 
-Paper: (https://escholarship.org/uc/item/9gz8g908)
-Git: (https://github.com/AutoResearch/EEG-GAN)
+  Paper: (https://escholarship.org/uc/item/9gz8g908)
+  Git: (https://github.com/AutoResearch/EEG-GAN)
 
 - EEG data augmentation for emotion recognition with a multiple generator conditional Wasserstein GAN
 
-Paper: (https://link.springer.com/article/10.1007/s40747-021-00336-7)
+  Paper: (https://link.springer.com/article/10.1007/s40747-021-00336-7)
 
 - EEG-GAN: Generative adversarial networks for electroencephalograhic (EEG) brain signals
 
-Paper: (https://arxiv.org/abs/1806.01875)
-Git: (https://github.com/aung2phyowai/GAN)
+  Paper: (https://arxiv.org/abs/1806.01875)
+  Git: (https://github.com/aung2phyowai/GAN)
 
+- EEG Synthetic Data Generation Using Probabilistic Diffusion Models
+
+  Paper: (https://arxiv.org/abs/2303.06068)
+
+- Riemannian geometry for EEG-based brain-computer interfaces; a primer and a review
+  
+  Paper: (https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192)
+
+- Multiclass Brain–Computer Interface Classification by Riemannian Geometry
+  
+  Paper: (https://ieeexplore.ieee.org/document/6046114)
 
 
