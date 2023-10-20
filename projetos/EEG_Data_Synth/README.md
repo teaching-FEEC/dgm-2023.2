@@ -1,16 +1,3 @@
-<!--
-Some HTML functions for simplicity of writing readme.md
--->
-<style>
-    /* initialise the counter */
-    body { counter-reset: figureCounter; }
-    /* increment the counter for every instance of a figure even if it doesn't have a caption */
-    figure { counter-increment: figureCounter; }
-    /* prepend the counter to the figcaption content */
-    figure figcaption:before {
-        content: "Figura " counter(figureCounter) ": "
-    }
-</style>
 
 # Estudo de Caso: Síntese de Dados de EEG utilizando Redes Generativas Adversárias
 # Case Study: EEG Data Synthesis through Generative Adversarial Networks
@@ -25,6 +12,9 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 | Joany Rodrigues  | 264440  | Eng. de Computação|
 | João Guilherme Prado Barbon  | 262760  | Eng. Físico|
 | Larissa Rangel de Azevedo  | 247008  | Eng. Eletricista|
+
+## Apresentação da Segunda Entrega
+[Link](https://docs.google.com/presentation/d/1Ex3XsNcepdOteejq16PSALgOvTHAFdkS/edit?usp=sharing&ouid=106498812395082097833&rtpof=true&sd=true&authuser=2) para apresentação da segunda entrega.
 
 ## Descrição Resumida do Projeto
 <!-- Este projeto tem como objetivo sintetizar dados de eletroencefalografia (EEG) gerados por uma interface cérebro-computador (BCI) utilizando o paradigma de imagética motora. A principal motivação da implementação de uma BCI é o estudo e a compreensão do cérebro, abrindo portas para aplicações na área da saúde e entretenimento. A abordagem do paradigma da imagética motora ocorre pela aquisição dos sinais cerebrais gerados pela imaginação ou realização do movimento de partes do corpo, como membros superiores (braços) ou inferiores (pernas). Assim, os dados sintéticos serão gerados a partir de uma Rede Generativa Adversária (GAN), que apresentará como saída séries temporais representativas dos sinais reais de EEG.  
@@ -60,9 +50,9 @@ Uma abordagem notável dentro desse contexto é a utilização do paradigma de i
 > * Qual o formato dessa base, tamanho, tipo de anotação? 
 -->
 
- A base de dados utilizada possui formato "braindecode.datasets.moabb.MOABBDataset", que é o formato padrão da toolboox Braindecode.  O [Braindecode](https://braindecode.org/stable/index.html) é uma biblioteca open-source em Python usada decodificar dados brutos de EEG, ECoG e MEG, contendo funções como dataset fetchers, ferramentas de pre-processamento e visualização de dados, além de algumas arquiteturas de aprendizado profundo.
+ A base de dados utilizada possui formato "braindecode.datasets.moabb.MOABBDataset", que é o formato padrão da toolboox Braindecode.  O [Braindecode](https://braindecode.org/stable/index.html) é uma biblioteca open-source em Python usada decodificar dados brutos de EEG, ECoG e MEG, contendo funções como dataset fetchers, ferramentas de pré-processamento e visualização de dados, além de algumas arquiteturas de aprendizado profundo.
 
- Em seu formato original, para apenas um indivíduo, a base possui 12 runs, sendo seis runs de treinamento e seis de validação. Uma run contém dados de EEG totalizando 6:27 minutos, coletados através de 22 eletrodos com frequências entre 0 Hz e 125 Hz, e amostragem de 250 Hz (ou seja, 250 amostras por segundo). No formato tensorial, uma run pode ser descrita como uma matriz de (96750 x 22), onde as linhas são as medições dos eletrodos e as colunas os eletrodos.
+ Em seu formato original, para apenas um indivíduo, a base possui 12 runs, sendo seis runs de treinamento e seis de validação. Uma run contém dados de EEG totalizando 6:27 minutos, coletados através de 22 eletrodos com frequências entre 0 Hz e 125 Hz, e amostragem de 250 Hz (ou seja, 250 amostras por segundo). No formato tensorial, uma run pode ser descrita como uma matriz de (96750 x 22), onde as linhas são as medições e as colunas os respectivos eletrodos.
 
 <!---
 > * Quais as transformações e tratamentos feitos? Limpeza, reanotação, etc.
@@ -71,12 +61,17 @@ and here
 -->
 
 As transformações foram feitas usando a biblioteca 'braindecode.preprocessing.Preprocessor', que  aplica a função de pré-processamento fornecida aos dados brutos. 
-
 A primeira transformação realizada foi a mudança de escala dos dados, que estavam em Volts (V) para microVolts (μV). Em seguida foi feito uma reamostragem para 100 Hz e uma filtragem utilizando um filtro passa-faixa com frequências de corte de 4 e 38 Hz, para eliminar frequências irrelevantes, por exemplo  60 Hz oriunda da rede elétrica. Além disso, foi utilizado um filtro CAR - [Common Average Reference](https://pressrelease.brainproducts.com/referencing/#:~:text=When%20applying%20the%20so%2Dcalled,resulting%20signal%20from%20each%20channel.) - para remover os ruídos internos e externos da aquisição. 
 
 Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes e reduzir a quantidade de amostras processadas pelo o algoritmo, melhorando também o tempo de processamento.
 
-Dentre os 22 eletrodos, foram selecionados 'C3', 'Cz', 'C4', pois estes estão localizados na região do córtex motor do cérebro, onde os sinais cerebrais referentes á movimentação são mais evidentes. 
+Dentre os 22 eletrodos, foram selecionados 'C3', 'Cz', 'C4', pois estes estão localizados na região do córtex motor do cérebro, onde os sinais cerebrais referentes à movimentação são mais evidentes. Abaixo estão exemplos de sinais de EEG gerados pela realização dos movimentos da mão esquerda (label = 0) e pés (label = 3), para os três eletrodos, em uma janela de 4s.
+
+<figure id="Windows-Singals">
+	<img src="./figure/example_windows_eeg_signals.png" alt="Windows-Singals">
+	<figcaption>Exemplos de sinais de EEG dos eletrodos C3, C4 e Cz para classes de movimento 0 e 3.</figcaption>
+</figure>
+
 
 <!---
 > * Inclua um sumário com estatísticas descritivas da(s) base(s) de estudo.
@@ -114,20 +109,14 @@ A tabela a seguir mostra as estatísticas descritivas da base de estudo após o 
 > * Utilize tabelas e/ou gráficos que descrevam os aspectos principais da base que são relevantes para o projeto.
 > -->
 
-<figure id="Windows-Singals">
-	<img src="./figure/example_windows_eeg_signals.png" alt="Windows-Singals">
-	<figcaption>Exemplos de sinais de EEG dos eletrodos C3, C4 e Cz para diferentes classes de movimento.</figcaption>
-</figure>
-
-
-As informações relevantes da base de dados usadas para o projeto são:
+##### As informações relevantes da base de dados usadas para o projeto são:
 
 Informações  | Descrição
 --------- | ------
 Eletrodos | 'C3', 'Cz', 'C4'
 Runs | 12
-Janelas | Nº de Janleas: 96
-Janelas/classe| 24
+Janelas por Run | 96
+Janelas por Classe| 24
 Classes | 'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3
 Tempo por Janela | 4s
 Amostras por Janela | 400
@@ -146,10 +135,10 @@ A arquitetura da CGAN utilizada neste trabalho pode ser encontrada neste [link](
 
 
 ### Criação de ruído
-O ruído para o treinamento do gerador foi criado pela amostragem de dados aleatórios de uma distribuição normal, utilizando a função `torch.randn`. Além do ruído representando o sinal EEG `(n_amostras,64)`, também é criado a label para este sinal `(n_amostras,4)`. Para obter a label do respectivo ruído é feito a contatenação, tornando a entrada do gerador `(n_amostras, 68)` e por fim, uma conversão para transformar o ruído no formato tensorial dos dados de EEG `(n_amostras,68,1,1)`. Este é o sinal ruído passado para o treinamento do gerador.
+O ruído para o treinamento do gerador foi criado pela amostragem de dados aleatórios de uma distribuição normal, utilizando a função `torch.randn`. Além do ruído, gerado com dimensão `(n_amostras,64)`, também é criado um tensor de labels no formato one-hot encoding para este sinal, com dimensão `(n_amostras,4)`. Para obter a entrada final do gerador, concatena-se o ruído com as labels dos dado reais, com dimensão `(n_amostras, 68)`. Por fim, é realizada uma conversão para transformar o ruído no formato tensorial dos dados de EEG, `(n_amostras,68,1,1)`.
 
 ### Rede generativa
-A rede generativa possui quatro camadas convolucionais, que recebe o sinal de ruído de dimensão `(n_amostras,68,1,1)` e gera um sinal fake de EEG de dimensão `(n_amostras,1,3,400)`. As três primeiras camadas realizam as operações:
+A rede generativa possui quatro camadas convolucionais, que recebe o sinal de ruído de dimensão `(n_amostras,68,1,1)` e gera um sinal falso de EEG de dimensão `(n_amostras,1,3,400)`. As três primeiras camadas realizam as operações:
 
 ```python
     nn.ConvTranspose2d(input_channels, output_channels, kernel_size = (1,60), stride = (1,1)),
@@ -185,7 +174,7 @@ A rede discriminativa classifica os dados de entrada como reais ou falsos. Ela r
 
 ### Configuração de treinamento da GAN
 
-O treinamento da GAN foi feito com os dados EEG do primeiro indivíduo do dataset, utilizando todas as 12 runs (treino + validação). Os eletrodos selecionados foram C3, C4 e Cz, e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador, e com as imagens (reais e falsas) na entrada do classificador.
+O treinamento da GAN foi feito com os dados EEG do primeiro indivíduo do dataset, utilizando todas as 12 runs (treino + validação). Os eletrodos selecionados foram C3, C4 e Cz, e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador e com os dados da entrada do classificador.
 
 Nesta primeira abordagem, as configurações de treinamento da rede e o algoritmo de treinamento são mostrados a seguir:
 
@@ -203,7 +192,7 @@ Nesta primeira abordagem, as configurações de treinamento da rede e o algoritm
 #### Passo 1: Inicialização
 - Para cada época no número total de épocas (n_epochs):
   - Para cada lote de imagens reais e suas labels no conjunto de dados:
-    - Converta as imagens reais em tensores e mova para o dispositivo de processamento (GPU).
+    - Converta os dados reais em tensores e mova para o dispositivo de processamento (GPU).
 
 #### Passo 2: Atualizar o Discriminador
 - Zere os gradientes do discriminador.
@@ -227,14 +216,14 @@ Nesta primeira abordagem, as configurações de treinamento da rede e o algoritm
 - Zere os gradientes do gerador.
 - Crie novamente a entrada para o discriminador usando os dados EEG falsos gerados e as labels one-hot.
 - Obtenha as previsões do discriminador para os dados EEG falsos gerados.
-- Calcule a perda do gerador (gen_loss) usando a função de perda que compara as previsões com um vetor de uns (indicando que os dados falsos devem parecer reais).
+- Calcule a perda do gerador usando a função de perda que compara as previsões com um vetor de uns (indicando que os dados falsos devem parecer reais).
 - Realize a retropropagação da perda e atualize os gradientes do gerador.
 
 
 ## Métricas de avaliação
 
 ### Classificador
-Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Class.ipynb) para classificar as labels dos dados de EEG. A estrutura e parametros do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024),e é mostrada na tabela abaixo.
+Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Class.ipynb) para classificar as labels dos dados de EEG. A estrutura e parametros do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024), e é mostrada na tabela abaixo.
 
 | camada   |tipo de camada | tamanho do kernel | Stride| padding|
 |:--------:|:-------------:|:-----------------:|:-----:|:------:| 
@@ -251,12 +240,12 @@ Implementou-se um [Classificador](https://github.com/jbarbon/dgm-2023.2/blob/mai
 | pooling3 | MaxPool2d     |2                  | 1     |0
 | fc1      | -             |-                  | -     |-
 
-Inicialmente, treina-se o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da CGAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos para este paradigma cérebro-computador. 
+Nesta métrica, o objetivo é, inicialmente, treinar o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da CGAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos para este paradigma cérebro-computador. 
 
 ### Divergencia de Jensen Shannon (JS)
 <!-- A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb). -->
 
-A divergência de Jensen-Shannon é um método de medir a similaridade entre duas distribuições de probabilidade. Também é conhecida como raio de informação ou divergência total em relação à média. Ela é baseada na divergência de Kullback-Leibler, simétrica e sempre com um valor finito. A raiz quadrada da divergência de Jensen-Shannon é referida como a distância de Jensen-Shannon.
+A divergência de Jensen-Shannon é um método para medir a similaridade entre duas distribuições de probabilidade. Ela é baseada na divergência de Kullback-Leibler, com simetria entre as distribuições e sempre com um valor finito. A raiz quadrada da divergência de Jensen-Shannon é referida como a distância de Jensen-Shannon.
 
 A fórmula para calcular a divergência de Jensen-Shannon é uma combinação ponderada das divergências de Kullback-Leibler entre as distribuições de probabilidade de interesse e sua média. Isso resulta em uma medida que captura tanto as semelhanças quanto as diferenças entre as distribuições, tornando-a uma métrica valiosa para tarefas de classificação, clusterização e recuperação de informações. A implementação utilizada neste trabalho pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
 
@@ -274,7 +263,7 @@ Ao final do treinamento da CGAN, gerou-se um gráfico exibindo as curvas de perd
 
 
 ## Classificador
-A comparação do classificador para os dados reais e reais com dados sintéticos são mostrados n tabela abaixo. Nota-se que a adição dos dados falsos aos dados reais não gerou o resultado desejado, diminuindo o a acurácia total do experimento. Este resultado foi esperado, pois no treinamento da CGAN, as losses do discriminador e gerador não convergiram para os valores pretendidos, levando a geração de dados não representativos ao conjunto de dados reais.
+A comparação do classificador para os dados reais e reais com dados sintéticos são mostrados na tabela abaixo. Nota-se que a adição dos dados falsos aos dados reais não gerou o resultado desejado, diminuindo o a acurácia total do experimento. Após o treinamento da CGAN mostrado na Figura 3, este é um resultado esperado, pois as perdas do discriminador e gerador não convergiram para os valores pretendidos. Isso levou a geração de dados não representativos ao conjunto de dados reais, prejudicando a acurácia na classificação dos movimentos.
 
 | Learning rate| batch_size | Acurácia (dados reais) |  Acurácia (dados Reais e fake)|
 |:------------:|:----------:|:-----------:|:---------:|
@@ -288,8 +277,11 @@ A comparação do classificador para os dados reais e reais com dados sintético
 |0.001         |64          |0.46         | 0.342     |
 | 0.001        |256         |0.451        | **0.382** |
 
-## Métrica JS
-Foi calculada a divergencia de JS entre o dados reais e gerados pela rede generativa. A comparação foi feita para cada classe: pé, mão esqueda, mão direita e língua e para cada canal: C1, Cz e C4. O conjunto de dados reais possui 288 dados de cada classe e para cada canal, logo para o calculo desta métrica, foi gerada a mesma quantidade de dados, permitindo o calculo. Observe que os resultados foram bons, o que não era espqerado, pois nosso modelo não apresentou bons resultados durante o treinamento. Esses resultados mostram grande semelhança entre os dados reais e os gerados pelo rede uma vez que estão mais proximo de 0. Note que para cada canal os resultados da label são bastante semelhantes entre as classes. 
+## Métrica Jensen–Shannon (JS)
+A divergência de Jensen-Shannon (JS) foi calculada entre os dados reais e os dados gerados pela rede generativa condicional. Essa métrica é utilizada para avaliar a "distância" ou similaridade entre duas distribuições de probabilidade, sendo que  valores menores dessa métrica indicam que as distribuições estão mais próximas, enquanto valores maiores indicam que as distribuições são mais distintas. A comparação foi realizada para cada classe e para cada canal das duas distribuições. Ambos conjuntos de dados reais possuem dimensão (1152, 3), representando 288 amostras para cada classe em cada um dos três canais. 
+
+A tabela abaixo apresenta os valores da métrica JS calculados para cada classe e eletrodo. Observa-se que os valores são relativamente altos, sugerindo que as distribuições estão distantes uma da outra. As distribuições do eletrodo Cz, no entanto, apresentam maior similaridade nas classes "left hand" e "tongue", não indicando necessariamente o sucesso na geração dos dados, uma vez que o treinamento da CGAN não ocorreu como o esperado.
+
 
 |                       |        |         |**Label**|       |
 |:---------------------:|:------:|:-------:|:-----:|:-------:|
@@ -339,29 +331,23 @@ Foi calculada a divergencia de JS entre o dados reais e gerados pela rede genera
 > Na entrega parcial do projeto (E2) pode conter informações sobre quais etapas ou como o projeto será conduzido até a sua finalização.
 > Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto. --> 
 
-Até a entrega 2 foram feitos os experimentos preliminares e com os resultados pode-se observar que o modelo está funcional, porém a configuração proposta da CGAN ainda não obteve o resultado esperado. Portanto, para as etapas seguintes alguns testes devem ser feitos para tentar reduzir o número de parâmetros treináveis, realizando convoluções menores, reduzindo a quantidade de camadas intermediárias, alterar o tipo de normalização do dados, o tamanho do kernel, etc. Após estes testes, pretende-se usar as métricas propostas inicialmente que ainda não foram testadas como a divergência KL e a comparação dos espaços latentes usando um autoencoder ou uma PCA usando os dados Reais Vs. Gerados.
+<!-- Até a entrega 2 foram feitos os experimentos preliminares e com os resultados pode-se observar que o modelo está funcional, porém a configuração proposta da CGAN ainda não obteve o resultado esperado. Portanto, para as etapas seguintes alguns testes devem ser feitos para tentar reduzir o número de parâmetros treináveis, realizando convoluções menores, reduzindo a quantidade de camadas intermediárias, alterar o tipo de normalização do dados, o tamanho do kernel, etc. Após estes testes, pretende-se usar as métricas propostas inicialmente que ainda não foram testadas como a divergência KL e a comparação dos espaços latentes usando um autoencoder ou uma PCA usando os dados Reais Vs. Gerados. -->
 
+Até o momento, os experimentos preliminares foram conduzidos, e os resultados indicaram que o modelo está funcionando. No entanto, a configuração proposta da CGAN ainda não produziu os resultados desejados. Portanto, nas próximas etadas, planeja-se realizar uma série de testes para otimizar o desempenho do modelo. Essas otimizações podem incluir:
 
-> Tabela: Configuração e Número de Parâmetros treináveis da CGAN inicial.
+- Reduzir o número de parâmetros treináveis: O modelo atual possui 3,513,025 parâmetros treináveis, um número muito alto dado a quantidade de dados de treinamento. Esta redução pode ser alcançada por meio de convoluções menores e redução da quantidade de camadas intermediárias. Com isso, espera-se que a redução do número de parâmetros torne o modelo mais eficiente e mais rápido para treinar.
 
-| Layer (type)        | Output Shape      | Param #   |
-|---------------------|-------------------|----------|
-| ConvTranspose2d-1   | [-1, 256, 1, 60]  | 1,044,736 |
-| BatchNorm2d-2       | [-1, 256, 1, 60]  | 512      |
-| ReLU-3              | [-1, 256, 1, 60]  | 0        |
-| ConvTranspose2d-4   | [-1, 128, 1, 119] | 1,966,208 |
-| BatchNorm2d-5       | [-1, 128, 1, 119] | 256      |
-| ReLU-6              | [-1, 128, 1, 119] | 0        |
-| ConvTranspose2d-7   | [-1, 64, 1, 178]  | 491,584  |
-| BatchNorm2d-8       | [-1, 64, 1, 178]  | 128      |
-| ReLU-9              | [-1, 64, 1, 178]  | 0        |
-| ConvTranspose2d-10  | [-1, 1, 3, 400]   | 9,601    |
-| Tanh-11             | [-1, 1, 3, 400]   | 0        |
-| Total params: 3,513,025                              |
-| Trainable params: 3,513,025                          |
-| Non-trainable params: 0                             |
+- Alterar a normalização dos dados: Normalizar os dados de entrada e testar diferentes outras técnicas de normalização de dados, como  Layer Normalization, pode ter um impacto significativo no desempenho do modelo.
 
-Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo seria alterar o formato da entrada para matrizes de covariância, como proposto nos trabalhos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso seria tentar trocar o tipo de modelo generativo, por exemplo o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). 
+- Tamanho do kernel: Ajustar o tamanho do kernel nas camadas de convolução pode influenciar a capacidade do modelo de extrair características relevantes dos dados.
+
+- Métricas de avaliação: Planeja-se usar métricas adicionais, como a divergência de Kullback-Leibler (KL) e a comparação dos espaços latentes. Isso é importante para uma avaliação mais abrangente do modelo.
+
+- Autoencoder ou PCA: Comparar os dados gerados pelo modelo com os dados reais usando técnicas como autoencoders ou Análise de Componentes Principais (PCA) pode fornecer insights valiosos sobre a qualidade das amostras geradas.
+
+Caso a CGAN continue sem produzir resultados satisfatórios, uma opção alternativa é modificar o formato de entrada para matrizes de covariância, conforme sugerido nos estudos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso, considera-se a substituição do tipo de modelo generativo, como o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). 
+
+<!-- Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo seria alterar o formato da entrada para matrizes de covariância, como proposto nos trabalhos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso seria tentar trocar o tipo de modelo generativo, por exemplo o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068).  -->
 
 ## Referências Bibliográficas
 - Tese Sarah Negreiros de Carvalho Leite - Contribuições ao desenvolvimento de interfaces cérebro-computador baseadas em potenciais evocados visualmente em regime estacionário
@@ -395,3 +381,16 @@ Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo s
   Paper: (https://ieeexplore.ieee.org/document/6046114)
 
 
+<!--
+Some HTML functions for simplicity of writing readme.md
+-->
+<style>
+    /* initialise the counter */
+    body { counter-reset: figureCounter; }
+    /* increment the counter for every instance of a figure even if it doesn't have a caption */
+    figure { counter-increment: figureCounter; }
+    /* prepend the counter to the figcaption content */
+    figure figcaption:before {
+        content: "Figura " counter(figureCounter) ": "
+    }
+</style>
