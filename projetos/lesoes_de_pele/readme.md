@@ -44,10 +44,10 @@ Por fim, podemos identificar que durante o treinamento da ACGAN para a base MNIS
 
  A seguir, exploramos a aplicação da PROGAN usando o conjunto de dados HAM10000. Mais uma vez, os resultados foram satisfatórios em termos visuais para as classes que dispunham de uma quantidade significativa de imagens (mais de 1000 exemplos) para o treinamento da rede. No entanto, enfrentamos desafios semelhantes ao utilizar a PROGAN para as classes com menos exemplos, destacando a complexidade de gerar dados sintéticos precisos nessas circunstâncias.
 
-(...)
+(---)
 
 ## Conclusão
-(...)
+(---)
 
 ## Referências Bibliográficas
 - Odena, Augustus, Christopher Olah, and Jonathon Shlens. "Conditional image synthesis with auxiliary classifier gans." International conference on machine learning. PMLR, 2017.
