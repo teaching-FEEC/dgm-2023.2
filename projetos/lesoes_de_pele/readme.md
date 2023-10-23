@@ -31,7 +31,7 @@ checkpoint da ACGAN e PROGAN treinadas, guardadas no Drive local Google Colab + 
 
 ### Workflow
 
-![Workflow](reports\figures\workflow_ia376.png)
+![Workflow](reports/figures/workflow_ia376.png)
 
 ## Experimentos, Resultados e Discussão dos Resultados
 Foram realizados experimentos envolvendo a GAN tradicional na geração de imagens sintéticas para o HAM10000, com o objetivo de verificar a viabilidade da abordagem. Os resultados qualitativos obtidos foram satisfatórios visualmente para as classes com uma boa quantidade de imagens disponíveis (+1000), porém houve uma grande dificuldade em gerar dados sintéticos para os dados com menos exemplos. Além disso, a fim de validar o código criado para a ACGAN, foi criado um notebook que implementa o modelo para a base de dados MNIST, uma vez que a variabilidade entre as classes pode ser facilmente identificada. 
