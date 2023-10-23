@@ -97,7 +97,9 @@ Um passo-a-passo para fazer o set up do enviroment usando conda (miniconda, [her
 - `conda create -n eeg python=3.9` 
 - `conda activate eeg` 
 - `pip install -r base_requirements.txt` 
+
 E como Pytorch requirements, usamos (por curiosidade, ["The safest way to install CUDA and cuDNN is to use a conda environment"](https://jrkwon.com/2022/11/22/cuda-and-cudnn-inside-a-conda-env/#:~:text=The%20safest%20way%20to%20install,LD_LIBRARY_PATH%20needs%20to%20be%20used)):
+
 - `conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch`
 
 ### Experimentos, Resultados e Discussão dos Resultados
