@@ -9,7 +9,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  |Nome  | RA | Curso|
  |--|--|--|
  | Alexsandro Barros | 233768  | Eng. Eletricista|
- | Jonyelison Morais Alves | 123456  | Eng. Eletricista|
+ | Jonyelison Morais Alves | 231473  | Eng. Eletricista|
 
 ## Descrição Resumida do Projeto
 
@@ -30,7 +30,7 @@ problema central ainda permanece não resolvido: como recuperar os detalhes fino
 para altos valores de escala? Os trabalhos com CNNs focam na diminuição do erro quadrático médio (MSE) da imagem resolvida. Os resultados apresentam altos valores de relação sinal-ruído de pico mas carecem 
 de detalhes de alta frequência, de modo que são perceptualmente insatisfatórios. Abaixo é possível ver um comparativo entre diferentes abordagens para a resolução do problema: 
 
-![sisr](sisr_img.png?raw=True "SISR")
+![sisr](references/sisr_img.png?raw=True "SISR")
 Fonte: *Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (Christian Ledig, 2016)*
 
 É nesse contexto que se insere o uso das GANs para SISR, visto que as mesmas são uma ferramenta
@@ -80,6 +80,48 @@ aplicado a cenários do mundo real, como por exemplo em imagens médicas de micr
 Além das métricas tradicionais na área, como PSNR e o índice de similaridade estrutural (Structural Similarity Index Measure - SSIM), pretendemos incorporar uma avaliação visual através de pesquisa
 com os próprios colegas de turma, e tentar trazer uma abordagem que leve em consideração a
 densidade de pixels (ppi) do display no qual a imagem será visualizada. 
+
+## Base de Dados e Evolução
+
+|Base de Dados | Endereço na Web | Resumo descritivo|
+|----- | ----- | -----|
+|BioSR | https://figshare.com/articles/dataset/BioSR/13264793 | Dataset de imagens de microscópio para super resolução, com mais de 2200 pares de baixa e alta resolução.|
+
+Esse dataset mostrou ser mais complexo do que inicialmente planejavamos para o projeto, apesar de ser uma base de dados bem relevante devido a sua aplicação em microscopia, o tamanho dos arquivos e a complexidade de processamento das imagens torna o dataset inviável para o escopo do projeto. O dataset está dividido em tipos de estruturas biológicas, como por exemplo Retículo Endoplasmático e Microtúbulos. Além disso, no artigo de referência é utilizado outra arquitetura chamada DFGAN (Deep Fourier GAN) que não é o foco do projeto, por isso optamos por utilizar outra base de dados para o projeto.
+
+|Base de Dados | Endereço na Web | Resumo descritivo|
+|----- | ----- | -----|
+|Unsplash | https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash | Dataset pré processado com imagens em alta resolução e depixeladas em três níveis |
+
+Imagens em jpg, que facilitam o processamento e a manipulação. Todas as imagens ja possuem versões depixeladas em 3 níveis: 2x, 4x e 6x. Possui 1254 imagens únicas e 3762 imagens depixeladas, totalizando 1.1 GB. Abaixo segue o exemplo de uma das imagens e suas variações de resolução:
+
+*Imagem Original*
+![1000](references/1000.jpg?raw=True "1000")
+
+*2x*
+![1000_2](references/1000_2.jpg?raw=True "1000_2")
+
+*4x*
+![1000_4](references/1000_4.jpg?raw=True "1000_4")
+
+*6x*
+![1000_6](references/1000_6.jpg?raw=True "1000_6")
+
+## Workflow
+![workflow](references/workflow.png?raw=True "Workflow")
+
+## Experimentos, Resultados e Discussão dos Resultados
+
+> Experimentos:
+
+Atualmente estamos reproduzindo dois repositórios que encontramos:
+    
+    1. SRGAN: https://github.com/leftthomas/SRGAN
+    2. SRGAN-PyTorch: https://github.com/Lornatang/SRGAN-PyTorch
+
+Enfretamos alguns problemas com a obtenção dos datasets utilizados pelo primeiro repositório (SRGAN leftthhomas), por ser implementado por um time chinês, os links de download foram disponibilizados em uma ferramenta chinesa que se mostrou bastante inacessível, após algumas pesquisas e dificuldade com velocidade baixa de donwload foi possível obter o dataset e agora estamos trabalhando para reproduzir os resultados divulgados.
+
+Enquanto os problemas aconteciam com o primeiro repositório, encontramos o segundo repositório (SRGAN-PyTorch Lornatang), onde o download dos datasets foi bem mais simples pois são disponibilizados scripts shell no próprio repositório. Com isso foi possível executar um teste inicial com os datasets SRGAN-ImageNet e Set5 onde obtivemos PSNR 30.6708 e SSIM 0.8626, utilizando os modelos pré treinados que também são disponibilizados no repositório, no momento estamos trabalhando para iniciar o treinamento localmente e verificar os resultados obtidos ao utilizar os datasets selecionados por este projeto.
 
 ## Cronograma
 > Proposta inicial de cronograma:
