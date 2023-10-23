@@ -12,33 +12,43 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  | Vinícius Hirono Gonçalves  | 188182  | Eng. Eletricista |
 
 
-## Descrição Resumida do Projeto
- O projeto consiste em explorar formas de data augmentation para imagens de lesões de pele, com o objetivo de melhorar a precisão dos modelos de classificação. O principal objetivo é gerar imagens sintéticas a partir de modelos generativos, como GANs, e avaliar o impacto dessas imagens na acurácia do classificador.
+## Resumo (Abstract)
+ O projeto consiste em explorar formas de data augmentation para imagens de lesões de pele utilizando GANs, com o objetivo de melhorar a precisão dos modelos de classificação. Para isso, utilizaremos o dataset HAM10000, disponível no Kaggle, que contém 10015 imagens de lesões de pele, classificadas em 7 classes. Os modelos explorados serão a ACGAN e a ProGAN, que têm mostrado resultados promissores em tarefas de síntese de imagens.
 
- O modelo de classificação será treinado com imagens do dataset [HAM10000](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T), que contém 10015 imagens de lesões de pele, classificadas em 7 categorias.
 
- [Vídeo explicativo](https://drive.google.com/file/d/1ot6AAC68K9oxxHQCFKWLAgzKk4Kks_0m/view?usp=sharing)
+## Descrição do Problema/Motivação
+ Apesar da crescente disponibilidade de conjuntos de dados públicos de alta qualidade, a escassez de amostras de dados médicos de treinamento ainda é um dos principais desafios do deep learning para análise de lesões na pele. Redes Generativas Adversariais (GANs) surgem como uma hipótese para data augmentation, com a esperança de criar amostras que são praticamente indistinguíveis de dados reais porém sem a preocupação com a quebra de sigilo médico.
+
+## Objetivo
+Descobrir se usar data augmentation a partir de uma ACGAN ou ProGAN é capaz de melhorar a qualidade de classificadores de lesões de pele.
 
 ## Metodologia Proposta
-Para a primeira entrega do projeto, é fundamental que definamos com clareza a metodologia a ser seguida. Abaixo estão os pontos-chave que devem ser abordados:
+Treinar ACGANs e ProGANs em um dataset isolado de cada tipo de lesão de pele. Gerar novas imagens usando os modelos treinados. Treinar um classificador usando o dataset aumentado e comparar sua precisão ao classificador treinado com o dataset original.
 
-Base de Dados: O projeto pretende utilizar o conjunto de dados disponível no site Kaggle, especificamente o conjunto de dados HAM10000. Essa escolha se justifica pela relevância do dataset na área de detecção de lesões pigmentadas de pele.
+### Bases de Dados e Evolução
+HAM10000, processado em .jpg 64x64 64int, guardado no Git. 
+checkpoint da ACGAN e PROGAN treinadas, guardadas no Drive local Google Colab + backup no Git (pasta reports/figures).
 
-Abordagens de Modelagem Generativa: Nesta fase inicial, o grupo já identificou as seguintes abordagens de modelagem generativa como interessantes de serem estudadas:
+### Workflow
 
- Redes Generativas Adversariais (GANs): Inicialmente, pretendemos explorar as GANs, como a ACGAN (Auxiliary Classifier GAN) e a ProGAN (Progressive GAN), para a geração de imagens de câncer de pele. Essas arquiteturas têm mostrado resultados promissores em tarefas de síntese de imagens.
+![Workflow](reports/figures/workflow_ia376.png)
 
-Ferramentas: Para a implementação, o grupo planeja utilizar a linguagem Python, a biblioteca de aprendizado profundo PyTorch e as GPUs disponibilizadas pelo Google Colab.
+## Experimentos, Resultados e Discussão dos Resultados
+Foram realizados experimentos envolvendo a GAN tradicional na geração de imagens sintéticas para o HAM10000, com o objetivo de verificar a viabilidade da abordagem. Os resultados qualitativos obtidos foram satisfatórios visualmente para as classes com uma boa quantidade de imagens disponíveis (+1000), porém houve uma grande dificuldade em gerar dados sintéticos para os dados com menos exemplos. Além disso, a fim de validar o código criado para a ACGAN, foi criado um notebook que implementa o modelo para a base de dados MNIST, uma vez que a variabilidade entre as classes pode ser facilmente identificada. 
 
-Resultados Esperados: Nesta fase inicial, esperamos concluir com sucesso a implementação das GANs para a síntese de imagens de lesões pigmentadas de pele. Os resultados esperados incluem a geração de imagens realistas que se assemelham a lesões de pele reais e a validação dessas imagens por meio de métricas de acurácia do classificar implementado. Para isso, treinaremos uma rede convolucional em duas situações: (1) dataset original e (2) dataset original + dados sintéticos.
+![Mnist samples generated using ACGAN](reports/figures/mnist/images_mnist_acgan.jpg)
 
-## Cronograma
- Considerando 5 etapas de desenvolvimento, o cronograma proposto é o seguinte:
-- Estudo bibliográfico e processamento dos dados: 1 semana
-- Implementação das GANs: 6 semanas
-- Treinamento e avaliação do classificador: 2 semanas
-- Escrita do relatório: 1 semana
+![HAM10000 samples generated using GAN](reports/figures/ham10000/imagens_sinteticas.jpg)
+
+Por fim, podemos identificar que durante o treinamento da ACGAN para a base MNIST, o gerador sofreu com o fenômeno colapso de modo. A hipótese inicial é que devido ao grande número de camadas utilizadas na rede geradora, ocorreu overfitting nos dados, fazendo com que a rede discriminadora facilmente identificasse os dados sintéticos.
+
+ A seguir, exploramos a aplicação da PROGAN usando o conjunto de dados HAM10000. Mais uma vez, os resultados foram satisfatórios em termos visuais para as classes que dispunham de uma quantidade significativa de imagens (mais de 1000 exemplos) para o treinamento da rede. No entanto, enfrentamos desafios semelhantes ao utilizar a PROGAN para as classes com menos exemplos, destacando a complexidade de gerar dados sintéticos precisos nessas circunstâncias.
+
+
+## Conclusão
+Para avançar na análise de lesões de pele por meio de aprendizado profundo, é fundamental abordar a escassez de amostras de treinamento. O problema persiste no treinamento de GANs para data augmentation.
 
 ## Referências Bibliográficas
 - Odena, Augustus, Christopher Olah, and Jonathon Shlens. "Conditional image synthesis with auxiliary classifier gans." International conference on machine learning. PMLR, 2017.
 - Karras, Tero, et al. "Progressive growing of gans for improved quality, stability, and variation." arXiv preprint arXiv:1710.10196 (2017).
+- GAN-based data augmentation and anonymization for skin-lesion analysis: A critical review | Sandra Avila. https://www.ic.unicamp.br/~sandra/publication/2021-bissoto-isic-cvprw/. Acessado 23 de outubro de 2023.
