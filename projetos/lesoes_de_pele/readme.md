@@ -30,9 +30,12 @@ HAM10000, processado em .jpg 64x64 64int, guardado no Git.
 checkpoint da ACGAN e PROGAN treinadas, guardadas no Drive local Google Colab + backup no Git (pasta reports/figures).
 
 ### Workflow
-Find related work (créditos pela ajuda da professora Sandra Ávila nessa tarefa)
-Experiments - treinar a ACGAN e a PROGAN no dataset HAM10000, retreinar o classificador com o dataset aumentado
+Find related work (créditos pela ajuda da professora Sandra Ávila nessa tarefa).
+
+Experiments - treinar a ACGAN e a PROGAN no dataset HAM10000, retreinar o classificador com o dataset aumentado.
+
 Discussion - comentar e modificar parâmetros de treinamento das GANs, comentar e modificar o número de imagens aumentadas ao dataset, procurar entender a precisão do classificador encontrada. 
+
 Conclusion - editar o registro da metodologia e resultados de forma didática.
 
 ## Experimentos, Resultados e Discussão dos Resultados
