@@ -20,7 +20,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  Apesar da crescente disponibilidade de conjuntos de dados públicos de alta qualidade, a escassez de amostras de dados médicos de treinamento ainda é um dos principais desafios do deep learning para análise de lesões na pele. Redes Generativas Adversariais (GANs) surgem como uma hipótese para data augmentation, com a esperança de criar amostras que são praticamente indistinguíveis de dados reais porém sem a preocupação com a quebra de sigilo médico.
 
 ## Objetivo
-Descobrir se usar data augmentation a partir de uma ACGAN ou ProGAN é capaz de melhorar o estado da arte na classificação de imagens de lesões de pele do dataset HAM10000.
+Descobrir se usar data augmentation a partir de uma ACGAN ou ProGAN é capaz de melhorar a qualidade de classificadores de lesões de pele.
 
 ## Metodologia Proposta
 Treinar ACGANs e ProGANs em um dataset isolado de cada tipo de lesão de pele. Gerar novas imagens usando os modelos treinados. Treinar um classificador usando o dataset aumentado e comparar sua precisão ao classificador treinado com o dataset original.
@@ -30,18 +30,15 @@ HAM10000, processado em .jpg 64x64 64int, guardado no Git.
 checkpoint da ACGAN e PROGAN treinadas, guardadas no Drive local Google Colab + backup no Git (pasta reports/figures).
 
 ### Workflow
-Find related work - créditos a professora Sandra Ávila pelo auxílio nessa tarefa.
 
-Experiments - treinar a ACGAN e a PROGAN no dataset HAM10000, retreinar o classificador com o dataset aumentado.
-
-Discussion - comentar e modificar parâmetros de treinamento das GANs, comentar e modificar o número de imagens aumentadas ao dataset, procurar entender a precisão do classificador encontrada. 
-
-Conclusion - editar o registro da metodologia e resultados de forma didática.
+![Workflow](reports\figures\workflow_ia376.png)
 
 ## Experimentos, Resultados e Discussão dos Resultados
 Foram realizados experimentos envolvendo a GAN tradicional na geração de imagens sintéticas para o HAM10000, com o objetivo de verificar a viabilidade da abordagem. Os resultados qualitativos obtidos foram satisfatórios visualmente para as classes com uma boa quantidade de imagens disponíveis (+1000), porém houve uma grande dificuldade em gerar dados sintéticos para os dados com menos exemplos. Além disso, a fim de validar o código criado para a ACGAN, foi criado um notebook que implementa o modelo para a base de dados MNIST, uma vez que a variabilidade entre as classes pode ser facilmente identificada. 
 
 ![Mnist samples generated using ACGAN](reports/figures/mnist/images_mnist_acgan.jpg)
+
+![HAM10000 samples generated using GAN](reports/figures/ham10000/imagens_sinteticas.jpg)
 
 Por fim, podemos identificar que durante o treinamento da ACGAN para a base MNIST, o gerador sofreu com o fenômeno colapso de modo. A hipótese inicial é que devido ao grande número de camadas utilizadas na rede geradora, ocorreu overfitting nos dados, fazendo com que a rede discriminadora facilmente identificasse os dados sintéticos.
 
