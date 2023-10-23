@@ -68,45 +68,9 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 
 ### Workflow
 
-![GPT-2_workflow](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/GPT2-workflow.png)
 
 
 ## Experimentos, Resultados e Discussão dos Resultados
-
-
-### Resultados preliminares
-A seguir, amostra com 30 notícias geradas no treinamento de 17/10/2023.
-
-> * Dólar opera instável nesta sexta, após Fed sinalizar abertura da bolsa
-> * Receita abre consulta ao 2º lote de restituições do Imposto de Renda 2017 nesta segunda
-> * Moradores de Itu têm que pagar para ver o Carnaval; confira como participar
-> * No Rio, banco de sangue do Hospital-SP recebe doação de doações
-> * Bovespa cede 0,40% e encerra a semana em queda
-> * Homem é preso em casa abandonado por funcionários na Paraíba
-> * Lucro da Gol dispara 3,2% no 2o trimestre e atinge R$ 10,7 bi
-> * Ex-diretor da Petrobrás quer ter até fim dia 8 para concluir oferta da LLX
-> * Brasil lidera a América Latina por 2,5% da arrecadação de ICMS indica que empresa de Eike lidera redução de desemprego em São Paulo
-> * Bovespa opera em queda nesta quarta
-> * Bovespa recua nesta quinta, mas sobe quase 3% na semana
-> * Em um dia, mais de 11 milhões deixaram o Brasil neste domingo
-> * BC anuncia novo corte de juros nos conta corrente e no abono salarial de 2017
-> * Polícia prende suspeitos de sequestro milionário em banco de João Pessoa
-> * BC diz que crise política afeta investimentos
-> * O golpe do sapato, uma história com as escolas de samba no Brasil
-> * Criminosos fazem buraco em parede e explodem loja na Zona Sul de Teresina
-> * Grupo rende funcionários e foge com reféns e armas em Sorocaba
-> * Agência é assaltada em Ribeirão Preto
-> * OGX mantém lucro de R$ 3,7 bilhões no 2º trimestre
-> * Bovespa recua e perde linha dos 64 mil pontos
-> * Bovespa fecha em alta, com ajuda grega e investidor
-> * Bandidos explodem banco e roubam agência do RN
-> * Conheça 15 espécies de aves, incluindo o papagaio-de-papo azul de Madagascar
-> * Oferta de papéis do Pão de Açúcar supera investimento em US$ 10 bi por 3ª semana
-> * Governo quer renegociações a bancos e estatais
-> * Bovespa sobe com piora no cenário externo
-> * Brasil recebe o primeiro banco comercial dos EUA que atua no setor financeiro
-> * Veja quais os melhores países do mercado de trabalho do mundo
-> * Dólar tem pior semana desde a abertura e fecha em R$ 3,45
 
 ## Conclusão
 
