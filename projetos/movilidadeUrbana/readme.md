@@ -33,10 +33,11 @@ Nos projeto tem como foco a geração sintética de dados de velocidade, altitud
 
 Pré-processamento de Dados:
 
-*Aplicar métodos estatísticos para filtrar os dados coletados e identificar instâncias de alta variabilidade, que podem incluir flutuações extremas de velocidade ou valores atípicos [1].
-*Remover pontos de dados com variabilidade excessiva para garantir a qualidade e consistência do conjunto de dados.
-*Eliminar pontos de dados que estão fora do horário operacional dos ônibus.
-*Categorizar os pontos de dados em dois estados: "Estacionário" e "Em Movimento" para diferenciar os períodos em que o ônibus está parado e em trânsito. Isso fornece insights sobre as rotas e ajuda a distinguir entre os estados dos ônibus durante a análise de dados.
+* Aplicar métodos estatísticos para filtrar os dados coletados e identificar instâncias de alta variabilidade, que podem incluir flutuações extremas de velocidade ou valores atípicos [1].
+
+* Remover pontos de dados com variabilidade excessiva para garantir a qualidade e consistência do conjunto de dados.
+* Eliminar pontos de dados que estão fora do horário operacional dos ônibus.
+* Categorizar os pontos de dados em dois estados: "Estacionário" e "Em Movimento" para diferenciar os períodos em que o ônibus está parado e em trânsito. Isso fornece insights sobre as rotas e ajuda a distinguir entre os estados dos ônibus durante a análise de dados.
 
 
 ### Classificação das Variáveis
@@ -56,9 +57,9 @@ Geração de Dados Sintéticos:
 
 Validação:
 
-Avaliações quantitativas, como MSE (Erro Quadrático Médio), MAE (Erro Absoluto Médio) e Diferença entre Distribuições.
-Avaliações qualitativas, como EDA (Análise Exploratória de Dados).
-Validar a utilidade e realismo do conjunto de dados sintéticos comparando-o com um conjunto de dados do mundo real.
+* Avaliações quantitativas, como MSE (Erro Quadrático Médio), MAE (Erro Absoluto Médio) e Diferença entre Distribuições.
+* Avaliações qualitativas, como EDA (Análise Exploratória de Dados).
+* Validar a utilidade e realismo do conjunto de dados sintéticos comparando-o com um conjunto de dados do mundo real.
 
 ### Bases de Dados e Evolução
 
