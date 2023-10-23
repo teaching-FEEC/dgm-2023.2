@@ -128,6 +128,6 @@ https://miro.com/app/board/uXjVMjWZwUU=/?share_link_id=824147713133
 
 
 ## Referências Bibliográficas
-[1] RPUBS - Cluster Analysis in R. (n.d.-b). https://rpubs.com/odenipinedo/cluster-analysis-in-R
-[2]Saxena, D. (2019, July 19). D-GAN: Deep Generative Adversarial Nets for Spatio-Temporal Prediction. arXiv.org. https://arxiv.org/abs/1907.08556
+* [1] RPUBS - Cluster Analysis in R. (n.d.-b). https://rpubs.com/odenipinedo/cluster-analysis-in-R
+* [2]Saxena, D. (2019, July 19). D-GAN: Deep Generative Adversarial Nets for Spatio-Temporal Prediction. arXiv.org. https://arxiv.org/abs/1907.08556
 
