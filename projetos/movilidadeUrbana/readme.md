@@ -51,9 +51,9 @@ Pré-processamento de Dados:
 
 Geração de Dados Sintéticos:
 
-*Empregar uma Rede Generativa Adversarial Profunda (DGAN) para gerar dados sintéticos de velocidade de ônibus. [2]
-*Treinar o modelo DGAN utilizando os dados do mundo real pré-processados do ônibus elétrico da UNICAMP em 2022. Esse processo de treinamento permite que o modelo capture os padrões e relações subjacentes presentes nos dados reais.
-*Gerar um conjunto de dados sintéticos abrangente. 
+* Empregar uma Rede Generativa Adversarial Profunda (DGAN) para gerar dados sintéticos de velocidade de ônibus. [2]
+* Treinar o modelo DGAN utilizando os dados do mundo real pré-processados do ônibus elétrico da UNICAMP em 2022. Esse processo de treinamento permite que o modelo capture os padrões e relações subjacentes presentes nos dados reais.
+* Gerar um conjunto de dados sintéticos abrangente. 
 
 Validação:
 
