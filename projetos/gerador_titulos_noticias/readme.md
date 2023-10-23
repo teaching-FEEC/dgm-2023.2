@@ -68,7 +68,7 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 
 ### Workflow
 
-![GPT-2_workflow](https://github.com/mmakita/IA376_gerador_titulos/assets/812647/f8fd245a-a67e-414e-8c33-979504f078cc)
+![GPT-2_workflow](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/GPT2-workflow.png)
 
 
 ## Experimentos, Resultados e Discussão dos Resultados
