@@ -49,7 +49,7 @@ Por fim, podemos identificar que durante o treinamento da ACGAN para a base MNIS
 
 
 ## Conclusão
-Para avançar na análise de lesões de pele por meio de aprendizado profundo, é fundamental abordar a escassez de amostras de treinamento. O problema persiste no treinamento de GANs para ata augmentation.
+Para avançar na análise de lesões de pele por meio de aprendizado profundo, é fundamental abordar a escassez de amostras de treinamento. O problema persiste no treinamento de GANs para data augmentation.
 
 ## Referências Bibliográficas
 - Odena, Augustus, Christopher Olah, and Jonathon Shlens. "Conditional image synthesis with auxiliary classifier gans." International conference on machine learning. PMLR, 2017.
