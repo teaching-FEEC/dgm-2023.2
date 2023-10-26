@@ -16,6 +16,7 @@ O presente projeto foi originado no contexto das atividades da disciplina de pó
 > Descrição do objetivo principal do projeto.
 > Esclarecer qual será a saída do modelo generativo.
 > Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
+> Resumo do objetivo, metodologia e resultados obtidos (na entrega E2 é possível relatar resultados parciais). Sugere-se máximo de 100 palavras.
 -->
 
 Uma Interface Cérebro-Computador (BCI) é um sistema que permite identificar padrões cerebrais estáveis de indivíduos durante a execução de determinadas tarefas mentais. Uma vez identificados é possível utilizá-los para diversas tarefas como controlar outros sistemas ou máquinas. Medir a atividade cerebral de forma eficaz é o primeiro passo crítico em um sistema de BCI. Existem técnicas de gravação invasivas e não invasivas, que permitem monitorar a atividade elétrica do cérebro ao longo do tempo e em diferentes áreas cerebrais.
@@ -26,7 +27,9 @@ Um dos métodos não invasivos que nos permite monitorar a atividade elétrica d
 
 
 ## Descrição do Problema/Motivação
-
+<!--
+> Descrição do contexto gerador do tema do projeto. Motivação para abordar este tema de projeto.
+-->
 A principal motivação deste projeto é vem do fato de que junto de técnicas de inteligência artificial, a aplicabilidade de
 dados EEG é vasta. Dentro do âmbito tipo MI (*motor imagery*), tais dados de EEG permite com que pessoas com paralizia severa possam desenhar [[7]](#referências-bibliográficas), para tratar epilepsia [[8]](#referências-bibliográficas) e, também para jogos [[9]](#referências-bibliográficas) e uso de veículos [[10]](#referências-bibliográficas). 
 
@@ -104,8 +107,6 @@ E como Pytorch requirements, usamos (por curiosidade, ["The safest way to instal
 
 ### Experimentos, Resultados e Discussão dos Resultados
 <!--
-> Na entrega parcial do projeto (E2), essa seção pode conter resultados parciais, explorações de implementações realizadas e discussões sobre tais experimentos, incluindo decisões de mudança de trajetória ou descrição de novos experimentos, como resultado dessas explorações.
-
 > Na entrega final do projeto (E3), essa seção deverá elencar os principais resultados obtidos (não necessariamente todos), que melhor representam o cumprimento dos objetivos do projeto.
 > A discussão dos resultados pode ser realizada em seção separada ou integrada à seção de resultados. Isso é uma questão de estilo. Considera-se fundamental que a apresentação de resultados não sirva como um tratado que tem como único objetivo mostrar que "se trabalhou muito". O que se espera da seção de resultados é que ela apresente e discuta somente os resultados mais relevantes, que mostre os potenciais e/ou limitações da metodologia, que destaquem aspectos de performance e que contenha conteúdo que possa ser classificado como compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade.
 -->
