@@ -1,7 +1,7 @@
 # This assumes the container is running on a system with a CUDA GPU
 FROM tensorflow/tensorflow:latest-gpu
 
-WORKDIR /project
+WORKDIR /notebooks
 
 COPY requirements.txt requirements.txt
 
