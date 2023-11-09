@@ -26,24 +26,35 @@ def load_data(path_name: str, random_state: int = 0, test_size:int=2*12*2, sampl
     Build the load power data for the GEFcom IJF_paper case study.
     """
     df_load = pd.read_csv(path_name, parse_dates=True, index_col=0)
+    df_load = df_load.dropna()
     max_load = df_load['POWER'].max()
     indices = periods_where_pv_is_null(df_inputs=df_load, samples_per_day=samples_per_day)
-
     # Select all columns that are not 'TIMESTAMP' or 'POWER'
     features = [col for col in df_load.columns if col not in ['TIMESTAMP', 'POWER']]
 
-    nb_days = int(len(df_load) / samples_per_day)
-    x = np.concatenate([df_load[col].values.reshape(nb_days, samples_per_day) for col in features], axis=1)
-    y = df_load['POWER'].values.reshape(nb_days, samples_per_day) / max_load
+    # Group the data by day
+    grouped = df_load.groupby(df_load.index.date)
+
+    # Reshape each group into a 1D array and store it in a list
+    x = [group[features].values.flatten() for _, group in grouped if len(group) == samples_per_day]
+    y = [group['POWER'].values.flatten() / max_load for _, group in grouped if len(group) == samples_per_day]
+
+    # Convert the lists to numpy arrays
+    x = np.array(x)
+    y = np.array(y)
+
+    # Remove the indices where PV is always 0
     y = np.delete(y, indices, axis=1)
-    df_y = pd.DataFrame(data=y, index=df_load['POWER'].asfreq('D').index)
-    df_x = pd.DataFrame(data=x, index=df_load['POWER'].asfreq('D').index)
+
+    # Create pandas DataFrames
+    df_y = pd.DataFrame(data=y)
+    df_x = pd.DataFrame(data=x)
 
     # Decomposition between LS, VS & TEST sets (TRAIN = LS + VS)
     df_x_train, df_x_TEST, df_y_train, df_y_TEST = train_test_split(df_x, df_y, test_size=test_size,
                                                                     random_state=random_state, shuffle=True)
     df_x_LS, df_x_VS, df_y_LS, df_y_VS = train_test_split(df_x_train, df_y_train, test_size=test_size,
-                                                          random_state=random_state, shuffle=True)
+                                                        random_state=random_state, shuffle=True)
 
     nb_days_LS = len(df_y_LS)
     nb_days_VS = len(df_y_VS)
