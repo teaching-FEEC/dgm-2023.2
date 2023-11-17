@@ -21,7 +21,7 @@ def periods_where_pv_is_null(df_inputs:pd.DataFrame, samples_per_day:int=24):
 
     return indices
 
-def load_data(path_name: str, indices, random_state: int = 0, test_size:int=2*12*2, samples_per_day:int=24):
+def load_data(path_name: str, indices=[], random_state: int = 0, test_size:int=2*12*2, samples_per_day:int=24):
     """
     Build the load power data for the GEFcom IJF_paper case study.
     """
@@ -35,8 +35,8 @@ def load_data(path_name: str, indices, random_state: int = 0, test_size:int=2*12
     if not isinstance(df_load.index, pd.DatetimeIndex):
         df_load.index = pd.to_datetime(df_load.index, utc=True)
 
-    if df_load.index.tz is not None:
-        df_load.index = df_load.index.tz_convert('UTC')
+    # Remove timezone information
+    df_load.index = df_load.index.tz_localize(None)
 
     df_load = df_load[df_load.index.minute == 0]
 
