@@ -21,7 +21,7 @@ def periods_where_pv_is_null(df_inputs:pd.DataFrame, samples_per_day:int=24):
 
     return indices
 
-def load_data(path_name: str, random_state: int = 0, test_size:int=2*12*2, samples_per_day:int=24):
+def load_data(path_name: str, indices, random_state: int = 0, test_size:int=2*12*2, samples_per_day:int=24):
     """
     Build the load power data for the GEFcom IJF_paper case study.
     """
@@ -32,7 +32,12 @@ def load_data(path_name: str, random_state: int = 0, test_size:int=2*12*2, sampl
     # Select all columns that are not 'TIMESTAMP' or 'POWER'
     features = [col for col in df_load.columns if col not in ['TIMESTAMP', 'POWER']]
 
-    # Keep only the records that are on the hour (xx:00)
+    if not isinstance(df_load.index, pd.DatetimeIndex):
+        df_load.index = pd.to_datetime(df_load.index, utc=True)
+
+    if df_load.index.tz is not None:
+        df_load.index = df_load.index.tz_convert('UTC')
+
     df_load = df_load[df_load.index.minute == 0]
 
     # Group the data by day
@@ -66,9 +71,10 @@ def load_data(path_name: str, random_state: int = 0, test_size:int=2*12*2, sampl
     # Convert the lists to numpy arrays
     x = np.array(x)
     y = np.array(y)
-
+    print("First day:")
     print(df_resampled.head(24))
-    indices = periods_where_pv_is_null(df_inputs=df_resampled, samples_per_day=samples_per_day)
+    if not indices:
+      indices = periods_where_pv_is_null(df_inputs=df_resampled, samples_per_day=samples_per_day)
 
     # Remove the indices where PV is always 0
     y = np.delete(y, indices, axis=1)

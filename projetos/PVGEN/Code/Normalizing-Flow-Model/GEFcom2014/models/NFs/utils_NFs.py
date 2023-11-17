@@ -5,6 +5,7 @@ import os
 import torch
 import random
 import wandb
+from tqdm import tqdm
 
 import pandas as pd
 import numpy as np
@@ -75,7 +76,8 @@ def fit_NF(nb_epoch: int, x_LS: np.array, y_LS: np.array, x_VS: np.array, y_VS: 
     # WARNING: batch size = 10 % #LS
     batch_size = int(0.1 * y_LS.shape[0])
 
-    for epoch in range(nb_epoch):
+    pbar = tqdm(range(nb_epoch), desc="Processing", unit="epoch", leave=True, ncols=70)
+    for epoch in pbar:
         loss_tot = 0
         start = timer()
 
@@ -128,9 +130,8 @@ def fit_NF(nb_epoch: int, x_LS: np.array, y_LS: np.array, x_VS: np.array, y_VS: 
             wandb.log({"vs loss": loss_vs})
             wandb.log({"test loss": loss_test})
             wandb.log({"vs min loss": ll_VS_min})
-
-        if epoch % 10 == 0:
-            # print("Epoch {:.0f} Approximate time left : {:2f} min - LS loss: {:4f} VS loss: {:4f} TEST loss: {:4f}".format(epoch, time_tot / (epoch + 1) * (nb_epoch - (epoch + 1)) / 60, loss_ls, loss_vs, loss_test))
-            print("Epoch {:.0f} Approximate time left : {:2f} min - LS loss: {:4f} VS loss: {:4f} TEST loss: {:4f}".format(epoch, time_tot / (epoch + 1) * (nb_epoch - (epoch + 1)) / 60, loss_ls, loss_vs, loss_test), end="\r", flush=True)
+        if (epoch+1) % (nb_epoch // 10) == 0 or epoch == nb_epoch - 1:  # Print every 10% of the total epochs and the last epoch            
+            pbar.set_description(f"Processing (loss={loss:.4f})")
+            print("\n")  # Add a newline character here
     print('Fitting time_tot %.0f min' %(time_tot/60))
     return np.asarray(loss_list), best_flow, flow
