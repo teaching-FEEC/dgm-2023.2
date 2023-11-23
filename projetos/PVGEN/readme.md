@@ -111,34 +111,34 @@ On working...
 
 ### Experiments
 
-As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. Finally, Figure 7 shows the loss curve for the training, validation, and test set.
+As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 6 shows the Optimization history plot, and Figure 7 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. Finally, Figure 9 shows the loss curve for the training, validation, and test set.
 
 
 ![image info](./Figs/bayesian_optimizacion.png)
 
-Figure 5: Optimization History
+Figure 6: Optimization History
 
 
 ![image info](./Figs/search_space.png)
 
-Figure 6: Parallel coordinates plot 
+Figure 7: Parallel coordinates plot 
 
 
 ![image info](./Figs/loss_epoch.png)
 
-Figure 7: Training and Validation Loss
+Figure 8: Training and Validation Loss
 
 ### Results
 
-After hyperparameter optimization, the NF model is evaluated using the MAE and RMSE metrics. This evaluation involves utilizing weather data from the UNICAMP set as input for the NF model. The model generates 100 distinct PV curves, as illustrated in Figure 8. The average of these curves, depicted in Figure 9, is regarded as the forecast for that day. Finally, the MAE and RMSE are computed by comparing this forecast with the actual PV power output. These evaluation metrics are summarized in Table II for valid and train sets.
+After hyperparameter optimization, the NF model is evaluated using the MAE and RMSE metrics. This evaluation involves utilizing weather data from the UNICAMP set as input for the NF model. The model generates 100 distinct PV curves, as illustrated in Figure 9. The average of these curves, depicted in Figure 10, is regarded as the forecast for that day. Finally, the MAE and RMSE are computed by comparing this forecast with the actual PV power output. These evaluation metrics are summarized in Table II for valid and train sets.
 
 ![image info](./Figs/PVforecasting100_d100_synthetic.png)
 
-Figure 8: 100 synthetic PV curves for a single day
+Figure 9: 100 synthetic PV curves for a single day
 
 ![image info](./Figs/PVforecasting_d10_real_predicted.png)
 
-Figure 9: Average PV curve for a single day
+Figure 10: Average PV curve for a single day
 
 Table II: Metrics for NF model
 
@@ -147,11 +147,11 @@ Table II: Metrics for NF model
 | MAE       | 1.81     | 2.85     |
 | RMSE      | 2.01     | 3.29     |
 
-A Q-Q (Quantile-Quantile) plot commonly used in statistical analysis is also used to evaluete the performance of the model. This plot lets to assess how well a dataset adheres to a theoretical normal distribution. A perfect adherence to this distribution would result in all data points forming an identity line. Deviations from this line offer insights into the distributional characteristics of data. Figure 10 shows the Q-Q plot for valid and test sets.
+A Q-Q (Quantile-Quantile) plot commonly used in statistical analysis is also used to evaluete the performance of the model. This plot lets to assess how well a dataset adheres to a theoretical normal distribution. A perfect adherence to this distribution would result in all data points forming an identity line. Deviations from this line offer insights into the distributional characteristics of data. Figure 11 shows the Q-Q plot for valid and test sets.
 
 ![image info](./Figs/qq_plot.png)
 
-Figure 10: Q-Q plot
+Figure 11: Q-Q plot
 
 ### Discussion
 
@@ -163,7 +163,7 @@ In order to compare NF, transformers will be implemented, and the CGAN model wil
 
 ![image info](./Figs/Evaluation.svg)
 
-Figure 10: Evaluation method -->
+Figure 12: Evaluation method -->
                                              
 ## Tasks
 
