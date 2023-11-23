@@ -49,31 +49,27 @@ The following papers address GANs for time series generation and will be used as
 
   * *[TimeGAN](https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf)* (Time-series Generative Adversarial Network) is a framework for generating synthetic time-series data. The goal is to create smoothed time series data via a GAN. The paper proposes a novel approach for generating realistic time-series data using supervised and unsupervised learning techniques. (Yoon, Jordon, & van der Schaar, 2019).
 
-  * *[TSGAN](https://arxiv.org/pdf/2006.16477.pdf)* (Time Series GAN) is a novel architecture that uses two GANs in unison to model fake time series examples. TSGAN focuses on one dimensional times series and explores the few shot approach, which is the ability of an algorithm to perform well with limited data (Wang, Zhang, & Zhang, 2020).
+  * *[TSGAN](https://arxiv.org/pdf/2006.16477.pdf)* (Time Series GAN) is a novel architecture that uses two GANs in unison to model fake time series examples. TSGAN focuses on one-dimensional times series and explores the few-shot approach, which is the ability of an algorithm to perform well with limited data (Wang, Zhang, & Zhang, 2020).
 
 The groundwork for this study is rooted in the [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871), a publication featured in Applied Energy. The paper introduces a deep learning technique known as normalizing flows (NF), which is designed to produce accurate scenario-based probabilistic forecasts. It compares NF with other state-of-the-art DL generative models, such as generative adversarial networks and variational autoencoders, in generating weather-based wind, PV power, and load scenarios.
 
 ## Methodology
 
-The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses normalizing flows (NF), CGAN, and Transformers as generative models. Upon training the generative model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The final evaluation of the approach is carried out using MAE and RMSE for the forecasting model. The proposed framework is shown in Figure 2.
+The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses normalizing flows (NFs) as a generative model. Upon training NFs model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The hyperparameter of the generative model and the forecasting model are optimized with a Bayesian algorithm using Weights & Biases and Optuna respectively. The proposed framework is shown in Figure 2.
 
 ![image info](./Figs/PVGAN_framework.svg)
 
 Figure 2: Proposed Framework
 
-<!--The creation of synthetic data will be carried out using three different architectures. One of them will be based on a conditional GAN, as shown in Figure 3. Additionally, another architecture based on flow models or transformers will be proposed for synthetic PV data generation.
-
-![image info](./Figs/GAN.svg)
-
-Figure 3: Proposed Conditional GAN -->
 
 * Tools:
   * Python 3
   * Google Colab
   * PyTorch
   * Weights & Biases
+  * Optuna
 
-## Dataset
+### Dataset
 
 The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table I.
 
@@ -93,17 +89,29 @@ Figure 3: UNICAMP
 
 Figure 4: GECAD 
 
-The datasets are used as follows. Historical PV generation data from UNICAMP and data are employed to train PV generative models. Synthetic PV power data is obtained using the generative model, and the weather features from the GECAD dataset. Finally, the synthetic PV data and weather features are used to train a day-ahead PV power forecasting model.
+The datasets are used as follows. Historical PV power data from UNICAMP and weather data are employed to train the PV generative model. UNICAMP dataset is split randomly 50% for training (2 years), 25% for validation (1 year), and 25% for testing (1 year) as can be seen in Figure 5a. Synthetic PV power is obtained using 75% of the GECAD dataset using only weather features as input; the remaining 25%, which corresponds to the data of the last year, is not used (see Figure 5b). For the forecasting model, the synthetic PV is concatenated to GECAD dataset and used chronologically for training the forecasting model, which means that 50% of the data is used for training and 25% for validating. Finally, the last 25% is used to evaluate the entire methodology, where real PV data is concatenated with the available weather data (see Figure 5c). 
+
+![image info](./Figs/PVGAN_dataset_spit.svg)
+
+Figure 5: Dataset splits
+
+### Evaluation
+
+The evaluation of the framework is proposed using two different approaches. 
+
+ - Compute the MAE and RMSE of the day ahead PV power forecasts obtained for the GECAD database, for the test set. The test dataset contains the historical values of real PV. For this evaluation, a forecasting model is also trained for GECAD using historical PV power that is assumed not to be available for the proposed methodology.
+ -	Transfer Learning. To do this, a forecast model is trained for the UNICAMP database, and one year of synthetic data is used to adjust the weights of the initial model, based on three transfer learning strategies described in this [paper]([https://www.nature.com/articles/s41598-022-18516-x]).
+
 
 ## Workflow
 
 On working...
 
-## Experiments, Results and Discussion
+## Experiments, Results, and Discussion
 
 ### Experiments
 
-As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. Finally, Figure 7 shows the loss curve for the training, validation and test set.
+As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. Finally, Figure 7 shows the loss curve for the training, validation, and test set.
 
 
 ![image info](./Figs/bayesian_optimizacion.png)
@@ -174,3 +182,4 @@ Figure 10: Evaluation method -->
 * Yoon, J., Jordon, J., & van der Schaar, M. (2019). Time-series Generative Adversarial Networks. In Advances in Neural Information Processing Systems (pp. 5509-5520).
 * Smith, K. E., & Smith, A. O. (2020). Conditional GAN for timeseries generation. arXiv preprint arXiv:2006.16477.
 * Dumas, J., Wehenkel, A., Lanaspeze, D., Cornélusse, B., & Sutera, A. (2022). A deep generative model for probabilistic energy forecasting in power systems: normalizing flows. Applied Energy, 305, 117871.
+* Sarmas, E., Dimitropoulos, N., Marinakis, V., Mylona, Z., & Doukas, H. (2022). Transfer learning strategies for solar power forecasting under data scarcity. Scientific Reports, 12(1), 14643.
