@@ -66,7 +66,15 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 
 ## Experimentos, Resultados e Discussão dos Resultados
 
+A seguir, descrevemos os procedimentos utilizados para gerar o modelo, compor a base de dados sintética e avaliar a base gerada.
+
 ### Finetunning do modelo
+
+Os primeiros passos para a construção do dataset foram dados com o teste de diversos modelos pré-treinados de dados para verificar se realmente era possível a utilização dos dados disponíveis para treinar um modelo de LLM (Large Language Model) que realmente gerasse amostras diversas e inteligíveis. Apesar de alguns modelos realmente convergirem no treinamento, foram poucos os que realmente geravam dados inteligíveis e diversos e não meras cópias ou pequenas variações de amostras do conjunto de treinamento (overfit).
+
+Neste contexto, modelos mais simples (menor quantidade de parâmetros) tiveram, de maneira geral, desempenho maior do que modelos mais complexos, de modo que modelos como o [GPorTuguese-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) (124 milhões de parâmetros) e [BLOOM LM](https://huggingface.co/bigscience/bloom-560m) (560 milhões de parâmetros) desempenharam-se melhor do que modelos mais atuais e complexos de até 7 bilhões de parâmetros. Tal fato provavelmente advém do tamanho limitado do dataset utilizado para treinamento. Enquanto os datasets de treinamento de LLMs chegam às centenas de Gigabytes ou Terabytes, nosso conjunto era pouco menor que 10Mb (9,09 Mb).
+
+![Losses de treinamento e validação](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/fine-tunning-losses.png)
 
 ### Geração do dataset
 
@@ -81,8 +89,10 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 ## Conclusão
 
 ## Referências Bibliográficas
-Touseef Iqbal, Shaima Qureshi. The survey: Text generation models in deep learning. In: Journal of King Saud University - Computer and Information Sciences, Volume 34, Issue 6, Part A. 2022. Pages 2515-2528. ISSN 1319-1578. https://doi.org/10.1016/j.jksuci.2020.04.001. Disponível em: https://www.sciencedirect.com/science/article/pii/S1319157820303360
+IQBAL, Touseef. QURESHI, Shaima. The survey: Text generation models in deep learning. In: Journal of King Saud University - Computer and Information Sciences, Volume 34, Issue 6, Part A. 2022. Pages 2515-2528. ISSN 1319-1578. https://doi.org/10.1016/j.jksuci.2020.04.001. Disponível em: https://www.sciencedirect.com/science/article/pii/S1319157820303360
 
-Katikapalli Subramanyam Kalyan and Ajit Rajasekharan and Sivanesan Sangeetha.AMMUS : A Survey of Transformer-based Pretrained Models in Natural Language Processing. 2021. Disponível em: https://arxiv.org/abs/2108.05542
+KALYAN, Katikapalli Subramanyam. RAJASEKHARAN,  Ajit. SANGEETHA, Sivanesan. AMMUS : A Survey of Transformer-based Pretrained Models in Natural Language Processing. 2021. Disponível em: https://arxiv.org/abs/2108.05542
 
 CAROSIA, Arthur Emanuel de Oliveira. Previsão do mercado de ações brasileiro com o uso de análise de sentimentos, indicadores técnicos e valores de ações. 2022. 1 recurso online (129 p.) Tese (doutorado) - Universidade Estadual de Campinas, Faculdade de Tecnologia, Limeira, SP.
+
+RADFORD, Alec. WU, Jeffrey. CHILD, Rewon. LUAN, David. AMODEI, Dario. SUTSKEVER, Ilya. Language Models are Usupervised Multitask Learners. 2018. 
