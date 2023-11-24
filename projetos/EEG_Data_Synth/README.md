@@ -321,7 +321,7 @@ A tabela abaixo apresenta os valores da métrica JS calculados para cada classe 
 |![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Histogramas**|
 |:--:| 
 
-## Resultados para o terceiro indivíduo
+## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
 Falar sobre a variabilidade dos indivíduos no processo de aquisição de dados. 
 Falar sobre o impacto disso no classificador
 
