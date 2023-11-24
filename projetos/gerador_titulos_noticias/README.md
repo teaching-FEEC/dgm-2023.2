@@ -15,8 +15,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 ## Abstract
 Para tomar decisões de investimento de sucesso no mercado financeiro, é relevante analisar as principais notícias em tempo real. Muitas empresas buscam automatizar essa abordagem utilizando modelos de Análise de Sentimentos baseados em Processamento de Linguagem Natural (PLN) para extrair os vieses das notícias mais recentes. Essas informações alimentam algoritmos de previsão de preços futuros de ações, fundamentando assim a decisão de compra ou venda de ativos financeiros. É crucial, portanto, a utilização de conjuntos de dados que incluem uma ampla variedade de títulos de notícias, bem como a análise de seus sentimentos correspondentes. Entretanto, a disponibilidade de conjuntos de dados padronizados para a análise de sentimentos no contexto do mercado financeiro, especialmente em língua portuguesa, é limitada. Além disso, criar bases de dados reais é uma tarefa custosa devido à necessidade de integração com APIs de redes sociais, agregadores de notícias e desenvolvimento de scrapers para coletar dados em sites especializados.
 
-Este projeto tem como objetivo criar uma base de dados pública em língua portuguesa que contenha títulos de notícias sintéticos, acompanhados da classificação de seu sentimento correspondente. Para alcançar esse fim, utilizaremos técnicas de PLN e análise de sentimentos em texto. Além disso, realizaremos testes quantitativos, qualitativos e de benchmarking da nova base de dados para avaliar sua qualidade. Os resultados serão disponibilizados para comunidade, a fim de colaborar com outros projetos da área. 
-
+Este projeto grou uma base de dados pública em língua portuguesa que contém títulos de notícias sintéticos utilizando técnicas de PLN para uso em projetos relacionados ao tema econômico utilizando análise de sentimentos em texto. A base criada possui 250 mil amostras sintéticas de títulos de notícias. Para avaliar a contribuição da adição de dados sintéticos ao desempenho de modelos de análise de sentimentos, avaliamos quantitativamente as amostras geradas e qualitativamente utilizando o modelo [fasttext](https://fasttext.cc/) de classificação de textos utilizando em CAROSIA (2021), entretanto a adição de dados artificiais não se mostrou benéfica para a tarefa analisada e os índices de desempenho desta tarefa não foi melhorado.
 
 **Vídeo descritivo:** [Vídeo](https://youtu.be/eHPE9ebIPyA)
 
@@ -31,10 +30,8 @@ Além de prover aumento na quantidade das amostras, o desenvolvimento de dataset
 
 ## Metodologia Proposta
 
-O desenvolvimento do projeto se dará através de base de dados disponível em: https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK
-A partir daí, a ideia do projeto é treinar modelos gerativos pré-treinados (T-PTLMs) ou outros modelos
-que apresentem desempenho equivalente ao estado da arte para obterem o vocabulário específico da área
-e gerarem textos de melhor qualidade.
+O desenvolvimento do projeto se terá como base os dados disponível em: https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK
+A partir daí, treinamos modelos gerativos pré-treinados (T-PTLMs) avaliando desempenho para gerarem títulos de qualidade. Dentre os modelos treinados, destacou-se um [modelo baseado em GPT-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) e treinado com dados da base de artigos da Wikipedia-PT 
 
 As bases serão, então, submetida a várias métricas de desempenho e qualidade a serem especificadas
 conforme o avançar dos trabalhos sendo possíveis atividades a classificação dos títulos gerados em positivos e negativos,
