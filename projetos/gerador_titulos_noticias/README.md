@@ -107,6 +107,68 @@ O conjunto de treinamento foi dividido na seguinte razão:
 
 ### Geração do dataset
 
+A geração do dataset sintético consiste em iterar sobre o método de inferência do modelo infinitamente.
+Para esta tarefa, foram consideradas duas abordagens: sem prompt e utilizando um prompt.
+
+#### Geração sem prompt
+Consiste em gerar amostras sem utilizar um prompt específico.
+Na primeira iteração, gera-se amostras utilizando uma string vazia `"  "` como prompt. A seguir, utiliza-se a última notícia gerada (geralmente incompleta) como prompt para geração do próximo lote de amostras.
+Para cada execução, são geradas entre 5 e 7 amostras, na maioria das iterações. Esta etapa foi efetuada em computador local e utilizando-se da plataforma Google Colab PRO e, juntas, somaram mais de 72h de tempo de processamento. Observou-se que após a geração de cerca de 150 mil amostras, a taxa de geração de amostras repetidas superou a taxa de geração de amostras inéditas, o que pode sugerir um "esgotamento criativo" do modelo. Após 190 mil amostras geradas, menos e 1% das novas amostras eram inéditas, o que nos levou a tentar uma segunda abordagem de geração descrita a seguir.
+
+Exemplos de amostras geradas:
+
+Prompt (última amostra da iteração anterior): `Bovespa fecha em queda,`
+````
+Bovespa fecha em queda, puxada por Petrobras e Vale
+Bovespa perde 0,40% na abertura; dólar marca R$ 1,75
+Bolsa de São Paulo: Ibovespa abre em alta de 0,36%
+Dólar fecha a R$ 3,239, menor cotação em um mês, com cenário externo e eleições
+Ibovespa perde força com mercado à espera da declaração de Pizzolato
+Dólar fecha a R$ 1,65; Bovespa sobe 0, (descartada e utilizada como prompt da próxima iteração)
+````
+
+#### Geração com prompt
+Após a geração de aproximadamente 200 mil amostras utilizando a estratégia sem prompt e diante da estagnação da geração de amostras inéditas, expermimentou-se a geração de amostras utilizando como prompt uma palavra aleatória do dataset original. O objetivo era verificar se o fornecimento de uma palavra ajudava o modelo a gerar novas amostras. Para tanto, mapeamos todas as palavras presente no dataset original (eliminando as repetições) e fornecemos uma palavra aleatória como prompt para cada iteração da inferência.
+
+O primeiro e o último títulos gerados foram descartados por serem (quase sempre) incompletos.
+
+Exemplos de amostras geradas:
+
+Prompt (palavra aleatória): ``
+````
+
+````
+
+#### Anomalias detectadas durante a geração do dataset
+
+Durante o processo de geração de dataset, duas anomalias foram detectadas: Loop de infinito de geração e estagnação da criatividade do modelo, os quais serão comentados a seguir:
+
+##### Loop infinito de geração uma amostra
+Consiste em um fenômeno em que o gerador fica preso na geração de uma amostra infinitamente. Este fenômeno foi observado quando aumentamos a quantidade máxima de token de cada iteração. A seguir um exemplo de sua ocorrência:
+
+Prompt: `Saiba como ajudar desabrigados`
+````
+Saiba como ajudar desabrigados em tragédia no Rio Grande do Sul
+Banco Central corta taxa de juros de títulos públicos
+Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57
+````
+Prompt: `Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57`
+````
+Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando
+````
+Prompt: `Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando`
+````
+Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Iboves
+````
+
+Note que o modelo entra em loop na geração de uma amostra e não consegue terminá-la, sempre repetindo o padrão " e Ibovespa segue avançando na linha dos 57 mil pontos".
+
+##### Estagnação da criatividade
+
+Conforme comentado brevemente acima, ocorreu após a geração de aproximadamente 190 mil amostras e consiste na geração excessiva de amostras repetidas.
+
+##### TODO: gráfico de amostras novas ineditas vs repetidas
+
 ### Avaliação Quantitativa
 
 Perplexity (gpt-2):
