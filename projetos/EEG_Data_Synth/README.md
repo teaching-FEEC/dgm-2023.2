@@ -269,6 +269,40 @@ A fórmula para calcular a divergência de Jensen-Shannon é uma combinação po
 
 Histogramas foram utilizados para comparação visual entre as distribuições dos canais dos dados reais e dados sintéticos, na proporção de 1:1. Para análise, foram escolhidos três eletrodos posicionados na região motora do cérebro (Cz, C3 e C4) e dois eletrodos cujo valor de divergência de JS mais variaram de indivíduo para indivíduo (FC2, C2). 
 
+### Espaços latentes de um Autoencoder Variacional
+Foi utilizada a arquitetura de um Autoencoder Variacional (VAE), baseada na [EEGNet](https://arxiv.org/pdf/1611.08024.pdf) para gerar o espaço latente dos dados reais e sintéticos através da extração de característica realizada pelo encoder. Após alguns testes a seguinte configuração final: 
+
+* Modelo do Encoder: 
+
+| Layer (type)                  | Output Shape           | Param #      | Connected to                |
+|-------------------------------|------------------------|--------------|-----------------------------|
+| encoder_input (InputLayer)    | (None, 1, 22, 400)     | 0            | []                          |
+| conv2d (Conv2D)               | (None, 1, 1, 32)       | 640,032      | ['encoder_input[0][0]']     |
+| batch_normalization           | (None, 1, 1, 32)       | 128          | ['conv2d[0][0]']            |
+| leaky_re_lu                   | (None, 1, 1, 32)       | 0            | ['batch_normalization[0][0]']|
+| conv2d_1 (Conv2D)             | (None, 1, 1, 64)       | 45,120       | ['leaky_re_lu[0][0]']       |
+| batch_normalization_1         | (None, 1, 1, 64)       | 256          | ['conv2d_1[0][0]']          |
+| leaky_re_lu_1                 | (None, 1, 1, 64)       | 0            | ['batch_normalization_1[0][0]']|
+| flatten                       | (None, 64)             | 0            | ['leaky_re_lu_1[0][0]']     |
+| dense                         | (None, 16)             | 1,040        | ['flatten[0][0]']           |
+| z_log_var (Dense)             | (None, 2)              | 34           | ['dense[0][0]']             |
+| z_mean (Dense)                | (None, 2)              | 34           | ['dense[0][0]']             |
+| tf.math.add (TFOpLambda)      | (None, 2)              | 0            | ['z_log_var[0][0]']         |
+| z (Lambda)                    | (None, 2)              | 0            | ['z_mean[0][0]', 'tf.math.add[0][0]']|
+
+* Modelo do VAE: 
+
+| Layer (type)                | Output Shape         | Param #   |
+|-----------------------------|----------------------|-----------|
+| encoder_input (InputLayer)  | (None, 1, 22, 400)   | 0         |
+| encoder (Functional)        | (None, 2), (None, 2),| 686,644   |
+|                             | (None, 2)            |           |
+| decoder (Functional)        | (None, 1, 22, 400)   | 910,785   |
+
+
+Com a arquitetura final do VAE, formado pela junção do encoder e o decoder, foi possível treiná-lo com 1000 épocas, batchsize igual a 32 e dimensão do espaço latente igual a 2. Foi utlizado o método do [K-means](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) para separação das classes na representação dos espaços além disso, foi usada a biblioteca do [UMAP](https://umap-learn.readthedocs.io/en/latest/) para visualização dos manifolds. Como resultado obteve-se os espaços latentes usando a base de dados real e a de dados sintéticos e suas representações puderam ser comparadas através dos manifolds para cada cenário. 
+
+As representações dos manifolds são discutidas nos [Resultados](#resultados) e código implementado se encontra disponível no [GitHub](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/others/esse_vae.ipynb). 
 
 # Resultados
 
@@ -329,41 +363,7 @@ Nota-se ainda que para os sujeitos 9 nenhuma porcentagem de augmentation foi suf
 |![EEGNet_Accuracy_vs_Augmentation](./figure/EEGNet_Accuracy_vs_Augmentation.png "EEGNet_Accuracy_vs_Augmentation")**EEGNet_Accuracy_vs_Augmentation**|
 |:--:| 
 
-## Comparação dos espaços latentes
-Foi utilizada a arquitetura de um Autoencoder Variacional (VAE), baseada na [EEGNet](https://arxiv.org/pdf/1611.08024.pdf) para gerar o espaço latente dos dados reais e sintéticos através da extração de característica realizada pelo encoder. Após alguns testes a seguinte configuração final: 
-
-* Modelo do Encoder: 
-__________________________________________________________________________________________________
-| Layer (type)                  | Output Shape           | Param #      | Connected to                |
-|-------------------------------|------------------------|--------------|-----------------------------|
-| encoder_input (InputLayer)    | (None, 1, 22, 400)     | 0            | []                          |
-| conv2d (Conv2D)               | (None, 1, 1, 32)       | 640,032      | ['encoder_input[0][0]']     |
-| batch_normalization           | (None, 1, 1, 32)       | 128          | ['conv2d[0][0]']            |
-| leaky_re_lu                   | (None, 1, 1, 32)       | 0            | ['batch_normalization[0][0]']|
-| conv2d_1 (Conv2D)             | (None, 1, 1, 64)       | 45,120       | ['leaky_re_lu[0][0]']       |
-| batch_normalization_1         | (None, 1, 1, 64)       | 256          | ['conv2d_1[0][0]']          |
-| leaky_re_lu_1                 | (None, 1, 1, 64)       | 0            | ['batch_normalization_1[0][0]']|
-| flatten                       | (None, 64)             | 0            | ['leaky_re_lu_1[0][0]']     |
-| dense                         | (None, 16)             | 1,040        | ['flatten[0][0]']           |
-| z_log_var (Dense)             | (None, 2)              | 34           | ['dense[0][0]']             |
-| z_mean (Dense)                | (None, 2)              | 34           | ['dense[0][0]']             |
-| tf.math.add (TFOpLambda)      | (None, 2)              | 0            | ['z_log_var[0][0]']         |
-| z (Lambda)                    | (None, 2)              | 0            | ['z_mean[0][0]', 'tf.math.add[0][0]']|
-__________________________________________________________________________________________________
-* Modelo do VAE: 
-_________________________________________________________________
-| Layer (type)                | Output Shape         | Param #   |
-|-----------------------------|----------------------|-----------|
-| encoder_input (InputLayer)  | (None, 1, 22, 400)   | 0         |
-| encoder (Functional)        | (None, 2), (None, 2),| 686,644   |
-|                             | (None, 2)            |           |
-| decoder (Functional)        | (None, 1, 22, 400)   | 910,785   |
-_________________________________________________________________
-
-Com a arquitetura final do VAE, formado pela junção do encoder e o decoder, foi possível treiná-lo com 1000 épocas, batchsize igual a 32 e dimensão do espaço latente igual a 2. Foi utlizado o método do [K-means](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) para separação das classes na representação dos espaços além disso, foi usada a biblioteca do [UMAP](https://umap-learn.readthedocs.io/en/latest/) para visualização dos manifolds. Como resultado obteve-se os espaços latentes usando a base de dados real e a de dados sintéticos e suas representações puderam ser comparadas através dos manifolds para cada cenário. 
-
-As representações dos manifolds são discutidas nos [Resultados](#resultados) e código implementado se encontra disponível no [GitHub](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/others/esse_vae.ipynb). 
-
+## Comparação dos espaços latentes do terceiro indivíduo
 Os manifolds para os dados reais e os dados sintéticos são mostrados nas figuras abaixo. Foi possível observar que na [Figura 1](manifold_reais.png), com os dados reais ficaram mais espaçados, e quase não há mistura de classes, e o codificador foi capaz de extratir as características de cada classe juntamente com o algoritmo do k-means que contribuiu bastante para o resultado final.  Na [Figura 2](manifold_sinteticos.png) para os dados sintéticos é possível oberservar que as classes não ficaram muito bem separadas em um mesmo agrupamento, principalmente o grupo roxo referente a classe 1 que ficou um pouco misturado em dois grupos. Contudo, pode-se concluir que mesmo para as bases diferentes o algoritmo conseguiu fazer a representação do espaço latente das quatros classes de EEG, mostrando assim a similaridade dos dados sintéticos com o reais. 
 <figure id="manifold_reais">
 	<img src="manifold_reais.png" alt="manifold_reais">
