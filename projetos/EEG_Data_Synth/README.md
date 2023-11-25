@@ -303,20 +303,16 @@ Ainda assim, é importante considerar a variabilidade individual entre os partic
 
 
 ### Métrica Jensen–Shannon (JS)
-A divergência de Jensen-Shannon (JS) foi calculada entre os dados reais e os dados gerados pela rede generativa condicional. Essa métrica é utilizada para avaliar a "distância" ou similaridade entre duas distribuições de probabilidade, sendo que  valores menores dessa métrica indicam que as distribuições estão mais próximas, enquanto valores maiores indicam que as distribuições são mais distintas. A comparação foi realizada para cada classe e para cada canal das duas distribuições. Ambos conjuntos de dados reais possuem dimensão (1152, 3), representando 288 amostras para cada classe em cada um dos três canais. 
+A divergência de Jensen-Shannon (JS) foi calculada entre os dados reais e os dados gerados pela rede generativa condicional. Essa métrica é utilizada para avaliar a "distância" ou similaridade entre duas distribuições de probabilidade, sendo que  valores menores dessa métrica indicam que as distribuições estão mais próximas, enquanto valores maiores indicam que as distribuições são mais distintas. A comparação foi realizada para cada classe e para cada canal das duas distribuições. Ambos conjuntos de dados reais possuem dimensão (1152, 22), representando 288 amostras para cada classe em cada canal. 
 
 
-A tabela abaixo apresenta os valores da métrica JS calculados para cada classe e eletrodo. Observa-se que os valores são relativamente altos, sugerindo que as distribuições estão distantes uma da outra. As distribuições do eletrodo Cz, no entanto, apresentam maior similaridade nas classes "left hand" e "tongue", não indicando necessariamente o sucesso na geração dos dados, uma vez que o treinamento da CGAN não ocorreu como o esperado.
+A matriz de confusão abaixo apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito 3. As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, com boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
 
 |![Heatmap](./figure/subject_3/JS_Metric_Heatmap.png "Heatmap")**Heatmap**|
 |:--:| 
 
-
-
-
-
 ### Histogramas de Distribuição
-
+Comparamos a distribuição de frequencia dos dados reais com os gerados a partir do histograma apenas para os eletrodos que obteve os melhores resultados com a métrica de JS (FC2, C3, Cz, C2 e C4) apresentada na figura abaixo. Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2. Indicando que esses dois eletrodos, assim como mostrado pela métrica JS, obtiveram os melhores resultados. Para esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
 
 |![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Histogramas**|
 |:--:| 
