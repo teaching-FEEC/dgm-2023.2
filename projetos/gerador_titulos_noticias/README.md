@@ -80,6 +80,10 @@ Neste contexto, modelos mais simples (menor quantidade de parâmetros) tiveram, 
 
 ### Avaliação Quantitativa
 
+Perplexity (gpt-2):
+Perplexity (gpt2-small-portuguese): 430,75
+Perplexity (ours):115,31
+
 ### Avaliação Qualitativa
 
 #### Abordagem Supervisionada
