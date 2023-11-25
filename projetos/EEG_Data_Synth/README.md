@@ -318,8 +318,13 @@ Comparamos a distribuição de frequência dos dados reais com os dados sintéti
 |:--:| 
 
 ## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
-Falar sobre a variabilidade dos indivíduos no processo de aquisição de dados. 
-Falar sobre o impacto disso no classificador
+Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais, ao adicionar augmentation de ('5%', '10%', '20%', '50%', '70%', '100%' e '200%') para verificar variabilidade dos indivíduos no processo de aquisição de dados e o impacto dessa variabilidade e também da adição dos dados gerados no classificador. 
+
+A figura abaixo mostra os resultados desses experimentos. Ao analisar os resultados apenas com dados reais, observa-se variabilidade relevante entre os sujeitos, com exceção dos sujeitos 3 e 7, que apresentaram valores de acurácia muito próximo. Essa similaridade permanece ao realizar augmentation de 10% entre esses sujeitos, mas para as outras porcentagem de augmentation a acurácia é significativamente diferente, chegando a uma diferença de aproximadamente 0.08. 
+
+Percebe-se que até 20% de augmentation existe mais semelhança entre entre os valores de acurácia entre sujeitos, por exemplo, os sujeitos 1, 3 e 7 com 20% de augmentation. No entanto, ao adicionar porcentagem maior de augmentation, essa semelhança entre os sujeitos diminui significativamente. 
+
+Nota-se ainda que para os sujeitos 9 nenhuma porcentagem de augmentation foi suficiente para melhorar os resultados, uma vez que todos com augmentation para esse sujeitos foram inferiores a apenas com os dados reais. Para o sujeito 1, houve um ganho ao introduzir 20% ou 200% de dados sintéticos, enfatizando uma pequena melhora em 200%, mas talvez insignificante ao comparar com o custo computacional de gerar ou executar 180% de dados a mais. Os sujeitos 3 e 7 foram os quais se beneficiaram mais ao adicionar dados sintéticos para treinar com os dados reais. 50% de augmentation para o sujeito 3, aumentando aproximadamente 0.02 no valor da acurácia. Enquanto para o sujeito 7 o melhor desempenho foi com 70% de augmentation aumentando aproximadamente 0.03 no valor da acurácia. Apesar desses resultados, é difícil mencionar o sujeito que apresenta melhor resultado apenas com esses experimentos. 
 
 |![EEGNet_Accuracy_vs_Augmentation](./figure/EEGNet_Accuracy_vs_Augmentation.png "EEGNet_Accuracy_vs_Augmentation")**EEGNet_Accuracy_vs_Augmentation**|
 |:--:| 
