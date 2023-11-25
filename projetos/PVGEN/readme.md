@@ -171,8 +171,19 @@ Figure x: Qualitative Analysis between Real and Generated Data
 
 ## Transfer Learning
 
+### Unicamp + Fine Tuning with Real PV Power
 
+| Metrics |   w/o    |    E1    |    E2    |    E3    |
+|---------|----------|----------|----------|----------|
+|   MAE   | 0.20273  | 0.08745  | 0.07684  | 0.11176  |
+|   RMSE  | 0.26323  | 0.12775  | 0.11427  | 0.16528  |
 
+### Unicamp + Fine Tuning with Synthetic PV Power
+
+| Metrics |   w/o    |    E1    |    E2    |    E3    |
+|---------|----------|----------|----------|----------|
+|   MAE   | 0.20273  | 0.12259  | 0.12168  | 0.11422  |
+|   RMSE  | 0.26323  | 0.1665   | 0.15796  | 0.16168  |
 
 ## Discussion
 

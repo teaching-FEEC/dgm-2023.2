@@ -8,7 +8,7 @@ import numpy as np
 import torch
 import json
 
-# UNICAMP ONLY
+# Weather data and generated model
 DF_NAME = 'data/Treinamento-Unicamp/df_gecad_to_generate.csv'
 model_dir = "data/Treinamento-Unicamp/export/multi_nfs/"
 model_name = "model_AN_M_1_0_best"
@@ -176,5 +176,3 @@ def plot_days_vector(start, end, real, prediction):
 
 # Usage example
 plot_days_vector(1,30, df_real.POWER/Pmax, predictions.POWER)
-
-a = 1

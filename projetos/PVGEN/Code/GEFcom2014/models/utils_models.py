@@ -23,6 +23,21 @@ def scale_data_multi(x_LS: np.array, y_LS: np.array, x_VS: np.array, y_VS: np.ar
 
     return x_LS_scaled, y_LS_scaled,  x_VS_scaled, y_VS_scaled, x_TEST_scaled, y_TEST_scaled, y_LS_scaler
 
+def scale_data_gen(x: np.array, y: np.array):
+    """
+    Scale data for NFs multi-output.
+    """
+    y_scaler = StandardScaler()
+    y_scaler.fit(y)
+    y_scaled = y_scaler.transform(y)
+   
+
+    x_scaler = StandardScaler()
+    x_scaler.fit(x)
+    x_scaled = x_scaler.transform(x)
+
+    return x_scaled, y_scaled, y_scaler
+
 
 def plot_loss(loss: np.array, nb_days: list, ylim: list, dir_path: str, name: str):
     """
