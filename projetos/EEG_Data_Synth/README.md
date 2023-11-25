@@ -354,15 +354,10 @@ Comparamos a distribuição de frequência dos dados reais com os dados sintéti
 ### Comparação dos espaços latentes do terceiro indivíduo
 Os manifolds para os dados reais e os dados sintéticos são mostrados nas figuras abaixo. Foi possível observar que na [Figura 1](manifold_reais.png), com os dados reais ficaram mais espaçados, e quase não há mistura de classes, e o codificador foi capaz de extratir as características de cada classe juntamente com o algoritmo do k-means que contribuiu bastante para o resultado final.  Na [Figura 2](manifold_sinteticos.png) para os dados sintéticos é possível oberservar que as classes não ficaram muito bem separadas em um mesmo agrupamento, principalmente o grupo roxo referente a classe 1 que ficou um pouco misturado em dois grupos. Contudo, pode-se concluir que mesmo para as bases diferentes o algoritmo conseguiu fazer a representação do espaço latente das quatros classes de EEG, mostrando assim a similaridade dos dados sintéticos com o reais. 
 
-|![Loss Curve](./figure/subject_3/22ch_batch64_lr37e6_decay7.png "Loss Curve")**Convergência da curva de loss do gerador e discriminador**|
+|![Manifoldreais](./figure/manifold_reais.png"Manifoldreais")**Manifold dos dados reais**|
 |:--:| 
 
-
-
-|![Manifold dos dados reais](./figure/manifold_reais.png"Manifold dos dados reais")**Manifold dos dados reais**|
-|:--:| 
-
-|![Manifold dos dados sintéticos](./figure/manifold_sinteticos.png"Manifold dos dados sintéticos")**Manifold dos dados sintéticos**|
+|![Manifoldsintéticos](./figure/manifold_sinteticos.png"Manifoldsintéticos")**Manifold dos dados sintéticos**|
 |:--:| 
 
 ## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
