@@ -76,6 +76,35 @@ Neste contexto, modelos mais simples (menor quantidade de parâmetros) tiveram, 
 
 ![Losses de treinamento e validação](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/fine-tunning-losses.png)
 
+#### Ambiente de execução
+
+Os modelos utilizados neste trabalho foram treinados utilizando, principalmente, três infraestruturas, a saber:
+* [Google Colab PRO](https://colab.research.google.com/signup) - GPU T4 - 16 Gb VRAM - Aprox. 120h de utilização
+* [RunPod](https://www.runpod.io/console/gpu-secure-cloud) - GPU A40 - 48 Gb VRAM - 4vCPU - Aprox. 16h de utilização
+* Recod - 3 x GPU Quadro RTX 8000 - 48 Gb VRAM - Aproximadamente 100h de utilização
+
+A título de exemplo, o treinamento final do modelo cujo gráfico de loss foi apresentado acima levou 8h 29min 40seg.
+
+#### Parâmetros de treinamento
+
+O modelo final foi treinado seguindo os seguintes parâmetros de treinamento:
+````
+ num_train_epochs=120,
+ per_device_train_batch_size=156
+ per_device_eval_batch_size=256
+ eval_steps = 500
+ save_steps=500
+ warmup_steps=200
+ prediction_loss_only=False,
+ evaluation_strategy="steps",
+ weight_decay = 0
+````
+
+O conjunto de treinamento foi dividido na seguinte razão:
+````
+ test_size=0.15
+````
+
 ### Geração do dataset
 
 ### Avaliação Quantitativa
