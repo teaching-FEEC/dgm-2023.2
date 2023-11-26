@@ -15,7 +15,7 @@
 
 [Slides](https://docs.google.com/presentation/d/1s3bzTyyO0hTWTvmFcjaD9GAqgSdZInZf/edit?usp=sharing&ouid=101611810474111417437&rtpof=true&sd=true)
 
-This project was developed in the post-graduate class IA376 - Deep Learning Applied to Signal Synthesis, offered in the second semester of 2023 at the University of Campinas (UNICAMP), supervised by Prof. Paula Dornhofer Paro Costa, Ph.D., from the Department of Computer Engineering and Automation (DCA) of the School of Electrical and Computer Engineering (FEEC)
+This project presents an approach that uses a normalizing flow (NF) model to generate synthetic photovoltaic (PV) generation curves based on historical PV energy and weather data. It addresses the challenge of deploying energy management systems (EMSs) in new locations without historical data by creating synthetic PV data from weather information. Taking advantage of real data sets from photovoltaic installations, the study explores the generation of synthetic data to train photovoltaic forecasting models for the following day. Although promising in the reference work, the results reveal limitations in accurately representing the various climatic variations that affect photovoltaic production, affecting the generative model's ability to create representative synthetic data. In addition, transfer learning strategies faced obstacles in adjusting prediction models using synthetic data from different geographical areas. The project underlines the potential of generative models in energy forecasting. However, it highlights the need for improved methodologies and more reliable data to generate more representative synthetic data for effective transfer learning in new locations devoid of historical photovoltaic data.
 
 Group:
 |Names                                   | Academic Record |  Course                                         |
@@ -54,7 +54,7 @@ Figure 2: Proposed Framework
 Figure 3 shows the architecture used and its hyperparameters regarding the NF model. 
 
 ![image info](./Figs/Results/Normalizing-Flows.png)
-Figure 3: 
+Figure 3: Normalizing Flow architecture
 
 * Steps: A specific transformation is applied to the data on each step changing its distribution to make it more similar to the target distribution.
 
@@ -79,7 +79,7 @@ Table I: Tools decription
 
 ### Dataset
 
-The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table II.
+The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 4 and 5 respectively. The description of the datasets is presented in Table II.
 
 Table II: Description of the datasets
 
@@ -90,18 +90,18 @@ Table II: Description of the datasets
 
 ![image info](./Figs/unicamp.jpg)
 
-Figure 3: UNICAMP
+Figure 4: UNICAMP
 
 
 ![image info](./Figs/GECAD.jpg)
 
-Figure 4: GECAD 
+Figure 5: GECAD 
 
-The datasets are used as follows. Historical PV power data from UNICAMP and weather data are employed to train the PV generative model. UNICAMP dataset is split randomly 50% for training (2 years), 25% for validation (1 year), and 25% for testing (1 year) as can be seen in Figure 5a. Synthetic PV power is obtained using 75% of the GECAD dataset using only weather features as input; the remaining 25%, which corresponds to the data of the last year, is not used (see Figure 5b). For the forecasting model, the synthetic PV is concatenated to GECAD dataset and used chronologically for training the forecasting model, which means that 50% of the data is used for training and 25% for validating. Finally, the last 25% is used to evaluate the entire methodology, where real PV data is concatenated with the available weather data (see Figure 5c). 
+The datasets are used as follows. Historical PV power data from UNICAMP and weather data are employed to train the PV generative model. UNICAMP dataset is split randomly 50% for training (2 years), 25% for validation (1 year), and 25% for testing (1 year) as can be seen in Figure 6a. Synthetic PV power is obtained using 75% of the GECAD dataset using only weather features as input; the remaining 25%, which corresponds to the data of the last year, is not used (see Figure 6b). For the forecasting model, the synthetic PV is concatenated to GECAD dataset and used chronologically for training the forecasting model, which means that 50% of the data is used for training and 25% for validating. Finally, the last 25% is used to evaluate the entire methodology, where real PV data is concatenated with the available weather data (see Figure 6c). 
 
 ![image info](./Figs/PVGAN_dataset_spit.svg)
 
-Figure 5: Dataset splits
+Figure 6: Dataset splits
 
 ### Evaluation
 
@@ -113,13 +113,13 @@ The evaluation of the framework is proposed using two different approaches.
 
 ## Workflow
 
-Fig. 6 shows the workflow adopted in the PV GEN project. Initially, a training database, exemplified in the diagram, is trained using the 1-training.py script. For the generative model, hyperparameter optimization (HPO) must be done separately; in this project, the weight and biases platform was used. Once a model has been created, the 2-gen.py script generates the normalized PV generation time series based on a climate data frame.
+Fig. 7 shows the workflow adopted in the PV GEN project. Initially, a training database, exemplified in the diagram, is trained using the 1-training.py script. For the generative model, hyperparameter optimization (HPO) must be done separately; in this project, the weight and biases platform was used. Once a model has been created, the 2-gen.py script generates the normalized PV generation time series based on a climate data frame.
 The file 3-forecasting.py reads the dataset generated by the NFs model. Then, divide the database into training, validation, and testing. Finally, using Optuna performs hyperparameter optimization and saves the best forecast model. The next step, the script 4-eval_1.py, performs the first proposed evaluation. It loads the model trained in with 3.py and evaluates it on the validation and test set in terms of MAE and RMSE.
 Regarding 4-eval_2.py, this file reads the best model entered with 3-forecasting.py and applies three transfer learning strategies. This is done using only the validation set to adjust the weights of the forecast model according to the strategy adopted. For each strategy, the forecasting quality is measured in terms of MAE and RMSE.
 
 
 ![image info](./Figs/workflow.png)
-Figure 6: Generation and Forecasting workflow
+Figure 7: Generation and Forecasting workflow
 
 ## Results
 
@@ -141,12 +141,12 @@ In this subsection, three different cases are presented, showing the performance
 The first case involves generating synthetic data for GECAD's rooftop PV generation using the generative model trained using solely the UNICAMP dataset. To determine a good NFs model, a hyperparameter optimization (HPO) was conducted, as depicted in the Figure below.
 
 ![image info](./Figs/Results/HPO-UNICAMP.png)
-Figure 7: Hyperparameter Optimization Results
+Figure 8: Hyperparameter Optimization Results
 
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
                                              
 ![image info](./Figs/Results/1-gecad_gen_from_unicamp.svg)
-Figure 8: Qualitative Analysis between Real and Generated Data
+Figure 9: Qualitative Analysis between Real and Generated Data
 
 Regarding metrics of NFs model, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195. 
 
