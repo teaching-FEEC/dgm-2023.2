@@ -63,7 +63,7 @@ A primeira transformação realizada foi uma reamostragem para 100 Hz e uma filt
 
 Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes e reduzir a quantidade de amostras processadas pelo o algoritmo, melhorando também o tempo de processamento. Neste processamento, todos os 22 eletrodos foram utilizados. Abaixo está um exemplo de sinal de EEG no domínio da frequência para todos os eletrodos.
 
-|![EEG Channels Frequency Curve](/figure/eeg_frequency_example.png "EEG Channels Frequency Curve")**EEG Channels Frequency Curve**|
+|![EEG Channels Frequency Curve](./figure/eeg_frequency_example.png "EEG Channels Frequency Curve")**EEG Channels Frequency Curve**|
 |:--:| 
 
 
