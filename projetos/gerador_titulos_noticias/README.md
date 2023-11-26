@@ -176,6 +176,10 @@ Perplexity (ours):115,31
 
 #### Abordagem Supervisionada
 
+![Balanceamento da Classificação Automática](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20da%20classifica%C3%A7%C3%A3o%20autom%C3%A1tica.png)
+
+![Balanceamento por percentil](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20por%20percentil.png)
+
 #### Abordagem não supervisionada
 
 ## Conclusão
