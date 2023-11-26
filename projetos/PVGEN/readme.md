@@ -108,7 +108,7 @@ The evaluation of the framework is proposed using two different approaches.
 
 ## Workflow
 
-On working...
+![image info](./Figs/workflow.png)
 
 ## Experiments, Results and Discussion
 
