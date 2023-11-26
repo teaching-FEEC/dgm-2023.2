@@ -109,8 +109,8 @@ np.save(f'{path_sets}x_train_{days_backs}_h{horizont}.npy',x_train)
 np.save(f'{path_sets}y_train_{days_backs}_h{horizont}.npy',y_train)
 np.save(f'{path_sets}x_valid_{days_backs}_h{horizont}.npy',x_valid)
 np.save(f'{path_sets}y_valid_{days_backs}_h{horizont}.npy',y_valid)
-np.save(f'{path_sets}x_test_{days_backs}_h{horizont}.npy',x_test)
-np.save(f'{path_sets}y_test_{days_backs}_h{horizont}.npy',y_test)
+# np.save(f'{path_sets}x_test_{days_backs}_h{horizont}.npy',x_test)
+# np.save(f'{path_sets}y_test_{days_backs}_h{horizont}.npy',y_test)
 
 
 ###############################################################
