@@ -237,16 +237,50 @@ Após a classificação automática, os dados sintéticos foram adicionados ao c
 * Os dados originais foram separados em treinamento e teste de acordo com o paper base ``(80% para treinamento, 20% para teste)`` e ``random_seed = 42``
 * Os dados sintéticos foram adicionados ao conjunto de treinamento.
 
-![Métricas de desempenho da Abordagem spervisionada](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/M%C3%A9tricas%20de%20desempenho%20do%20treinamento%20supervisionado%20(1).png)
+![Métricas de desempenho da Abordagem spervisionada](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/resultado_superv.png)
 
 Ao final dos exeperimentos, observamos que não houve melhoria dos índices alcançados por CAROSIA (2022). A cada percentil adicionado ao conjunto de testes, foram observadas pioras em todas as métricas observadas, sendo indicativo que a adição de amostras sintéticas não ajudou o modelo na classificação das amostras de teste.
 
 #### Abordagem não supervisionada
 
-**completar com graficos de metricas, tamanho da base de treinamento e histograma de classificação para demonstrar que o modelo tende a classificar muito nas pontas**
+A segunda abordagem experimentada foi a eliminação do classificador completamente e adoção de uma abordagem semi-supervisionada ingênua. A abordagem implementada consistia em utilizar o próprio classificador treinado pelo conjunto de amostras anotadas original para classificar as amostras sintéticas geradas e retreinar o classificador iterativamente incorporanddo as amostras classificadas acima de um limiar escolhido ao conjunto de treinamento. A cada iteração as amostras vão sendo incorporadas ao conjunto de treinamento e o novo modelo é testado.
 
-![Gráfico do tamanho do conj. treinamento por threshold e iteration](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/metricas_semisuper.png)
+Os parâmetros de treinamento podem ser consultados a seguir:
+``
+threshold = [0.85, 0.95, 0.99, 0.9995, 1]
+max_iter = 10 #numero maximo de iterações
+``
+critérios de parada:
+* max_iter
+* 90%+ do conjunto não anotado incorporado ao teste
+* incremento do conjunto de testes >1% do conjunto de amostras não incorporadas
+
+Observa-se acima que para limiares abaixo de 95%, atinge-se o critério de parada de incorporação de 90% do conjunto de treinamento de maneira muito rápida, em menos de 4 iterações. Por este motivo, os experimentos se concentraram em valores de ``treshold  > 0.999``.
+
+
 ![Métricas de resultado do treinamento semi supervisionado](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/train_size.png)
+
+ A seguir, é apresentado um histograma de classificação das amostras sintéticas na primeira iteração, ou seja, no classificador treinado apenas com os dados originais assim como exemplos de títulos e seus escores na primeira iteração do modelo.
+
+**histograma de classificação para demonstrar que o modelo tende a classificar muito nas pontas**
+| Amostra | Sentimento | Score |
+| -- |-- |--|
+| Bovespa vira e passa a operar em leve queda nesta quinta | Negativo | 0,95878 |
+| Bolsas europeias fecham em alta após PIB e indicadores dos EUA | Positivo | 0,99775 |
+| Dólar tem maior baixa mensal desde janeiro; Petrobras cai mais de 4% | Negativo | 0,99335 |
+| Itaú prevê crescimento de até 3% menos no 2º trimestre do que estimativa original | Positivo | 0.68669 |
+| Brasil e Argentina decidem o Banco Mundial de Alimentos | Negativo | 0,66921 |
+| BC e banco dos EUA anunciam corte no juro | Negativo | 0,88466 |
+| Ibovespa fecha em queda, abaixo de 59 mil pontos | Negativo | 0,99998 |
+| Bolsa cai e juros futuros fecham em queda após decisão do Fed | Negativo | 1 |
+| Bovespa descola de Wall Street e sobe, puxada por bancos pequenos | Negativo | 0,60183 |
+| Polícia Civil de SC apreende tijolos de maconha em banco de Goiânia | POsitivo | 0,52862 |
+| Bovespa fecha em baixa de 1,48% | Negativo | 0,52366 |
+
+![Histograma das amostras classificadas como Negativa](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/fasttext_histo.png)
+
+Os experimentos conduzidos para os limiares escolhidos mostraram, como ilustrados pelos gráficos abaixo, que as métricas de desempenho foram diminuindo a cada iteração, conforme dos dados eram incorporados ao conjunto de treinamento. A única exceção é a métrica de precisão, que aumentou em alguns períodos prossivelmente devido ao claro viés do modelo treinado pela classificação de amostras como negativas.
+![Gráfico do tamanho do conj. treinamento por threshold e iteration](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/metricas_semisuper.png)
 
 ## Conclusão
 
