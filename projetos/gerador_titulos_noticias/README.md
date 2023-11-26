@@ -172,6 +172,8 @@ Perplexity (gpt-2):
 Perplexity (gpt2-small-portuguese): 430,75
 Perplexity (ours):115,31
 
+![Perplexidade](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Perplexidade.png)
+
 ### Avaliação Qualitativa
 
 #### Abordagem Supervisionada
@@ -180,7 +182,10 @@ Perplexity (ours):115,31
 
 ![Balanceamento por percentil](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20por%20percentil.png)
 
+![Métricas de desempenho da Abordagem spervisionada](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/M%C3%A9tricas%20de%20desempenho%20do%20treinamento%20supervisionado%20(1).png)
+
 #### Abordagem não supervisionada
+
 
 ## Conclusão
 
