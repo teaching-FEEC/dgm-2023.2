@@ -75,6 +75,16 @@ A Food101 apresenta uma boa quantidade de imagens, mas também uma grande varied
 > O que se espera da seção de resultados é que ela **apresente e discuta** somente os resultados mais **relevantes**, que mostre os **potenciais e/ou limitações** da metodologia, que destaquem aspectos
 > de **performance** e que contenha conteúdo que possa ser classificado como **compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade**. 
 
+Como experimentos, vários treinos foram realizados com diferentes modelos de IAs gerativas. O código delas pode ser lido no diretório de Notebooks. No caso, foram duas redes neurais do tipo GAN, duas de Difusão e um Transformer. Para verificar a qualidade das imagens geradas, foi observada a função _loss_ em conjunto com uma análise visual de amostras do espaço latente.
+
+Os resultados obtidos de nenhuma das redes chegou a produzir imagens convincentes de alimentos, sendo capazes de apenas replicar cores ou texturas de forma um tanto abstrata (avaliação visual por parte dos desenvolvedores do projeto). Acredita-se que isso tenha ocorrido devido à baixos tempos de treinamento e capacidade de processamento disponível. Assim, nem todas as métricas descritas na metodologia foram empregadas para avaliar as redes: dado que imagens fotorrealistas não foram produzidas, não se achou necessário verificar _overfitting_ nas redes testadas.
+
+Curiosamente, a primeira GAN usada, uma simples arquitetura convolucional, produziu estranhos artefatos conforme o gerador teve mais tempo para treinar. É possível que isso seja uma espécie de mínimo local, onde a imagem ruidosa causa problemas para o discriminador. Foram feitos experimentos treinando o gerador mais vezes que o discriminador, mas isso intensificou a presença de artefatos.
+
+A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados semelhantes à outra GAN, mas produziu imagens em uma resolução maior e sem artefatos.
+
+Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
+
 ## Conclusão
 
 Os resultados do experimento não alcançaram o nível esperado. Porém, foram uma boa oportunidade de aprendizado para os integrantes do projeto. Várias redes foram analizadas, utilizadas e avaliadas, oferecendo melhor compreensão das técnicas e desafios enfrentados na pesquisa de redes neurais.
