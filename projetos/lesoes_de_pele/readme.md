@@ -11,6 +11,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  | Thiago Soares Laitz  | 224898  | Eng. Eletricista |
  | Vinícius Hirono Gonçalves  | 188182  | Eng. Eletricista |
 
+Apresentação - [Link](https://docs.google.com/presentation/d/1PrUui6LvmY9h1L6cxschIxMUiQ440VCA6t7QTRwDI1g/edit?usp=sharing)
 
 ## Resumo (Abstract)
  O projeto consiste em explorar formas de data augmentation para imagens de lesões de pele utilizando GANs, com o objetivo de melhorar a precisão dos modelos de classificação. Para isso, utilizaremos o dataset HAM10000, disponível no Kaggle, que contém 10015 imagens de lesões de pele, classificadas em 7 classes. Os modelos explorados serão a ACGAN e a ProGAN, que têm mostrado resultados promissores em tarefas de síntese de imagens.
