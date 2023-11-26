@@ -11,6 +11,10 @@
 
 [Slides](https://docs.google.com/presentation/d/1MgKqQnf7F7JzvSkJVg6RY7zdao9B-Bte/edit?usp=sharing&ouid=105026589240211170070&rtpof=true&sd=true)
 
+### Assigment 3
+
+[Slides](https://docs.google.com/presentation/d/1s3bzTyyO0hTWTvmFcjaD9GAqgSdZInZf/edit?usp=sharing&ouid=101611810474111417437&rtpof=true&sd=true)
+
 This project was developed in the post-graduate class IA376 - Deep Learning Applied to Signal Synthesis, offered in the second semester of 2023 at the University of Campinas (UNICAMP), supervised by Prof. Paula Dornhofer Paro Costa, Ph.D., from the Department of Computer Engineering and Automation (DCA) of the School of Electrical and Computer Engineering (FEEC)
 
 Group:
@@ -41,13 +45,13 @@ The groundwork for this study is rooted in the [Reference Paper](https://doi.org
 
 ## Methodology
 
-The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses normalizing flows (NFs) as a generative model. Upon training NFs model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The hyperparameter of the generative model and the forecasting model are optimized with a Bayesian algorithm using Weights & Biases and Optuna respectively. The proposed framework is shown in Figure 2.
+The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses NFs as a generative model. Upon training NFs model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The hyperparameter of the generative model and the forecasting model are optimized with a Bayesian algorithm using Weights & Biases and Optuna respectively. The proposed framework is shown in Figure 2.
 
 ![image info](./Figs/PVGAN_framework.svg)
 Figure 2: Proposed Framework
 
 
-Regarding NF model, figure 3 shows the architecture used and its hyperparameters. 
+Figure 3 shows the architecture used and its hyperparameters regarding the NF model. 
 
 ![image info](./Figs/Results/Normalizing-Flows.png)
 Figure 3: 
@@ -61,6 +65,7 @@ Figure 3:
 
 ### Tools
 
+Table I: Tools decription
 | Library           | Description                                                                                                                                                                                            |
 |-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Python 3          | Python 3 is a high-level programming language known for its readability and vast community support. It offers a wide range of libraries and frameworks for various purposes, making it versatile for tasks ranging from scripting to web development and data analysis to machine learning.  |
@@ -74,9 +79,9 @@ Figure 3:
 
 ### Dataset
 
-The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table I.
+The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table II.
 
-Table I: Description of the datasets
+Table II: Description of the datasets
 
 | **ID** | **Dataset** |     **Availability**          |                                                                               **Description**  |
 |:------:|:-----------:|:----------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -108,7 +113,10 @@ The evaluation of the framework is proposed using two different approaches.
 
 ## Workflow
 
+Fig. 6 shows the workflow adopted in the PV GEN project. Initially, a training database, exemplified in the diagram, is trained using the 1-training.py script. For the generative model, hyperparameter optimization (HPO) must be done separately; in this project, the weight and biases platform was used. Once a model has been created, the 2-gen.py script generates the normalized PV generation time series based on a climate data frame.
+
 ![image info](./Figs/workflow.png)
+Figure 6: Generation and Forecasting workflow
 
 ## Experiments, Results and Discussion
 
@@ -127,12 +135,12 @@ BEST GECAD
 The first case involves generating synthetic data for GECAD's rooftop PV generation at IPP using a model trained solely with UNICAMP's databases. To determine the best data generation model for this dataset, a hyperparameter optimization (HPO) was conducted, as depicted in the Figure below.
 
 ![image info](./Figs/Results/HPO-UNICAMP.png)
-Figure x: Hyperparameter Optimization Results
+Figure 7: Hyperparameter Optimization Results
 
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the parameters defined by the previously mentioned HPO.
                                              
 ![image info](./Figs/Results/1-gecad_gen_from_unicamp.svg)
-Figure x: Qualitative Analysis between Real and Generated Data
+Figure 8: Qualitative Analysis between Real and Generated Data
 
 Regarding metrics, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195.
 
@@ -150,10 +158,12 @@ XX
 
 ### Case 2: Synthetic UNICAMP PV Profile Generation by Models Trained with UNICAMP PV Data
 
-To investigate the reasons behind the low performance of the generative model, a proposal for data generation for a subset of UNICAMP was made. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the system exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis.
+To investigate the reasons behind the low performance of the generative model, a proposal for data generation for a subset of UNICAMP was made. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the system exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
+The file 3.py reads the dataset generated by the NFs model. Then, divide the database into training, validation, and testing. Finally, using Optuna performs hyperparameter optimization and saves the best forecast model. The next step, the script 4.1.py, performs the first proposed evaluation. It loads the model trained in with 3.py and evaluates it on the validation and test set in terms of MAE and RMSE.
+Regarding 4.2.py, this file reads the best model entered with 3.py and applies three transfer learning strategies. This is done using only the validation set to adjust the weights of the forecast model according to the strategy adopted. For each strategy, the forecasting quality is measured in terms of MAE and RMSE.
 
 ![image info](./Figs/Results/2-unicamp_gen_from_unicamp.svg)
-Figure x: Qualitative Analysis between Real and Generated Data
+Figure 10: Qualitative Analysis between Real and Generated Data
 
 **An overview of the results...**
 
