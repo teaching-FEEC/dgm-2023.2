@@ -13,7 +13,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 | Larissa Rangel de Azevedo  | 247008  | Eng. Eletricista|
 
 ## Apresentação Final
-[Link](https://docs.google.com/presentation/d/1Imx5d8NEQsX_pNUUmQK9wvczdD66szTr/edit#slide=id.p1) para apresentação final.
+[Link](https://docs.google.com/presentation/d/1Imx5d8NEQsX_pNUUmQK9wvczdD66szTr/edit?usp=sharing&ouid=106498812395082097833&rtpof=true&sd=true) para apresentação final.
 
 ## Descrição Resumida do Projeto
 <!-- Este projeto tem como objetivo sintetizar dados de eletroencefalografia (EEG) gerados por uma interface cérebro-computador (BCI) utilizando o paradigma de imagética motora. A principal motivação da implementação de uma BCI é o estudo e a compreensão do cérebro, abrindo portas para aplicações na área da saúde e entretenimento. A abordagem do paradigma da imagética motora ocorre pela aquisição dos sinais cerebrais gerados pela imaginação ou realização do movimento de partes do corpo, como membros superiores (braços) ou inferiores (pernas). Assim, os dados sintéticos serão gerados a partir de uma Rede Generativa Adversária (GAN), que apresentará como saída séries temporais representativas dos sinais reais de EEG.  
@@ -266,7 +266,7 @@ A fórmula para calcular a divergência de Jensen-Shannon é uma combinação po
 Histogramas foram utilizados para comparação visual entre as distribuições dos canais dos dados reais e dados sintéticos, na proporção de 1:1. Para análise, foram escolhidos três eletrodos posicionados na região motora do cérebro (Cz, C3 e C4) e dois eletrodos cujo valor de divergência de JS mais variaram de indivíduo para indivíduo (FC2, C2). 
 
 ### Espaços latentes de um Autoencoder Variacional
-Foi utilizada a arquitetura de um Autoencoder Variacional (VAE), baseada na [EEGNet](https://arxiv.org/pdf/1611.08024.pdf) para gerar o espaço latente dos dados reais e sintéticos através da extração de característica realizada pelo encoder. Após alguns testes, obteve-se a seguinte configuração final: 
+Foi utilizada a arquitetura de um Autoencoder Variacional (VAE) como ponto de partida inicial (o código fonte usado está disponível no [GitHub](https://github.com/arkanivasarkar/EEG-Data-Augmentation-using-Variational-Autoencoder)), para gerar o espaço latente dos dados reais e sintéticos através da extração de característica realizada pelo encoder. Após alguns testes, obteve-se a seguinte configuração final: 
 
 * Modelo do Encoder: 
 
@@ -286,6 +286,8 @@ Foi utilizada a arquitetura de um Autoencoder Variacional (VAE), baseada na [EEG
 | tf.math.add (TFOpLambda)      | (None, 2)              | 0            | ['z_log_var[0][0]']         |
 | z (Lambda)                    | (None, 2)              | 0            | ['z_mean[0][0]', 'tf.math.add[0][0]']|
 
+Com a arquitetura final do VAE, composta pela junção do codificador e do decodificador, foi possível realizar o treinamento por 1000 épocas, usando um tamanho de lote (batch size) igual a 32 e uma dimensão do espaço latente fixada em 2.
+
 * Modelo do VAE: 
 
 | Layer (type)                | Output Shape         | Param #   |
@@ -295,11 +297,18 @@ Foi utilizada a arquitetura de um Autoencoder Variacional (VAE), baseada na [EEG
 |                             | (None, 2)            |           |
 | decoder (Functional)        | (None, 1, 22, 400)   | 910,785   |
 
+* Parâmetros do treinamento: 
 
-Com a arquitetura final do VAE, composta pela fusão do codificador e do decodificador, foi possível realizar o treinamento por 1000 épocas, com um tamanho de lote (batch size) igual a 32 e uma dimensão do espaço latente fixada em 2. A separação das classes na representação dos espaços latentes foi realizada por meio do método [K-means](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html). Além disso, para a visualização dos manifolds, empregou-se a biblioteca [UMAP](https://umap-learn.readthedocs.io/en/latest/). Como resultado, obteve-se o espaço latente tanto para a base de dados real quanto para a base de dados sintéticos, permitindo a comparação de suas representações por meio dos manifolds em cada cenário.
+| Parâmetro | Valor | 
+|:---------:|:-----:|
+|Número de épocas|1000|
+|Dimensão latente|2|
+|Tamanho do batch| 32|
+|Otimizador| Adam|
+|Learning Rate| 0.001|
+|Loss Function|`mse`|
 
-
-As representações dos manifolds são discutidas nos [Resultados](#resultados) e código implementado está disponível no [GitHub](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/others/esse_vae.ipynb). 
+ A separação das classes na representação dos espaços latentes foi realizada por meio do método [K-means](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html). Além disso, para a visualização dos manifolds, empregou-se a biblioteca [UMAP](https://umap-learn.readthedocs.io/en/latest/). Como resultado, obteve-se o espaço latente tanto para a base de dados real quanto para a base de dados sintéticos, permitindo a comparação de suas representações por meio dos manifolds em cada cenário. 
 
 # Resultados
 
