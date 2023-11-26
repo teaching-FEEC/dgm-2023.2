@@ -62,7 +62,7 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 
 ### Workflow
 
-![Workflow do trabalho realizado](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Workflow.png)
+![Workflow do trabalho realizado](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Workflow2.png)
 
 ## Experimentos, Resultados e Discussão dos Resultados
 
