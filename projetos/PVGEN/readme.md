@@ -119,6 +119,7 @@ Regarding 4-eval_2.py, this file reads the best model entered with 3-forecasting
 
 
 ![image info](./Figs/workflow.png)
+
 Figure 7: Generation and Forecasting workflow
 
 ## Results
@@ -142,11 +143,13 @@ The first case involves generating synthetic data for GECAD's rooftop PV generat
 
 ![image info](./Figs/Results/HPO-UNICAMP.png)
 
+
 Figure 8: Hyperparameter Optimization Results
 
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
                                              
 ![image info](./Figs/Results/1-gecad_gen_from_unicamp.svg)
+
 
 Figure 9: Qualitative Analysis between Real and Generated Data
 
@@ -169,6 +172,7 @@ To investigate the reasons behind the low performance of generative model, a pro
 
 ![image info](./Figs/Results/2-unicamp_gen_from_unicamp.svg)
 
+
 Figure 10: Qualitative Analysis between Real and Generated Data
 
 With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
@@ -179,11 +183,13 @@ Since the model trained solely on one database did not yield satisfactory result
 
 ![image info](./Figs/Results/HPO-UNICAMP-HOLANDA.png)
 
+
 Figure 11: Hyperparameter Optimization Results
 
 After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
 
 ![image info](./Figs/Results/3-gecad_gen_from_unicamp-holanda.svg)
+
 
 Figure 12: Qualitative Analysis between Real and Generated Data
 
