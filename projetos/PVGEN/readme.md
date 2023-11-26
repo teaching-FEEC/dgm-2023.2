@@ -146,12 +146,14 @@ The first case involves generating synthetic data for GECAD's rooftop PV generat
 
 Figure 8: Hyperparameter Optimization Results
 
+
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
                                              
 ![image info](./Figs/Results/1-gecad_gen_from_unicamp.svg)
 
 
 Figure 9: Qualitative Analysis between Real and Generated Data
+
 
 Regarding metrics of NFs model, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195. 
 
@@ -175,6 +177,7 @@ To investigate the reasons behind the low performance of generative model, a pro
 
 Figure 10: Qualitative Analysis between Real and Generated Data
 
+
 With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
 
 ### Case 3: Synthetic GECAD PV Profile Generation by Models Trained with UNICAMP and NETHERLANDS PV Data
@@ -186,12 +189,14 @@ Since the model trained solely on one database did not yield satisfactory result
 
 Figure 11: Hyperparameter Optimization Results
 
+
 After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
 
 ![image info](./Figs/Results/3-gecad_gen_from_unicamp-holanda.svg)
 
 
 Figure 12: Qualitative Analysis between Real and Generated Data
+
 
 Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in table VI.
 
