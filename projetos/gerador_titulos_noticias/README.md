@@ -15,7 +15,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 ## Abstract
 Para tomar decisões de investimento de sucesso no mercado financeiro, é relevante analisar as principais notícias em tempo real. Muitas empresas buscam automatizar essa abordagem utilizando modelos de Análise de Sentimentos baseados em Processamento de Linguagem Natural (PLN) para extrair os vieses das notícias mais recentes. Essas informações alimentam algoritmos de previsão de preços futuros de ações, fundamentando assim a decisão de compra ou venda de ativos financeiros. É crucial, portanto, a utilização de conjuntos de dados que incluem uma ampla variedade de títulos de notícias, bem como a análise de seus sentimentos correspondentes. Entretanto, a disponibilidade de conjuntos de dados padronizados para a análise de sentimentos no contexto do mercado financeiro, especialmente em língua portuguesa, é limitada. Além disso, criar bases de dados reais é uma tarefa custosa devido à necessidade de integração com APIs de redes sociais, agregadores de notícias e desenvolvimento de scrapers para coletar dados em sites especializados.
 
-Este projeto gerou uma base de dados pública em língua portuguesa que contém títulos de notícias sintéticos utilizando técnicas de PLN para uso em projetos relacionados ao tema econômico utilizando análise de sentimentos em texto. A base criada possui 250 mil amostras sintéticas de títulos de notícias. Para avaliar a contribuição da adição de dados sintéticos ao desempenho de modelos de análise de sentimentos, avaliamos quantitativamente as amostras geradas e qualitativamente utilizando o modelo [fasttext](https://fasttext.cc/) de classificação de textos utilizando em CAROSIA (2021), entretanto a adição de dados artificiais não se mostrou benéfica para a tarefa analisada e os índices de desempenho desta tarefa não foi melhorado.
+Este projeto gerou uma base de dados pública em língua portuguesa que contém títulos de notícias sintéticos utilizando técnicas de PLN para uso em projetos relacionados ao tema econômico utilizando análise de sentimentos em texto. A base criada possui 230 mil amostras sintéticas de títulos de notícias. Para avaliar a contribuição da adição de dados sintéticos ao desempenho de modelos de análise de sentimentos, avaliamos quantitativamente as amostras geradas e qualitativamente utilizando o modelo [fasttext](https://fasttext.cc/) de classificação de textos utilizando em CAROSIA (2021), entretanto a adição de dados artificiais não se mostrou benéfica para a tarefa analisada e os índices de desempenho desta tarefa não foi melhorado.
 
 **Vídeo descritivo:** [Vídeo](https://youtu.be/eHPE9ebIPyA)
 
@@ -33,7 +33,7 @@ Além de prover aumento na quantidade das amostras, o desenvolvimento de dataset
 O desenvolvimento do projeto se terá como base os dados disponível em: https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK
 A partir daí, treinamos modelos gerativos pré-treinados (T-PTLMs) avaliando desempenho para gerarem títulos de qualidade. Dentre os modelos treinados, destacou-se um [modelo baseado em GPT-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) e treinado com dados da base de artigos da Wikipedia-PT.
 
-Após o fine tuning do modelo pré-treinado, geramos uma base de títulos de notícias contendo 250 mil amostras e submetemos o conjunto gerado a métricas quantitativas e qualitativas através de duas estratégias de treinamento do classificador fasttext, descritas no tópico "Experimentos", a seguir.
+Após o fine tuning do modelo pré-treinado, geramos uma base de títulos de notícias contendo quase 230 mil amostras e submetemos o conjunto gerado a métricas quantitativas e qualitativas através de duas estratégias de treinamento do classificador fasttext, descritas no tópico "Experimentos", a seguir.
 
 ### Bases de dados e Evolução
 |Base de Dados | Endereço na Web | Resumo descritivo|
@@ -198,19 +198,55 @@ Conseguimos gerar um modelo que se adaptou para o dataset de treinamento, fato i
 
 ### Avaliação Qualitativa
 
+A avaliação quantitativa consistiu no  teste da hipótese de que a adição de dados sinéticos poderiam melhorar o desempenho de um classificador na tarefa de analisar o sentimento nos títulos de notícias relacionadads à economia. Para operacionlizá-la, recorremos a duas abordagens de treinamento: supervisionada e semi-supervisionada. Na primeira, classificamos as amostras sintéticas automaticamente com o auxílio de um modelo pronto e, em seguida, incorporados ao conjunto de treinamento do classificador. Na abordagem semi-supervisionada ingênua implementada, as amostras são classificadas iterativamente a medida em que as amostras cuja classificação superam um limiar escolhido são incorporadas ao conjunto de treinamento.
+
+#### Fasttext
+
+O [Fasttext](https://fasttext.cc/) é um modelo disponibilizado pelo Facebook originalmente criado para criar representações vetoriais de textos, mas que pode ser também utilizado como classificador de textos. Foi utilizado por CAROSIA (2022) como módulo de análise de sentimentos de uma arquitetura de predição de preços de ações e é a tarefa que tentamos melhorar durante este trabalho pelas estratégias supervisionada e semi supervisionada.
+
 #### Abordagem Supervisionada
 
-**explicar qual o modelo de classificação** e metodologia
+Primeiramente, foi testada uma abordagem supervisionada para análise de sentimentos das amostras sintéticas. Esta abordagem requer o uso de dados anotados para treinamento. Numa tentativa de anotar os dados sintéticos utilizamos o modelo [distilbert-base-multilingual-cased-sentiments-student](https://huggingface.co/lxyuan/distilbert-base-multilingual-cased-sentiments-student), baseado em distilbert, otimizado para classificar sentimentos em várias línguas em positivo ou negativo.
 
-![Balanceamento da Classificação Automática](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20da%20classifica%C3%A7%C3%A3o%20autom%C3%A1tica.png)
+A partir daí, as amostras com pontuação maior que 0.5 positivas ou negativas foram organizadas em um conjunto de dados intermediário separados em percentis em incrementos de 10 pontos percentuais. A seguir, a quantidade de amostras de cada percentil e exemplos de amostras do dataset artificial classificadas e suas pontuações.
 
-![Balanceamento por percentil](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20por%20percentil.png)
+| Amostra | Sentimento | Score |
+| -- |-- |--|
+| Bovespa registra 3ª queda por preocupações com Europa | Negativo | 0,58 |
+| BB deve emprestar US$ 3 bilhões para tentar combater preços no câmbio | Positivo | 0,52 |
+| BC diz que inflação vai subir em 2014 e não crescer em 2015 | Negativo | 0,62 |
+| Brasil conquista os 90 mil pontos com virada no fim | Positivo | 0.69 |
+| Bovespa ganha com exterior positivo, e fecha em alta de 0,2% | Positivo | 0,88 |
+| Criminosos quebram parede para roubar dois caixas eletrônicos | Negativo | 0,74 |
+| Mercado reduz pessimismo e Bolsa mantém alta; dólar cai a R$ 3,17 | Negativo | 0,90 |
+| Bolsas da Ásia fecham em alta com dados positivos dos EUA | Positivo | 0,91 |
+| Com cenário externo positivo, Ibovespa fecha em alta de 3,49% | Positivo | 0,93 |
+| Bovespa opera em queda com pessimismo global | Negativo | 0,91 |
+
+Nota-se que notícias parecidas podem ganhar pontuações discrepantes e que existe um pequeno desbalanceamento para notícias positivas o que pode significar um viés positivo no modelo de geração ou um viés na classificação.
+
+![Balanceamento por percentil](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/classificacao_automatica.png)
+
+Amostras por sentimentos/percentil
+|Sentimentos/Percentil| [0,5-0,6[ | [0,6-0,7[ | [0,7-0,8[ | [0,8-0,9[ | [0,9-1,0] | Total |
+|-|-|-|-|-|-| -|
+|Positivo | 22.580 | 10.396 | 4.389 | 2.818 | 674 | 40857 |
+|Negativo | 10.198 | 6.247 | 9.643 | 3.951 | 421 | 30460 |
+
+Após a classificação automática, os dados sintéticos foram adicionados ao conjunto de treinamento respeitando o percentil de cada experimento da seguinte maneira:
+* Os dados originais foram separados em treinamento e teste de acordo com o paper base ``(80% para treinamento, 20% para teste)`` e ``random_seed = 42``
+* Os dados sintéticos foram adicionados ao conjunto de treinamento.
 
 ![Métricas de desempenho da Abordagem spervisionada](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/M%C3%A9tricas%20de%20desempenho%20do%20treinamento%20supervisionado%20(1).png)
+
+Ao final dos exeperimentos, observamos que não houve melhoria dos índices alcançados por CAROSIA (2022). A cada percentil adicionado ao conjunto de testes, foram observadas pioras em todas as métricas observadas, sendo indicativo que a adição de amostras sintéticas não ajudou o modelo na classificação das amostras de teste.
 
 #### Abordagem não supervisionada
 
 **completar com graficos de metricas, tamanho da base de treinamento e histograma de classificação para demonstrar que o modelo tende a classificar muito nas pontas**
+
+![Gráfico do tamanho do conj. treinamento por threshold e iteration](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/metricas_semisuper.png)
+![Métricas de resultado do treinamento semi supervisionado](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/train_size.png)
 
 ## Conclusão
 
