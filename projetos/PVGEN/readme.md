@@ -141,11 +141,13 @@ In this subsection, three different cases are presented, showing the performance
 The first case involves generating synthetic data for GECAD's rooftop PV generation using the generative model trained using solely the UNICAMP dataset. To determine a good NFs model, a hyperparameter optimization (HPO) was conducted, as depicted in the Figure below.
 
 ![image info](./Figs/Results/HPO-UNICAMP.png)
+
 Figure 8: Hyperparameter Optimization Results
 
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
                                              
 ![image info](./Figs/Results/1-gecad_gen_from_unicamp.svg)
+
 Figure 9: Qualitative Analysis between Real and Generated Data
 
 Regarding metrics of NFs model, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195. 
@@ -166,6 +168,7 @@ These metrics show that the model thus manages to get it right ideally, which is
 To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. It means the evaluation of the NFs model is made over the same dataset. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
 
 ![image info](./Figs/Results/2-unicamp_gen_from_unicamp.svg)
+
 Figure 10: Qualitative Analysis between Real and Generated Data
 
 With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
@@ -175,11 +178,13 @@ With this, the generative model, based on NFs, fails to generate real and repres
 Since the model trained solely on one database did not yield satisfactory results, training with data from two distinct locations was attempted. For this new dataset (HOLLAND), an HPO was conducted, as depicted in the following Figure.
 
 ![image info](./Figs/Results/HPO-UNICAMP-HOLANDA.png)
+
 Figure 11: Hyperparameter Optimization Results
 
 After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
 
 ![image info](./Figs/Results/3-gecad_gen_from_unicamp-holanda.svg)
+
 Figure 12: Qualitative Analysis between Real and Generated Data
 
 Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in table VI.
