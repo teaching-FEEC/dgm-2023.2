@@ -55,25 +55,7 @@ Apesar de três redes serem selecionadas, apenas a Food101 foi usada no projeto.
 
 A Food101 apresenta uma boa quantidade de imagens, mas também uma grande variedade. Essa variedade advém de suas muitas classes de alimentos e das condições de iluminação, ângulo e preparo dos alimentos retratados: desde imagens com boas condições e o prato claramente retratado em seu centro até imagens com outros objetos, má iluminação e diferença no arranjo dos ingredientes no prato. Acredita-se que isso tenha afetado o treinamento das IAs, necessitando mais tempo para aprender a recriar a diversidade retratada.
 
-### Workflow
-> Use uma ferramenta que permita desenhar o workflow e salvá-lo como uma imagem (Draw.io, por exemplo). Insira a imagem nessa seção.
-> Você pode optar por usar um gerenciador de workflow (Sacred, Pachyderm, etc) e nesse caso use o gerenciador para gerar uma figura para você.
-> Lembre-se que o objetivo de desenhar o workflow é ajudar a quem quiser reproduzir seus experimentos. 
-
-
-
 ## Experimentos, Resultados e Discussão dos Resultados
-
-> Na entrega parcial do projeto (E2), essa seção pode conter resultados parciais, explorações de implementações realizadas e 
-> discussões sobre tais experimentos, incluindo decisões de mudança de trajetória ou descrição de novos experimentos, como resultado dessas explorações.
-
-> Na entrega final do projeto (E3), essa seção deverá elencar os **principais** resultados obtidos (não necessariamente todos), que melhor representam o cumprimento
-> dos objetivos do projeto.
-
-> A discussão dos resultados pode ser realizada em seção separada ou integrada à seção de resultados. Isso é uma questão de estilo.
-> Considera-se fundamental que a apresentação de resultados não sirva como um tratado que tem como único objetivo mostrar que "se trabalhou muito".
-> O que se espera da seção de resultados é que ela **apresente e discuta** somente os resultados mais **relevantes**, que mostre os **potenciais e/ou limitações** da metodologia, que destaquem aspectos
-> de **performance** e que contenha conteúdo que possa ser classificado como **compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade**. 
 
 Como experimentos, vários treinos foram realizados com diferentes modelos de IAs gerativas. O código delas pode ser lido no diretório de Notebooks. No caso, foram duas redes neurais do tipo GAN e duas de Difusão. Para verificar a qualidade das imagens geradas, foi observada a função _loss_ em conjunto com uma análise visual de amostras do espaço latente.
 
