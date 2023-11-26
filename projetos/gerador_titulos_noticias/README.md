@@ -168,6 +168,8 @@ Note que o modelo entra em loop na geração de uma amostra e não consegue term
 
 ### Avaliação Quantitativa
 
+**adicionar breve explicação da métrica**
+
 Perplexity (gpt-2):
 Perplexity (gpt2-small-portuguese): 430,75
 Perplexity (ours):115,31
@@ -178,6 +180,8 @@ Perplexity (ours):115,31
 
 #### Abordagem Supervisionada
 
+**explicar qual o modelo de classificação** e metodologia
+
 ![Balanceamento da Classificação Automática](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20da%20classifica%C3%A7%C3%A3o%20autom%C3%A1tica.png)
 
 ![Balanceamento por percentil](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Balanceamento%20por%20percentil.png)
@@ -186,8 +190,12 @@ Perplexity (ours):115,31
 
 #### Abordagem não supervisionada
 
+**completar**
 
 ## Conclusão
+
+A geração das amostras sintéticas não melhorou o desempenho da tarefa proposta.
+Pode ser que seja interessante em outros modelos, arquiteturas ou problemas.
 
 ## Referências Bibliográficas
 IQBAL, Touseef. QURESHI, Shaima. The survey: Text generation models in deep learning. In: Journal of King Saud University - Computer and Information Sciences, Volume 34, Issue 6, Part A. 2022. Pages 2515-2528. ISSN 1319-1578. https://doi.org/10.1016/j.jksuci.2020.04.001. Disponível em: https://www.sciencedirect.com/science/article/pii/S1319157820303360
