@@ -317,22 +317,23 @@ Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda
 |:--:| 
 
 ### Classificador
-A acurácia do classificador para os dados aumentados são mostrados na tabela abaixo. Nota-se que o acréscimo na precisão devido à aplicação de data augmentation foi relativamente pequeno, com um aumento de cerca de 2% para incrementos de 5% e 50%.
+A acurácia do classificador para os dados aumentados são mostrados na tabela abaixo. Nota-se que não houve acréscimo na precisão devido à aplicação de data augmentation, sendo que a melhor acurácia (87%) foi obtida com 0% de augmentation, ou seja, apenas com os dados reais.
 
-Os resultados destacam que o modelo respondeu de forma moderada ao aumento dos dados, indicando, de maneira geral, que a implementação de técnicas de aumento de dados trouxe uma melhoria, ainda que sutil, no desempenho do classificador EEGNet.
-
-Ainda assim, é importante considerar a variabilidade individual entre os participantes nos testes, uma vez que distintas respostas neurais podem influenciar a eficácia do modelo.
+Assim, os resultados destacam que o modelo não respondeu da forma esperada para este indivíduo, indicando a necessidade de mudanças na arquitetura da CGAN para melhor sintetizar as distribuiçoes de dados. Neste contexto, ainda é importante considerar que existe variabilidade entre os indivíduos do dataset, uma vez que distintas respostas neurais podem influenciar a eficácia do modelo, e o modelo proposto ainda pode sintetizar bem os dados para outros indivíduos.
 
 | Augmentation (%) | EEGNet Accuracy |
-|-------------------|-----------------|
-| 0.0               | 0.8976          |
-| 5.0               | 0.9167          |
-| 10.0              | 0.9010          |
-| 20.0              | 0.8993          |
-| 50.0              | 0.9184          |
-| 70.0              | 0.8941          |
-| 100.0             | 0.8976          |
-| 200.0             | 0.8802          |
+|-------------------|------------------|
+| 0.0               | 0.872464         |
+| 5.0               | 0.814917         |
+| 10.0              | 0.804749         |
+| 15.0              | 0.785894         |
+| 20.0              | 0.765700         |
+| 30.0              | 0.736607         |
+| 40.0              | 0.666667         |
+| 50.0              | 0.687259         |
+| 70.0              | 0.629693         |
+| 100.0             | 0.558611         |
+
 
 
 ### Métrica Jensen–Shannon (JS)
@@ -431,9 +432,9 @@ Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo 
 
 Caso a CGAN continue sem produzir resultados satisfatórios, uma opção alternativa é modificar o formato de entrada para matrizes de covariância, conforme sugerido nos estudos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso, considera-se a substituição do tipo de modelo generativo, como o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). -->
 
-Este projeto estudou a possibilidade de gerar dados sintéticos de EEG usando uma arquitetura CGAN. De acordo com os resultados apresentados houve um ganho de desempenho duranto o desenvolvimento do projeto. Conseguimos melhorar o treinamento do modelo ao utilizar todos os canais disponíveis do dataset, realizar pré-processamento dos dados e modificar hiperparâmetros da rede, como a taxa de aprendizagem.
+Este projeto estudou a possibilidade de gerar dados sintéticos de EEG usando uma arquitetura CGAN. De acordo com os resultados apresentados, houve um pequeno ganho de desempenho durante o desenvolvimento do projeto. Conseguimos melhorar o treinamento do modelo ao utilizar todos os canais disponíveis do dataset, realizar pré-processamento dos dados e modificar hiperparâmetros da rede, como a taxa de aprendizagem.
 
-No entanto, ao executar experimento usando augmentation no classificador, observamos que os dados sintéticos não ajudou significativamente a melhor o desempenho do modelo. Apenas o sujeito 7 obteve uma pequena melhora ao adicionar 5% de dados sintéticos. Será necessário avaliar caminhos alternativos para melhorar a geração de dados sintéticos. 
+No entanto, ao executar experimento usando augmentation no classificador, observamos que a adição dados sintéticos não ajudou significativamente a um melhor o desempenho do modelo. Apenas o sujeito 7 obteve uma pequena melhora de 1% ao adicionar 5% de dados sintéticos. Será necessário avaliar caminhos alternativos para melhorar a geração de dados sintéticos. 
 
 Além disso, na avaliação da diversidade de movimento entre sujeitos foram obtidos resultados significativamente diferentes, indicando que deve haver certo cuidado ao treinar um modelo com suijeitos diferentes. Por outro lado, isso pode ser interessante para a generalização do modelo.
 
@@ -473,3 +474,4 @@ Além disso, na avaliação da diversidade de movimento entre sujeitos foram obt
 -  EEGNet: A Compact Convolutional Network for EEG-based Brain-Computer Interfaces. 
   Paper: (https://arxiv.org/pdf/1611.08024.pdf)
   Git: (https://github.com/arkanivasarkar/EEG-Data-Augmentation-using-Variational-Autoencoder)
+
