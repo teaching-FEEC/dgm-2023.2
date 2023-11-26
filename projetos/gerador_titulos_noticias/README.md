@@ -134,14 +134,17 @@ O primeiro e o último títulos gerados foram descartados por serem (quase sempr
 
 Exemplos de amostras geradas:
 
-Prompt (palavra aleatória): ``
+Prompt (palavra aleatória): `Céus`
 ````
-
+Céus de água na maior estufa do Brasil (descartada)
+Dilma anuncia R$ 8,1 bi ao Orçamento da Previdência para 2020
+Bandidos assaltam agência do Banco do Brasil em Matão, Zona da Mata Central do MA
+Bolsa de São Paulo: Ibovespa fecha em baixa de 1,27%
+Em dia de recuperação da Petrobras, Bovespa tem leve queda
+BTG Pactual quer fechar capital da BR Distribuidora
+Petrobras garante liderança isolada entre anunciantes do setor no ano
+Conf (descartada)
 ````
-
-#### Anomalias detectadas durante a geração do dataset
-
-Durante o processo de geração de dataset, duas anomalias foram detectadas: Loop de infinito de geração e estagnação da criatividade do modelo, os quais serão comentados a seguir:
 
 ##### Loop infinito de geração uma amostra
 Consiste em um fenômeno em que o gerador fica preso na geração de uma amostra infinitamente. Este fenômeno foi observado quando aumentamos a quantidade máxima de token de cada iteração. A seguir um exemplo de sua ocorrência:
@@ -162,12 +165,6 @@ Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linh
 ````
 
 Note que o modelo entra em loop na geração de uma amostra e não consegue terminá-la, sempre repetindo o padrão " e Ibovespa segue avançando na linha dos 57 mil pontos".
-
-##### Estagnação da criatividade
-
-Conforme comentado brevemente acima, ocorreu após a geração de aproximadamente 190 mil amostras e consiste na geração excessiva de amostras repetidas.
-
-##### TODO: gráfico de amostras novas ineditas vs repetidas
 
 ### Avaliação Quantitativa
 
