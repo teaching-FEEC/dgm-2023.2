@@ -1,4 +1,4 @@
-# `Synthetic Photovoltaic Power Curve using GANs and Transformers`
+# `Synthetic Photovoltaic Generation: Deep Learning for Forecasting in Data-Scarce Environments`
 
 
 ## Presentation
