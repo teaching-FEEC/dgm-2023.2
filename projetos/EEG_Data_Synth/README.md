@@ -119,13 +119,12 @@ Amostras por Janela | 400
 
 
 ## Workflow
-** Joany Gerar Figura** 
 
-Workflow da proposta de geração de dados sintéticos.
+Workflow da proposta de geração de dados sintéticos [Figura 1](new_workflow.jpeg).
 
  A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (n_amostras,68,1,1) e retorna dados sintéticos de dimensão (n_amostras,1,22,400). O discriminador possui duas camadas convolucionais para classificação dados em reais ou falsos. Na figura, utilizou-se n_amostras = 4
 
-|![Workflow](./figure/new_workflow.jpeg "Workflow")**Workflow**|
+|![Workflow](./figure/new_workflow.jpeg "Workflow")**Figura 1: Workflow**|
 |:--:| 
 
 
@@ -312,9 +311,9 @@ Nesta seção inicial, apresentam-se os resultados relacionados aos dados de EEG
 
 ### Curvas de Loss da GAN
 
-Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas. A figura abaixo ilustra o comportamento observado para a melhor arquitetura e parâmetros encontrados, com o discriminador convergindo para valores de perda muito próximos `0.5`, e o gerador convergindo para valores próximos de `0.8`, ambos resultados indesejáveis no treinamento. 
+Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas, [Figura 2](22ch_batch64_lr37e6_decay7.png). A figura abaixo ilustra o comportamento observado para a melhor arquitetura e parâmetros encontrados, com o discriminador convergindo para valores de perda muito próximos `0.5`, e o gerador convergindo para valores próximos de `0.8`, ambos resultados indesejáveis no treinamento. 
 
-|![Loss Curve](./figure/subject_3/22ch_batch64_lr37e6_decay7.png "Loss Curve")**Convergência da curva de loss do gerador e discriminador**|
+|![Loss Curve](./figure/subject_3/22ch_batch64_lr37e6_decay7.png "Loss Curve")**Figura 2: Convergência da curva de loss do gerador e discriminador**|
 |:--:| 
 
 ### Classificador
@@ -340,36 +339,36 @@ Ainda assim, é importante considerar a variabilidade individual entre os partic
 A divergência de Jensen-Shannon (JS) foi calculada entre os dados reais e os dados gerados pela rede generativa condicional. Essa métrica é utilizada para avaliar a "distância" ou similaridade entre duas distribuições de probabilidade, sendo que  valores menores dessa métrica indicam que as distribuições estão mais próximas, enquanto valores maiores indicam que as distribuições são mais distintas. A comparação foi realizada para cada classe e para cada canal das duas distribuições. Ambos conjuntos de dados reais possuem dimensão (1152, 22), representando 288 amostras para cada classe em cada canal. 
 
 
-A matriz de confusão abaixo apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito 3. As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, indicando boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
+A matriz de confusão abaixo apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito 3, [Figura 3](JS_Metric_Heatmap.png). As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, indicando boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
 
-|![Heatmap](./figure/subject_3/JS_Metric_Heatmap.png "Heatmap")**Heatmap**|
+|![Heatmap](./figure/subject_3/JS_Metric_Heatmap.png "Heatmap")**Figura 3: Heatmap**|
 |:--:| 
 
 ### Histogramas de Distribuição
-Comparamos a distribuição de frequência dos dados reais com os dados sintéticos a partir do histograma apenas para os eletrodos (FC2, C3, Cz, C2 e C4) apresentada na figura abaixo. Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2. Indicando que esses dois eletrodos, assim como mostrado pela métrica JS, obtiveram os melhores resultados. Entre esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
+Comparamos a distribuição de frequência dos dados reais com os dados sintéticos a partir do histograma apenas para os eletrodos (FC2, C3, Cz, C2 e C4) [Figura 4](Real_and_Fake_Histogram_Comparison.png). Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2. Indicando que esses dois eletrodos, assim como mostrado pela métrica JS, obtiveram os melhores resultados. Entre esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
 
-|![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Histogramas**|
+|![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Figura 4: Histogramas**|
 |:--:| 
 
 ### Comparação dos espaços latentes do terceiro indivíduo
-Os manifolds para os dados reais e os dados sintéticos são mostrados nas figuras abaixo. Foi possível observar que na [Figura 1](manifold_reais.png), com os dados reais ficaram mais espaçados, e quase não há mistura de classes, e o codificador foi capaz de extratir as características de cada classe juntamente com o algoritmo do k-means que contribuiu bastante para o resultado final.  Na [Figura 2](manifold_sinteticos.png) para os dados sintéticos é possível oberservar que as classes não ficaram muito bem separadas em um mesmo agrupamento, principalmente o grupo roxo referente a classe 1 que ficou um pouco misturado em dois grupos. Contudo, pode-se concluir que mesmo para as bases diferentes o algoritmo conseguiu fazer a representação do espaço latente das quatros classes de EEG, mostrando assim a similaridade dos dados sintéticos com o reais. 
+Os manifolds para os dados reais e os dados sintéticos são mostrados nas figuras abaixo. Foi possível observar que na [Figura 5](manifold_reais.png), com os dados reais ficaram mais espaçados, e quase não há mistura de classes, e o codificador foi capaz de extratir as características de cada classe juntamente com o algoritmo do k-means que contribuiu bastante para o resultado final.  Na [Figura 6](manifold_sinteticos.png) para os dados sintéticos é possível oberservar que as classes não ficaram muito bem separadas em um mesmo agrupamento, principalmente o grupo roxo referente a classe 1 que ficou um pouco misturado em dois grupos. Contudo, pode-se concluir que mesmo para as bases diferentes o algoritmo conseguiu fazer a representação do espaço latente das quatros classes de EEG, mostrando assim a similaridade dos dados sintéticos com o reais. 
 
-|![Manifold_dados_reais](./figure/manifold_reais.png "Manifold_dados_reaiss")**Manifold_dados_reais**|
+|![Manifold_dados_reais](./figure/manifold_reais.png "Manifold_dados_reaiss")**Figura 5: Manifold_dados_reais**|
 |:--:| 
 
-|![Manifold_dados_sintéticos](./figure/manifold_sinteticos.png "Manifold_dados_sintéticos")**Manifold_dados_sintéticos**|
+|![Manifold_dados_sintéticos](./figure/manifold_sinteticos.png "Manifold_dados_sintéticos")**Figura 6: Manifold_dados_sintéticos**|
 |:--:| 
 
 ## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
-Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais, ao adicionar augmentation de ('5%', '10%', '20%', '50%', '70%', '100%' e '200%') para verificar variabilidade dos indivíduos no processo de aquisição de dados e o impacto dessa variabilidade e também da adição dos dados gerados no classificador. 
+Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais para verificar variabilidade dos indivíduos no processo de aquisição de dados, e ao adicionar augmentation de ('5%', '10%', '20%', '50%', '70%', '100%' e '200%') para verificar o impacto da variabilidade e também da adição dos dados gerados no classificador [Figura 7](EEGNet_Accuracy_vs_Augmentation.png). 
 
-A figura abaixo mostra os resultados desses experimentos. Ao analisar os resultados apenas com dados reais, observa-se variabilidade relevante entre os sujeitos, com exceção dos sujeitos 3 e 7, que apresentaram valores de acurácia muito próximo. Essa similaridade permanece ao realizar augmentation de 10% entre esses sujeitos, mas para as outras porcentagem de augmentation a acurácia é significativamente diferente, chegando a uma diferença de aproximadamente 0.08. 
+Ao analisar os resultados apenas com dados reais, observa-se variabilidade relevante entre os sujeitos, com exceção dos sujeitos 3 e 7, que apresentaram valores de acurácia muito próximo. Isso pode ter ocorrido devido a variabilidade de movimentos diferentes entre sujeitos durante a aquisição dos dados. Para esses dois sujeitos (3 e 7) essa variabilidade se mantém apenas com 20% de augmentation, porém houve uma diminuição no valor do acurácia de pelo menos 0.1.  
 
-Percebe-se que até 20% de augmentation existe mais semelhança entre entre os valores de acurácia entre sujeitos, por exemplo, os sujeitos 1, 3 e 7 com 20% de augmentation. No entanto, ao adicionar porcentagem maior de augmentation, essa semelhança entre os sujeitos diminui significativamente. 
+Percebe-se que existe diminuição significativa nos valores da acurácia ao adicionarmos os dados sintéticos para todos os sujeitos, com exceção do sujeito 7, que ao adicionar 5% de dados sintéticos apresentou melhor desempenho em relação ao treinar apenas com dados reais. Ou seja, quanto mais adicionamos dados sintéticos, menor é o desempenho do classificador. Isso indica que os dados gerados pelo modelo proposto,pode não ser bom o suficiente para melhorar o desempenho do classificador.
 
-Nota-se ainda que para os sujeitos 9 nenhuma porcentagem de augmentation foi suficiente para melhorar os resultados, uma vez que todos com augmentation para esse sujeitos foram inferiores a apenas com os dados reais. Para o sujeito 1, houve um ganho ao introduzir 20% ou 200% de dados sintéticos, enfatizando uma pequena melhora em 200%, mas talvez insignificante ao comparar com o custo computacional de gerar ou executar 180% de dados a mais. Os sujeitos 3 e 7 foram os quais se beneficiaram mais ao adicionar dados sintéticos para treinar com os dados reais. 50% de augmentation para o sujeito 3, aumentando aproximadamente 0.02 no valor da acurácia. Enquanto para o sujeito 7 o melhor desempenho foi com 70% de augmentation aumentando aproximadamente 0.03 no valor da acurácia. Apesar desses resultados, é difícil mencionar o sujeito que apresenta melhor resultado apenas com esses experimentos. 
+Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo ser comparável om o sujeito 3. Os piores resultados foram obtidos pelo sujeito 1.  
 
-|![EEGNet_Accuracy_vs_Augmentation](./figure/EEGNet_Accuracy_vs_Augmentation.png "EEGNet_Accuracy_vs_Augmentation")**EEGNet_Accuracy_vs_Augmentation**|
+|![EEGNet_Accuracy_vs_Augmentation](./figure/EEGNet_Accuracy_vs_Augmentation.png "EEGNet_Accuracy_vs_Augmentation")**Figura 7: EEGNet_Accuracy_vs_Augmentation**|
 |:--:| 
 
 
@@ -418,7 +417,7 @@ Nota-se ainda que para os sujeitos 9 nenhuma porcentagem de augmentation foi suf
 
 <!-- Até a entrega 2 foram feitos os experimentos preliminares e com os resultados pode-se observar que o modelo está funcional, porém a configuração proposta da CGAN ainda não obteve o resultado esperado. Portanto, para as etapas seguintes alguns testes devem ser feitos para tentar reduzir o número de parâmetros treináveis, realizando convoluções menores, reduzindo a quantidade de camadas intermediárias, alterar o tipo de normalização do dados, o tamanho do kernel, etc. Após estes testes, pretende-se usar as métricas propostas inicialmente que ainda não foram testadas como a divergência KL e a comparação dos espaços latentes usando um autoencoder ou uma PCA usando os dados Reais Vs. Gerados. -->
 
-Até o momento, os experimentos preliminares foram conduzidos, e os resultados indicaram que o modelo está funcionando. No entanto, a configuração proposta da CGAN ainda não produziu os resultados desejados. Portanto, nas próximas etadas, planeja-se realizar uma série de testes para otimizar o desempenho do modelo. Essas otimizações podem incluir:
+<!-- Até o momento, os experimentos preliminares foram conduzidos, e os resultados indicaram que o modelo está funcionando. No entanto, a configuração proposta da CGAN ainda não produziu os resultados desejados. Portanto, nas próximas etadas, planeja-se realizar uma série de testes para otimizar o desempenho do modelo. Essas otimizações podem incluir:
 
 - Reduzir o número de parâmetros treináveis: O modelo atual possui 3,513,025 parâmetros treináveis, um número muito alto dado a quantidade de dados de treinamento. Esta redução pode ser alcançada por meio de convoluções menores e redução da quantidade de camadas intermediárias. Com isso, espera-se que a redução do número de parâmetros torne o modelo mais eficiente e mais rápido para treinar.
 
@@ -430,7 +429,13 @@ Até o momento, os experimentos preliminares foram conduzidos, e os resultados i
 
 - Autoencoder ou PCA: Comparar os dados gerados pelo modelo com os dados reais usando técnicas como autoencoders ou Análise de Componentes Principais (PCA) pode fornecer insights valiosos sobre a qualidade das amostras geradas.
 
-Caso a CGAN continue sem produzir resultados satisfatórios, uma opção alternativa é modificar o formato de entrada para matrizes de covariância, conforme sugerido nos estudos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso, considera-se a substituição do tipo de modelo generativo, como o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). 
+Caso a CGAN continue sem produzir resultados satisfatórios, uma opção alternativa é modificar o formato de entrada para matrizes de covariância, conforme sugerido nos estudos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso, considera-se a substituição do tipo de modelo generativo, como o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). -->
+
+Este projeto estudou a possibilidade de gerar dados sintéticos de EEG usando uma arquitetura CGAN. De acordo com os resultados apresentados houve um ganho de desempenho duranto o desenvolvimento do projeto. Conseguimos melhorar o treinamento do modelo ao utilizar todos os canais disponíveis do dataset, realizar pré-processamento dos dados e modificar hiperparâmetros da rede, como a taxa de aprendizagem.
+
+No entanto, ao executar experimento usando augmentation no classificador, observamos que os dados sintéticos não ajudou significativamente a melhor o desempenho do modelo. Apenas o sujeito 7 obteve uma pequena melhora ao adicionar 5% de dados sintéticos. Será necessário avaliar caminhos alternativos para melhorar a geração de dados sintéticos. 
+
+Além disso, na avaliação da diversidade de movimento entre sujeitos foram obtidos resultados significativamente diferentes, indicando que deve haver certo cuidado ao treinar um modelo com suijeitos diferentes. Por outro lado, isso pode ser interessante para a generalização do modelo.
 
 <!-- Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo seria alterar o formato da entrada para matrizes de covariância, como proposto nos trabalhos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso seria tentar trocar o tipo de modelo generativo, por exemplo o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068).  -->
 
