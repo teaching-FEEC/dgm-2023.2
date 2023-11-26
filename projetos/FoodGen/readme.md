@@ -7,7 +7,9 @@ O presente projeto foi originado no contexto das atividades da disciplina de pó
 oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra. Paula Dornhofer Paro Costa, do Departamento de Engenharia de Computação e Automação (DCA) da Faculdade de Engenharia Elétrica e de Computação (FEEC).
 
 > | Rafael Pedrosa Silva Clerici  | 273034  | Eng. de Computação|
+
 > | Marco Antonio Cáceres Choqque  | 239271  | Eng. de Sistemas|
+
 > | Kevin Inofuente  | 272316  | XXX|
 
 ## Resumo (Abstract)
@@ -74,10 +76,6 @@ A Food101 apresenta uma boa quantidade de imagens, mas também uma grande varied
 > de **performance** e que contenha conteúdo que possa ser classificado como **compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade**. 
 
 ## Conclusão
-
-> A seção de Conclusão deve ser uma seção que recupera as principais informações já apresentadas no relatório e que aponta para trabalhos futuros.
-> Na entrega parcial do projeto (E2) pode conter informações sobre quais etapas ou como o projeto será conduzido até a sua finalização.
-> Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto.
 
 Os resultados do experimento não alcançaram o nível esperado. Porém, foram uma boa oportunidade de aprendizado para os integrantes do projeto. Várias redes foram analizadas, utilizadas e avaliadas, oferecendo melhor compreensão das técnicas e desafios enfrentados na pesquisa de redes neurais.
 O projeto se beneficiaria de uma extensão, especialmente se mais recursos computacionais pudessem ser utilizados, uma vez que as imagens geradas ficaram aquém do esperado por, muito provavelmente, falta de treino para as redes: os integrantes do projeto não possuíam acesso a máquinas poderosas o suficiente para realizar os cálculos necessários.
