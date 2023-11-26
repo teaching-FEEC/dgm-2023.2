@@ -462,7 +462,7 @@ Além disso, na avaliação da diversidade de movimento entre sujeitos foram obt
 
 ![grid_plot_loss](./figure/JS_Metric_Heatmap_sub7.png "grid_plot_loss")
 
-|![grid_plot_loss](./figure/JS_Metric_Heatmap_sub9.png "grid_plot_loss")**Figura 9: Grid plot dos testes realizados no treinamento da GAN**|
+|![grid_plot_loss](./figure/JS_Metric_Heatmap_sub9.png "grid_plot_loss")**Figura 9: JS Metrics para sujeitos 1, 7 e 9**|
 |:--:| 
 
 
