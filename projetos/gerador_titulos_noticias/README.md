@@ -168,13 +168,33 @@ Note que o modelo entra em loop na geração de uma amostra e não consegue term
 
 ### Avaliação Quantitativa
 
-**adicionar breve explicação da métrica**
+Para a avaliação quantitativa, utilizamos duas métricas de avaliação: *cross entropy* e *perpelexity*, que são as métricas apresentadas nos resultados dos modelos utilizados como base.
 
-Perplexity (gpt-2):
-Perplexity (gpt2-small-portuguese): 430,75
-Perplexity (ours):115,31
+#### Cross Entropy
 
-![Perplexidade](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Perplexidade.png)
+A métrica comumente utilizada como função de perda (*loss function*) para treinamento de modelos profundos de aprendizados, mede a "proximidade" do modelo previsto em comparação com o originalmente proposto. Os resultados obtidos no treinamento do nosso modelo foram numericamente compatíveis com o resultado do treinamento do modelo base.
+
+![Losses](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/loss2.png)
+
+
+#### Perplexity
+
+A perplexidade mede a capacidade do modelo de gerar uma sequência de tokens dado o contexto das palavras anteriores. Pode também ser entendida como o nível de "surpresa" que o modelo acarreta ao gerar tokens diversos do que era originalmente esperado. Deste modo, quanto menor o valor da perpexidade, melhor o desempenho do modelo avalidado.
+![Perplexidade](https://thegradient.pub/content/images/2019/10/Screenshot-from-2019-10-08-15-56-38-2.png)
+
+Seu cálculo é feito através do produtório de probalilidades (atribuído pelo modelo) da próxima palavra ser aquela da amostra de avaliação.
+![probabilidade](https://thegradient.pub/content/images/2019/10/lm-1.png)
+Fonte: [The Gradient](https://thegradient.pub/understanding-evaluation-metrics-for-language-models/)
+
+Conseguimos gerar um modelo que se adaptou para o dataset de treinamento, fato ilustrado pela diminuição da perplexidade do nosso modelo pela base de notícias. Mas ainda assim, os resultados ficaram longue dos considerados "estado da arte" na epoca de seus lançamentos. Cabe lembrar que a métrica de perplexidade consideravelmente maior dos modelos ``gpt-2`` e ``gpt2-small-portuguese`` para o conjunto de notícias, se deve ao fato dos modelos não serem treinados utilizando estas bases de notícias, como o nosso modelo foi.
+
+| Modelo/Dataset | NOTICIAS | ORIGINAL |
+|----- | ----- | -----|
+| gpt-2 | 574,65 | 29,41 |
+| gpt2-small-portuguese | 430,75 | 23,76 |
+| OUrs | 115,31 | - |
+
+![Perplexidade](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/Perplexidade2.png)
 
 ### Avaliação Qualitativa
 
@@ -190,7 +210,7 @@ Perplexity (ours):115,31
 
 #### Abordagem não supervisionada
 
-**completar**
+**completar com graficos de metricas, tamanho da base de treinamento e histograma de classificação para demonstrar que o modelo tende a classificar muito nas pontas**
 
 ## Conclusão
 
