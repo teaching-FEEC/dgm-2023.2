@@ -3,15 +3,15 @@
 
 ## Presentation
 
-### Assigment 1
+### Assignment 1
 
 [Video on YouTube for the first assignment](https://youtu.be/TmnOccnPoUU)
 
-### Assigment 2
+### Assignment 2
 
 [Slides](https://docs.google.com/presentation/d/1MgKqQnf7F7JzvSkJVg6RY7zdao9B-Bte/edit?usp=sharing&ouid=105026589240211170070&rtpof=true&sd=true)
 
-### Assigment 3
+### Assignment 3
 
 [Slides](https://docs.google.com/presentation/d/1s3bzTyyO0hTWTvmFcjaD9GAqgSdZInZf/edit?usp=sharing&ouid=101611810474111417437&rtpof=true&sd=true)
 
@@ -34,7 +34,7 @@ The increase of Distributed Energy Resources (DERs) integration into the distrib
 
 ![image info](./Figs/Example.svg)
 
-Figure 1: Example os environment that need to be controlled with an EMS
+Figure 1: Example of environment that needs to be controlled with an EMS
 
 To enhance the quality of energy management, predictions such as load and photovoltaic (PV) generation are necessary. However, how can an EMS be applied in a system without historical data? How can a PV forecasting model be trained to assist an EMS in a system installed in a new location?
 
@@ -121,89 +121,97 @@ Regarding 4-eval_2.py, this file reads the best model entered with 3-forecasting
 ![image info](./Figs/workflow.png)
 Figure 6: Generation and Forecasting workflow
 
-## Experiments, Results and Discussion
+## Results
 
-The experiments and results were divided into three analysis cases. These cases differ in their approach. 
+The proposed methodology is evaluated through the MAE and RMSE of a forecasting model and the use of transfer learning. A forecasting model is trained considering real PV power data from the GECAD dataset to provide a reference point. The results of this model are presented in Table III.
 
-BEST GECAD
+Table III: Metrics of PV Forecasting Model of GECAD Dataset Considering Real PV as Input
 
 |metric |  valid  |  test   |
 |-------|---------|---------|
 | MAE   | 0.05230 | 0.06313 |
 | RMSE  | 0.08501 | 0.10154 |
 
+## Forecasting Model
+
+In this subsection, three different cases are presented, showing the performance of the forecasting model, the performance of the generative model, and the performance of the predictive model with an additional dataset.
 
 ### Case 1: Synthetic GECAD PV profile generation using models trained with UNICAMP PV data.
 
-The first case involves generating synthetic data for GECAD's rooftop PV generation at IPP using a model trained solely with UNICAMP's databases. To determine the best data generation model for this dataset, a hyperparameter optimization (HPO) was conducted, as depicted in the Figure below.
+The first case involves generating synthetic data for GECAD's rooftop PV generation using the generative model trained using solely the UNICAMP dataset. To determine a good NFs model, a hyperparameter optimization (HPO) was conducted, as depicted in the Figure below.
 
 ![image info](./Figs/Results/HPO-UNICAMP.png)
 Figure 7: Hyperparameter Optimization Results
 
-The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the parameters defined by the previously mentioned HPO.
+The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
                                              
 ![image info](./Figs/Results/1-gecad_gen_from_unicamp.svg)
 Figure 8: Qualitative Analysis between Real and Generated Data
 
-Regarding metrics, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195.
+Regarding metrics of NFs model, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195. 
 
-**Talking about the prediction...**
-XX
+The generated synthetic data is used to train a forecasting model. HPO is applied over the forecasting model. The training and validation data corresponds to synthetic data, while the test data is real PV data. Table IV. shows the MAE and RMSE of the predictive model.
+
+Table IV: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic PV as Input
 
 |metric |  valid  |  test   |
 |-------|---------|---------|
 | MAE   | 0.00854 | 0.11554 |
 | RMSE  | 0.01391 | 0.16549 |
 
-
-
-**An overview of the results...**
+These metrics show that the model thus manages to get it right ideally, which is why its values in validation are shallow, but in the test, its performance is worse. These results show that the task is complex, and the generative model may not be good enough to be used in a new dataset.
 
 ### Case 2: Synthetic UNICAMP PV Profile Generation by Models Trained with UNICAMP PV Data
 
-To investigate the reasons behind the low performance of the generative model, a proposal for data generation for a subset of UNICAMP was made. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the system exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
-The file 3.py reads the dataset generated by the NFs model. Then, divide the database into training, validation, and testing. Finally, using Optuna performs hyperparameter optimization and saves the best forecast model. The next step, the script 4.1.py, performs the first proposed evaluation. It loads the model trained in with 3.py and evaluates it on the validation and test set in terms of MAE and RMSE.
-Regarding 4.2.py, this file reads the best model entered with 3.py and applies three transfer learning strategies. This is done using only the validation set to adjust the weights of the forecast model according to the strategy adopted. For each strategy, the forecasting quality is measured in terms of MAE and RMSE.
+To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. It means the evaluation of the NFs model is made over the same dataset. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
 
 ![image info](./Figs/Results/2-unicamp_gen_from_unicamp.svg)
 Figure 10: Qualitative Analysis between Real and Generated Data
 
-**An overview of the results...**
+With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
 
 ### Case 3: Synthetic GECAD PV Profile Generation by Models Trained with UNICAMP and NETHERLANDS PV Data
 
-Since the model trained solely on one database did not yield satisfactory results, training with data from two distinct locations was attempted. For this new dataset, an HPO was conducted, as depicted in the following Figure.
+Since the model trained solely on one database did not yield satisfactory results, training with data from two distinct locations was attempted. For this new dataset (HOLLAND), an HPO was conducted, as depicted in the following Figure.
 
 ![image info](./Figs/Results/HPO-UNICAMP-HOLANDA.png)
-Figure x: Hyperparameter Optimization Results
+Figure 11: Hyperparameter Optimization Results
 
 After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
 
 ![image info](./Figs/Results/3-gecad_gen_from_unicamp-holanda.svg)
-Figure x: Qualitative Analysis between Real and Generated Data
+Figure 12: Qualitative Analysis between Real and Generated Data
+
+Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in table VI.
+
+Table V: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic PV as Input using UNICAMP + HOLLAND datasets.
 
 |metric |  valid  |  test   |
 |-------|---------|---------|
 | MAE   | 0.01178 | 0.12083 |
-| RMSE  | 0.01755 | 0.16712 |
+| RMSE  | 0.01755 | 0.16712 |
 
 ## Transfer Learning
 
-### Unicamp + Fine Tuning with Real PV Power
+The second evaluation approach uses one year of generated data to adjust a forecast model based on three transfer learning strategies. The forecast model in the source domain is trained with UNICAMP data. Table VI shows the metrics of the forecast model when applying transfer learning strategies, considering that there is actual PV data in the GECAD dataset. Table VII, on the other hand, shows the result of the transfer learning strategies with the adjustment with synthetic data.
 
-| Metrics |   w/o    |    E1    |    E2    |    E3    |
+Table VI: Unicamp + Fine Tuning with Real PV Power
+
+| Metrics |   w/o    |    S1    |    S2    |    S3    |
 |---------|----------|----------|----------|----------|
 |   MAE   | 0.20273  | 0.08745  | 0.07684  | 0.11176  |
-|   RMSE  | 0.26323  | 0.12775  | 0.11427  | 0.16528  |
+|   RMSE  | 0.26323  | 0.12775  | 0.11427  | 0.16528  |
 
-### Unicamp + Fine Tuning with Synthetic PV Power
+Table VII: Unicamp + Fine Tuning with Synthetic PV Power
 
-| Metrics |   w/o    |    E1    |    E2    |    E3    |
+| Metrics |   w/o    |    S1    |    S2    |    S3    |
 |---------|----------|----------|----------|----------|
 |   MAE   | 0.20273  | 0.12259  | 0.12168  | 0.11422  |
-|   RMSE  | 0.26323  | 0.1665   | 0.15796  | 0.16168  |
+|   RMSE  | 0.26323  | 0.1665   | 0.15796  | 0.16168  |
 
-## Discussion
+## Discussion and Conclusions
+
+The base paper used as a basis for this project proposed NFs as the one that performed best for generating scenarios for PV data compared to Conditional VAE and Conditional GAN. However, after conducting some experiments, it can be concluded that the scenarios it generates are not representative, that the data does not characterize the original distribution, and that climate conditions do not condition them. This can be concluded with case II, where it could not generate real PV curves for the database with which it was trained. As presented in case 3, the forecast model worsened when an additional dataset was added to train a new model. This may be directly related to the difficulty of creating a general model for PV generation due to the data normalizations carried out in the process. On the other hand, there is a gap in the literature, precisely in the generation of representative synthetic data that allows transfer learning to be carried out between models that have been previously trained in a real dataset when there is no data of the new localization. Therefore, it is concluded that it was not possible to use NFs to generate PV power curves for another location that would allow the training of a forecast model.
 
 ## References
 
