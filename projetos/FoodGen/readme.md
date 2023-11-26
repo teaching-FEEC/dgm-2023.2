@@ -6,31 +6,26 @@
 O presente projeto foi originado no contexto das atividades da disciplina de pós-graduação *IA376L - Deep Learning aplicado a Síntese de Sinais*, 
 oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra. Paula Dornhofer Paro Costa, do Departamento de Engenharia de Computação e Automação (DCA) da Faculdade de Engenharia Elétrica e de Computação (FEEC).
 
-> Incluir nome RA e foco de especialização de cada membro do grupo. Os grupos devem ter no máximo três integrantes.
-> |Nome  | RA | Especialização|
-> |--|--|--|
 > | Rafael Pedrosa Silva Clerici  | 273034  | Eng. de Computação|
 > | Marco Antonio Cáceres Choqque  | 239271  | Eng. de Sistemas|
-> | Nome3  | 123456  | XXX|
+> | Kevin Inofuente  | 272316  | XXX|
+
+## Resumo (Abstract)
+
+Este trabalho se propôs a gerar imagens convincentes de alimentos por meio de redes neurais gerativas. Para isso, várias redes diferentes foram utilizadas, principalmente GANs, e treinadas na base de dados Food101. Os resultados foram pouco satisfatórios, uma vez que as imagens geradas não chegaram a retratar alimentos existentes de forma convincente, no máximo imitando formas ou texturas relevantes.
+
+## Descrição do Problema/Motivação
+
+Restaurantes menores possuem menos recursos à disposição para fotografar seus pratos disponíveis e gerar boas imagens para anúncios e cardápios. Uma rede neural suficientemente treinada pode gerar as imagens necessárias sem o custo associado, permitindo competitividade aos restaurantes.
+Em todo caso, a motivação principal do projeto foi o aprendizado por parte dos seus integrantes.
+## Objetivo
 
 
-## Descrição Resumida do Projeto
-> Descrição do tema do projeto, incluindo contexto gerador, motivação.
-> Descrição do objetivo principal do projeto.
-> Esclarecer qual será a saída do modelo generativo.
-> 
-> Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
-
-A proposta deste projeto é criar uma rede generativa capaz de gerar imagens convincentes de alimentos.
-
-## Metodologia Proposta
-> Para a primeira entrega, a metodologia proposta deve esclarecer:
-> * Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas.
-> * Quais abordagens de modelagem generativa o grupo já enxerga como interessantes de serem estudadas.
-> * Artigos de referência já identificados e que serão estudados ou usados como parte do planejamento do projeto
-> * Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
-> * Resultados esperados
-> * Proposta de avaliação dos resultados de síntese
+Gerar imagens convincentes de alimentos.
+-  Revisar a bibliografia em busca de trabalhos similares.
+-  Testar várias arquiteturas de redes diferentes para verificar suas propriedades.
+-  Ser capaz de gerar imagens fotorrealistas de alimentos.
+## Metodologia
 
 O projeto usará a base de dados Food-101, que pode ser acessada em https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/, feita por Lukas Bossard, Matthieu Guillaumin, Luc Van Gool. Essa base contém 1000 imagens para cada uma das 101 categorias presentes na base, totalizando então 101000 imagens. Por estar bem organizada, documentada e anotada, deve conter um número adequado de imagens para treinar uma rede geradora. Adicionalmente, as bases de dados Food-11 (16643 imagens anotadas) e ChineseFoodNet (185628 imagens) também serão usadas para adicionar mais imagens caso necessário.
 
@@ -47,27 +42,47 @@ Serão usadas técnicas tradicionais como caminhada pelo espaço latente e *drop
 2. Aparência da comida (se parece algo gostoso ou detestável)
 3. Presença ou ausência de artefatos ou anomalias (borrões, cores estranhas)
 
-## Cronograma
-> Proposta de cronograma. Procure estimar quantas semanas serão gastas para cada etapa do projeto.
+### Bases de Dados e Evolução
 
-O projeto pode ser dividido em 6 etapas:
+|Base de Dados | Endereço na Web | Resumo descritivo|
+|Food101 | https://huggingface.co/datasets/food101 | Base mais comum usada para alimentos. Possui 101 classes com 100 imagens cada. |
+|Food11 | https://www.kaggle.com/datasets/trolukovich/food11-image-dataset | Base contendo 11 classes diferentes de alimentos.|
+|Chinese Food Net | https://sites.google.com/view/chinesefoodnet/ | Base com mais de 200 classes e milhares de imagens de alimentos da culinária chinesa.|
 
-1. Setup do projeto e da hierarquia
-   - 04/09 até 17/09
-2. Leitura da base de dados e pré-processamento
-   - 18/09 até 24/09
-3. Estudo de artigos e escolha do método para geração
-   - 25/09 até 08/10
-4. Planejamento da arquitetura
-   - 09/10 até 22/10
-5. Treinamento
-   - 23/10 até 05/11
-6. Análise dos resultados
-   - 06/11 até 19/11
+Apesar de três redes serem selecionadas, apenas a Food101 foi usada no projeto. A Food11 não apresentou quantidade suficiente de imagens para treinamento, e o link de acesso para a ChineseFoodNet não está funcionando (contato foi tentado com o mantenedor do site, sem sucesso).
+
+A Food101 apresenta uma boa quantidade de imagens, mas também uma grande variedade. Essa variedade advém de suas muitas classes de alimentos e das condições de iluminação, ângulo e preparo dos alimentos retratados: desde imagens com boas condições e o prato claramente retratado em seu centro até imagens com outros objetos, má iluminação e diferença no arranjo dos ingredientes no prato. Acredita-se que isso tenha afetado o treinamento das IAs, necessitando mais tempo para aprender a recriar a diversidade retratada.
+
+### Workflow
+> Use uma ferramenta que permita desenhar o workflow e salvá-lo como uma imagem (Draw.io, por exemplo). Insira a imagem nessa seção.
+> Você pode optar por usar um gerenciador de workflow (Sacred, Pachyderm, etc) e nesse caso use o gerenciador para gerar uma figura para você.
+> Lembre-se que o objetivo de desenhar o workflow é ajudar a quem quiser reproduzir seus experimentos. 
+
+
+
+## Experimentos, Resultados e Discussão dos Resultados
+
+> Na entrega parcial do projeto (E2), essa seção pode conter resultados parciais, explorações de implementações realizadas e 
+> discussões sobre tais experimentos, incluindo decisões de mudança de trajetória ou descrição de novos experimentos, como resultado dessas explorações.
+
+> Na entrega final do projeto (E3), essa seção deverá elencar os **principais** resultados obtidos (não necessariamente todos), que melhor representam o cumprimento
+> dos objetivos do projeto.
+
+> A discussão dos resultados pode ser realizada em seção separada ou integrada à seção de resultados. Isso é uma questão de estilo.
+> Considera-se fundamental que a apresentação de resultados não sirva como um tratado que tem como único objetivo mostrar que "se trabalhou muito".
+> O que se espera da seção de resultados é que ela **apresente e discuta** somente os resultados mais **relevantes**, que mostre os **potenciais e/ou limitações** da metodologia, que destaquem aspectos
+> de **performance** e que contenha conteúdo que possa ser classificado como **compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade**. 
+
+## Conclusão
+
+> A seção de Conclusão deve ser uma seção que recupera as principais informações já apresentadas no relatório e que aponta para trabalhos futuros.
+> Na entrega parcial do projeto (E2) pode conter informações sobre quais etapas ou como o projeto será conduzido até a sua finalização.
+> Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto.
+
+Os resultados do experimento não alcançaram o nível esperado. Porém, foram uma boa oportunidade de aprendizado para os integrantes do projeto. Várias redes foram analizadas, utilizadas e avaliadas, oferecendo melhor compreensão das técnicas e desafios enfrentados na pesquisa de redes neurais.
+O projeto se beneficiaria de uma extensão, especialmente se mais recursos computacionais pudessem ser utilizados, uma vez que as imagens geradas ficaram aquém do esperado por, muito provavelmente, falta de treino para as redes: os integrantes do projeto não possuíam acesso a máquinas poderosas o suficiente para realizar os cálculos necessários.
 
 ## Referências Bibliográficas
-> Apontar nesta seção as referências bibliográficas adotadas no projeto.
-
 ###Trabalhos relacionados:
 CookGAN: Meal Image Synthesis from Ingredients, de Fangda Han, Ricardo Guerrero, Vladimir Pavlovic (https://openaccess.thecvf.com/content_WACV_2020/papers/Han_CookGAN_Meal_Image_Synthesis_from_Ingredients_WACV_2020_paper.pdf)
 Conditional Synthetic Food Image Generation, de Wenjin Fu1, Yue Han, Jiangpeng He, Sriram Baireddy, Mridul Gupta, Fengqing Zhu (https://arxiv.org/pdf/2303.09005.pdf)
@@ -77,3 +92,6 @@ Food Image Generation using A Large Amount of Food Images with Conditional GAN: 
 Food-101 – Mining Discriminative Components with Random Forests, de Lukas Bossard, Matthieu Guillaumin, Luc Van Gool (https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
 Food-11 (https://www.epfl.ch/labs/mmspg/downloads/food-image-datasets/)
 ChineseFoodNet, de Chen, Xin and Zhou, Hua and Zhu, Yu and Diao, Liang (https://sites.google.com/view/chinesefoodnet/)
+
+###Redes usadas:
+Progressive GAN - PROGRESSIVE GROWING OF GANS FOR IMPROVED QUALITY, STABILITY, AND VARIATION, de Tero Karras, Timo Aila, Samuli Laine e Jaakko Lehtinen (https://research.nvidia.com/sites/default/files/pubs/2017-10_Progressive-Growing-of/karras2018iclr-paper.pdf)
