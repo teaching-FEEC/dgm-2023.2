@@ -15,7 +15,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 ## Abstract
 Para tomar decisões de investimento de sucesso no mercado financeiro, é relevante analisar as principais notícias em tempo real. Muitas empresas buscam automatizar essa abordagem utilizando modelos de Análise de Sentimentos baseados em Processamento de Linguagem Natural (PLN) para extrair os vieses das notícias mais recentes. Essas informações alimentam algoritmos de previsão de preços futuros de ações, fundamentando assim a decisão de compra ou venda de ativos financeiros. É crucial, portanto, a utilização de conjuntos de dados que incluem uma ampla variedade de títulos de notícias, bem como a análise de seus sentimentos correspondentes. Entretanto, a disponibilidade de conjuntos de dados padronizados para a análise de sentimentos no contexto do mercado financeiro, especialmente em língua portuguesa, é limitada. Além disso, criar bases de dados reais é uma tarefa custosa devido à necessidade de integração com APIs de redes sociais, agregadores de notícias e desenvolvimento de scrapers para coletar dados em sites especializados.
 
-Este projeto gerou uma base de dados pública em língua portuguesa que contém títulos de notícias sintéticos utilizando técnicas de PLN para uso em projetos relacionados ao tema econômico utilizando análise de sentimentos em texto. A base criada possui 230 mil amostras sintéticas de títulos de notícias. Para avaliar a contribuição da adição de dados sintéticos ao desempenho de modelos de análise de sentimentos, avaliamos quantitativamente as amostras geradas e qualitativamente utilizando o modelo [fasttext](https://fasttext.cc/) de classificação de textos utilizando em CAROSIA (2021), entretanto a adição de dados artificiais não se mostrou benéfica para a tarefa analisada e os índices de desempenho desta tarefa não foi melhorado.
+Este projeto gerou uma base de dados pública em língua portuguesa que contém títulos de notícias sintéticos utilizando técnicas de PLN para uso em projetos relacionados ao tema econômico utilizando análise de sentimentos em texto. A base criada possui 230 mil amostras sintéticas de títulos de notícias. Para avaliar a contribuição da adição de dados sintéticos ao desempenho de modelos de análise de sentimentos, avaliamos quantitativamente as amostras geradas e qualitativamente utilizando o modelo [fasttext](https://fasttext.cc/) de classificação de textos utilizando em CAROSIA (2021), entretanto a adição de dados artificiais  nesta tarefa não melhou índices de desempenho.
 
 **Vídeo descritivo:** [Vídeo](https://youtu.be/eHPE9ebIPyA)
 
@@ -28,10 +28,18 @@ Além de prover aumento na quantidade das amostras, o desenvolvimento de dataset
 
 ## Objetivo
 
+O objetivo principal deste projeto é desenvolver um sistema capaz de gerar títulos de notícias financeiras em língua portuguesa (BR). Para alcançar esse propósito, foram explorados métodos que ampliam o volume de dados por meio da criação de conjuntos sintéticos através do treinamento de redes neurais profundas baseadas em modelos gerativos pré-treinados (T-PTLMs).
+
+Além disso, a análise da performance de modelos utilizando dados reais versus dados sintéticos também foi um importante foco deste estudo. Avaliamos o impacto e a eficácia desses dados sintéticos na precisão dos modelos de análise de sentimento aplicados ao mercado financeiro.
+
+Investigamos, também, como a aplicação de dados gerados artificialmente influenciou o desempenho de uma tarefa específica de Análise de sentimentos para o mercado financeiro e a contribuição da incorporação destes dados na mitigação das limitações das bases de dados existentes, proporcionando novas perspectivas e melhorando a o desempenho dos modelos treinados para tarefas relacionadas ao mercado financeiro que utilizam Processamento de Linguagem Natural (PLN).
+
+Um dos resultados práticos deste projeto foi a geração e disponibilização de um dataset sintético em língua portuguesa (BR) para a comunidade na esperança de que esse conjunto de dados contribua para a pesquisa e o avanço de modelos de PLN aplicados ao domínio financeiro, beneficiando a comunidade interessada nessa área de estudo.
+
 ## Metodologia Proposta
 
 O desenvolvimento do projeto se terá como base os dados disponível em: https://redu.unicamp.br/dataset.xhtml?persistentId=doi:10.25824/redu/GFJHFK
-A partir daí, treinamos modelos gerativos pré-treinados (T-PTLMs) avaliando desempenho para gerarem títulos de qualidade. Dentre os modelos treinados, destacou-se um [modelo baseado em GPT-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) e treinado com dados da base de artigos da Wikipedia-PT.
+A partir daí, efetuamos *fine tuning* em  modelos gerativos pré-treinados (T-PTLMs) avaliando desempenho para gerarem títulos de qualidade. Dentre os modelos treinados, destacou-se um [modelo baseado em GPT-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) e treinado com dados da base de artigos da Wikipedia-PT.
 
 Após o fine tuning do modelo pré-treinado, geramos uma base de títulos de notícias contendo quase 230 mil amostras e submetemos o conjunto gerado a métricas quantitativas e qualitativas através de duas estratégias de treinamento do classificador fasttext, descritas no tópico "Experimentos", a seguir.
 
@@ -68,11 +76,19 @@ Para o melhor treinamento dos Modelos Pré-treinado, foram efetuados alguns proc
 
 A seguir, descrevemos os procedimentos utilizados para gerar o modelo, compor a base de dados sintética e avaliar a base gerada.
 
+### O GPT-2 Small
+
+O modelo GPT-2 small é o modelo utilizado como base para os experimentos conduzidos neste projeto. Contendo 124 milhões de parâmetros, o modelo GPT-2 Small é uma versão reduzida da arquitetura GPT-2 (1,5 bilhão de parâmetros), desenvolvida pela OpenAI. Ele faz parte da família de modelos GPT (Generative Pre-trained Transformer), que são modelos de linguagem pré-treinados usando a técnica de aprendizado de máquina conhecida como transferência de aprendizado. O GPT-2 Small é uma versão mais compacta em comparação com suas contrapartes maiores, como o GPT-2 Medium e o GPT-2 Large, sendo projetado para tarefas que demandam menos recursos computacionais.
+
+Composta por uma rede neural de transformer, a arquitetura do GPT-2 Small inclui camadas de atenção multi-head, módulos de normalização e redes neurais totalmente conectadas. Uma característica notável do GPT-2 Small é sua capacidade de gerar texto coerente e contextualmente relevante, mesmo em tarefas de geração de linguagem complexas, como continuação de textos ou resposta a perguntas.
+
+O fato do modelo GPT-2 Small ter menos parâmetros em comparação com versões maiores da série GPT-2, ou outros modelos estado da arte que chegam a ter 7 bilhões ou mais de parâmetros pode ter sido fundamental para a geração do nosso dataset uma vez que a quantidade de dados que disponíveis para treinamento eram limitadas (180 mil amostras) e seu tamanho reduzido facilitou o treinamento em infraestrutura mais leve (treinou com relativa rapidez mesmo em GPU's de 16GB de VRAM como RTX A4000 e T4 (Google Colab).
+
 ### Finetunning do modelo
 
 Os primeiros passos para a construção do dataset foram dados com o teste de diversos modelos pré-treinados de dados para verificar se realmente era possível a utilização dos dados disponíveis para treinar um modelo de LLM (Large Language Model) que realmente gerasse amostras diversas e inteligíveis. Apesar de alguns modelos realmente convergirem no treinamento, foram poucos os que realmente geravam dados inteligíveis e diversos e não meras cópias ou pequenas variações de amostras do conjunto de treinamento (overfit).
 
-Neste contexto, modelos mais simples (menor quantidade de parâmetros) tiveram, de maneira geral, desempenho maior do que modelos mais complexos, de modo que modelos como o [GPorTuguese-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) (124 milhões de parâmetros) e [BLOOM LM](https://huggingface.co/bigscience/bloom-560m) (560 milhões de parâmetros) desempenharam-se melhor do que modelos mais atuais e complexos de até 7 bilhões de parâmetros. Tal fato provavelmente advém do tamanho limitado do dataset utilizado para treinamento. Enquanto os datasets de treinamento de LLMs chegam às centenas de Gigabytes ou Terabytes, nosso conjunto era pouco menor que 10Mb (9,09 Mb).
+Neste contexto, modelos mais simples (menor quantidade de parâmetros) tiveram, de maneira geral, desempenho maior do que modelos mais complexos, de modo que modelos como o [GPorTuguese-2](https://huggingface.co/pierreguillou/gpt2-small-portuguese) (24 milhões de parâmetros) e [BLOOM LM](https://huggingface.co/bigscience/bloom-560m) (560 milhões de parâmetros) desempenharam-se melhor do que modelos mais atuais e complexos de até 7 bilhões de parâmetros. Tal fato provavelmente advém do tamanho limitado do dataset utilizado para treinamento. Enquanto os datasets de treinamento de LLMs chegam às centenas de Gigabytes ou Terabytes, nosso conjunto era pouco menor que 10Mb (9,09 Mb).
 
 ![Losses de treinamento e validação](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/fine-tunning-losses.png)
 
@@ -97,6 +113,7 @@ O modelo final foi treinado seguindo os seguintes parâmetros de treinamento:
  warmup_steps=200
  prediction_loss_only=False,
  evaluation_strategy="steps",
+ learning_rate=2e-5
  weight_decay = 0
 ````
 
@@ -186,7 +203,7 @@ Seu cálculo é feito através do produtório de probalilidades (atribuído pelo
 ![probabilidade](https://thegradient.pub/content/images/2019/10/lm-1.png)
 Fonte: [The Gradient](https://thegradient.pub/understanding-evaluation-metrics-for-language-models/)
 
-Conseguimos gerar um modelo que se adaptou para o dataset de treinamento, fato ilustrado pela diminuição da perplexidade do nosso modelo pela base de notícias. Mas ainda assim, os resultados ficaram longue dos considerados "estado da arte" na epoca de seus lançamentos. Cabe lembrar que a métrica de perplexidade consideravelmente maior dos modelos ``gpt-2`` e ``gpt2-small-portuguese`` para o conjunto de notícias, se deve ao fato dos modelos não serem treinados utilizando estas bases de notícias, como o nosso modelo foi.
+Conseguimos gerar um modelo que se adaptou para o dataset de treinamento, fato ilustrado pela diminuição da perplexidade do nosso modelo pela base de notícias. Mas ainda assim, os resultados ficaram longe dos considerados "estado da arte" na época de seus lançamentos. Cabe lembrar que a métrica de perplexidade consideravelmente maior dos modelos ``gpt-2`` e ``gpt2-small-portuguese`` para o conjunto de notícias, se deve ao fato dos modelos não serem treinados utilizando estas bases de notícias, como o nosso modelo foi.
 
 | Modelo/Dataset | NOTICIAS | ORIGINAL |
 |----- | ----- | -----|
@@ -198,7 +215,7 @@ Conseguimos gerar um modelo que se adaptou para o dataset de treinamento, fato i
 
 ### Avaliação Qualitativa
 
-A avaliação quantitativa consistiu no  teste da hipótese de que a adição de dados sinéticos poderiam melhorar o desempenho de um classificador na tarefa de analisar o sentimento nos títulos de notícias relacionadads à economia. Para operacionlizá-la, recorremos a duas abordagens de treinamento: supervisionada e semi-supervisionada. Na primeira, classificamos as amostras sintéticas automaticamente com o auxílio de um modelo pronto e, em seguida, incorporados ao conjunto de treinamento do classificador. Na abordagem semi-supervisionada ingênua implementada, as amostras são classificadas iterativamente a medida em que as amostras cuja classificação superam um limiar escolhido são incorporadas ao conjunto de treinamento.
+A avaliação qualitativa consistiu no  teste da hipótese de que a adição de dados sinéticos poderiam melhorar o desempenho de um classificador na tarefa de analisar o sentimento nos títulos de notícias relacionadads à economia. Para operacionlizá-la, recorremos a duas abordagens de treinamento: supervisionada e semi-supervisionada. Na primeira, classificamos as amostras sintéticas automaticamente com o auxílio de um modelo pronto e, em seguida, incorporados ao conjunto de treinamento do classificador. Na abordagem semi-supervisionada ingênua implementada, as amostras são classificadas iterativamente a medida em que as amostras cuja classificação superam um limiar escolhido são incorporadas ao conjunto de treinamento.
 
 #### Fasttext
 
