@@ -173,7 +173,29 @@ Para o teste número 6, os resultados foram bons, sendo assim nossos segundos re
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result6_examples.png" style="float:left" width="540px">
 </div>
 
+#### Segunda GAN utilizada
+
 A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados, mas produziu imagens em uma resolução maior e sem artefatos. Foi capaz de imitar cores e texturas, mas não gerou imagens convincentes de pratos com alimentos.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/arquitectura_2.png" style="float:left" width="540px">
+</div>
+
+A PGAN começa como uma GAN tradicional bem pequena, operando em imagens reduzidas e com poucas camadas. Depois, é progressivamente aumentada até a resolução e o número de camadas desejado. Isso permite grande economia de computação, uma vez que a maior parte das camadas será treinada com uma resolução menor. Isso pôde ser constatado durante o treinamento: as primeiras iterações foram realizadas muito mais rapidamente do que as últimas.
+
+>Resultado 7 - Primeiro teste
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result7_examples.png" style="float:left" width="540px">
+</div>
+
+O sétimo resultado foi feito com os parâmetros recomendados da rede, e produziu imagens com padrões de texturas e cores semelhantes a alimentos reais, porém nada muito definido, se assemelhando a manchas derretidas. Foi usada uma _learning rate_ de 0,001, o que é maior que os outros casos de teste, e um período de 300.000 iterações.
+
+>Resultado 8 - Alterando parâmetros
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result8_examples.png" style="float:left" width="540px">
+</div>
+
+No oitavo teste, alguns parâmetros foram alterados de acordo com o que foi aprendido com a GAN anterior. A _learning rate_ foi reduzida para 0,0003. Porém, devido ao longo tempo de treino, a quantidade de iterações também foi reduzida. Acredita-se que isso tenha alterado significativamente a qualidade dos resultados, uma vez que reduções na _learning rate_ tendem a exigir mais tempo de treino para alcançar resultados semelhantes.
 
 Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
 
