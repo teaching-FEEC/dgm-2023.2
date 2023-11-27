@@ -130,9 +130,10 @@ Já a VAE é constituída de camadas [Linear]. A *loss function* da VAE tem como
 ||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
 |-----|----- | ----- | ------------------| ------------------|
 |Dados Reais|    0.5976|--|     --|    --| 
-|Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11.171,89
-|DCGAN|         1.0000|0.2620| 0.2620 | 44.012,61 
-|CNN-VAE|       1.000|0.2504| 0.2504 | 23.613,57
+|Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11,171.89
+|DCGAN|         1.0000|0.2620| 0.2620 | 44,012.61 
+|CNN-VAE|       1.000|0.2504| 0.2504 | 23,613.57
+|cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
 
 
 ## Conclusão
