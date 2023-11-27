@@ -67,11 +67,14 @@ Uma apresentação em vídeo da proposta (E1) pode ser acessada [aqui](https://y
 > Use uma ferramenta que permita desenhar o workflow e salvá-lo como uma imagem (Draw.io, por exemplo). Insira a imagem nessa seção. Você pode optar por usar um gerenciador de workflow (Sacred, Pachyderm, etc) e nesse caso use o gerenciador para gerar uma figura para você. Lembre-se que o objetivo de desenhar o workflow é ajudar a quem quiser reproduzir seus experimentos.
 -->
 
-O workflow geral pode ser observado na figura abaixo. Em um primeiro momento (E2) o objetivo era familiarizar-se com os dados e montar uma *pipeline* para que o *plug-and-play* de diversos modelos pudesse se feito, conforme observado no esquemático. A montagem do *workflow* foi fortemente baseada nos passos descritos por [[14]](https://link.springer.com/article/10.1007/s00521-021-06352-5).
+O workflow geral pode ser observado na figura abaixo. Em um primeiro momento (E2) o objetivo era familiarizar-se com os dados e montar uma *pipeline* para que o *plug-and-play* de diversos modelos pudesse ser feito, conforme observado no esquemático. A montagem do *workflow* foi fortemente baseada nos passos descritos por [[14]](https://link.springer.com/article/10.1007/s00521-021-06352-5).
 
-Depois, buscou-se explorar dentro da literatura inspirações para modelos que pudessem ser estudados na geração de dados de MI-EEG. Dentro os escolhidos temos a DCGAN, a CNN-VAE, e a cLSTM-GAN. A justiticativa da escolha de tais arquiteturas será explicada em detalhes na Sessão Modelos.
+Todo o *workflow* será quebrado nas sessões seguintes, mas de modo resumido, o  inicia com o processamento dos dados MI-EEG onde cada um dos 22 canais tem seus valores filtrados dentro do intervalo de 4-38Hz. Em seguida escalonamos esses valores de mV para V e efetuamos o janelamento dos dados. Por fim, antes dos dados serem usados nos modelos, eles passaram por uma normalização (*standardization*).
 
-A parte do processamento de dados foi discutido do tópico anterior. Na parte de `Modelo Generativo`, enquanto na segunda entrega (E2) exploramos as versões simples da GAN e da VAE na terceira entrega (E3). Familiarizando-se com a biblioteca Braindecode, decidimos obter de lá um classificador para ajudar na avaliação dos dados gerados. O classificador que escolhemos é o EEGNetv4, pois é um dos classificadores que vimos sendo usado nos artigos [[1]](#referências-bibliográficas) e [[2]](#referências-bibliográficas). Ademais, a ideia é ter os dados gerados avaliados através da acurácia do classificador mencionado, como também através da Euclidean Distance implementada, TSTR (Train on Synthetic, Test on Real) e TRTS (Train on Real, Test on Synthetic) ([[2]](#referências-bibliográficas)).
+Depois, buscou-se explorar dentro da literatura inspirações para modelos que pudessem ser estudados para a geração de dados de MI-EEG. Dentro os escolhidos temos a DCGAN, a CNN-VAE, e a cLSTM-GAN. A justiticativa da escolha de tais arquiteturas será explicada em detalhes na sessão Modelos. 
+
+Além disso, como observa-se no *workflow* a avaliação dos dados gerados basea-se fortemente na escolha do classificador.
+Ao familiarizarmos com a biblioteca Braindecode, decidimos obter de lá um classificador para ajudar na avaliação dos dados gerados. O classificador que escolhemos é o EEGNetv4, pois é um dos classificadores que vimos sendo usado nos artigos [[1]](https://arxiv.org/pdf/2303.06068.pdf) e [[2]](https://arxiv.org/pdf/1806.01875.pdf). Ademais, a ideia é ter os dados gerados avaliados através da acurácia do classificador mencionado, como também através da Euclidean Distance implementada, TSTR (Train on Synthetic, Test on Real) e TRTS (Train on Real, Test on Synthetic) ([[2]](https://arxiv.org/pdf/1806.01875.pdf)).
 
 ![Bases de Dados](./reports/figures/workflow_E3.png)
 
@@ -95,6 +98,8 @@ E como Pytorch requirements, usamos (por curiosidade, ["The safest way to instal
 - `conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch`
 
 #### 5.1.3 Descrição dos arquivos
+
+Como uma forma de consulta, segue um guia dos arquivos presentes neste repositório e também uma breve descrição do que tal *script* faz.
 
 |||
 |-----|-----|
@@ -125,7 +130,7 @@ E como Pytorch requirements, usamos (por curiosidade, ["The safest way to instal
 |----- | ----- | ------------------|
 |BCI Competition IV 2a/BNCI2014_001|http://bnci-horizon-2020.eu/database/data-sets |https://lampx.tugraz.at/~bci/database/001-2014/description.pdf|
 
-Os dados foram obtidos através da biblioteca em Python chamada [Braindecode](https://braindecode.org/stable/index.html), que é construída sobre outras bibliotecas em Python, a [MOABB](https://neurotechx.github.io/moabb/) e o [MNE](https://mne.tools/stable/index.html). O site de referência é o site *source* direcionado pelo artigo ([[12]](#referências-bibliográficas)).
+Os dados foram obtidos através da biblioteca em Python chamada [Braindecode](https://braindecode.org/stable/index.html), que é construída sobre outras bibliotecas em Python, a [MOABB](https://neurotechx.github.io/moabb/) e o [MNE](https://mne.tools/stable/index.html). O site de referência é o site *source* direcionado pelo artigo ([[12]](https://www.frontiersin.org/articles/10.3389/fnins.2012.00055/full)).
 
 Os dados são baixados em formato `.mat` e são acessados por `subject_id`, no total há 9 voluntários saudáveis. Cada voluntário participou em duas sessões conduzidas em dias diferentes. Cada sessão teve 6 *runs* separados por *breaks* e tinham por objetivo registrar os sinais à partir da imaginação de 1 dos 4 movimentos, a saber: imaginação de movimento da mão esquerda, mão direita, ambos os pés e língua. Dentro dessas sessões cada um dos 6 *runs* consistiu de 48 *trials*, 12 para cada uma das 4 classes. 
 
@@ -142,39 +147,50 @@ Para o treino dos modelos utilizamos os 9 voluntátios. Os dados foram pré-proc
 Em seguida, os dados foram usados para treinar 3 redes, a saber, uma CNN-VAE, uma DCGAN e uma cLSTM-GAN.
 
 ### 5.3 Modelos
-Há uma diversidade de modelos aplicados na geração de dados de EEG. Dentre os mais utilizados temos modelos híbridos de GAN, VAE e LSTM, e modelos que empregram somente a GAN. 
+Há uma diversidade de modelos aplicados na geração de dados de EEG. Na busca por inspiração para a escolha dos modelos consultamos não somente artigos de dados EEG do tipo *motor-imagery*, mas também do tipo *emotion-related*. Dentre os mais utilizados temos modelos híbridos de GAN, VAE e LSTM, (exemplos seria [VAE-GAN](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10102265), [VAE-D2GAN](https://www.frontiersin.org/articles/10.3389/fncom.2021.723843/full), [MIEEG-GAN](https://ieeexplore.ieee.org/abstract/document/9206942?casa_token=nv7sPSqybwcAAAAA:9ELHSIKfrzZL_3u5I5P8r2CqzVsGwSagEWYB3QnonbtFKfUypaE44qKay_s2lxevFXAcP_OAcQ)) e modelos que empregram somente a GAN ([MI-EEG](https://ieeexplore.ieee.org/document/9206942), [EEG-GAN](https://arxiv.org/pdf/1806.01875.pdf)). 
 
 Visto que a exploração de diferentes modelos é uma atividade que não somente nos permite notar particularidades dos dados, mas também, nos permite conhecer direntes metodologias, optou-se nesse projeto por explorar três arquiteturas diferentes, extrapolando para o *hands-on* a parte teórica discutida em aula.
 
 #### 5.3.1 DCGAN
+A arquitetura DCGAN é uma arquitetura muito comumento utilizada para a geração realística de imagens. Como observado na figura à baixo tal arquitetura contém camadas convolucionais transpostas e convencionais, construindo um *upsampling* e *downsmpling* gradual, mas curto, em cada rede da arquitetura.
+
+A aplicação da DCGAN em séries temporais é promissor e comumente utilizada para a geração de dados de EEG. Isso ocorre, pois as camadas convolucionais são eficientes em capturar os padrões espaciais. No caso dos dados de EEG, referem-se aos padrões entre eletrodos assim como os padrões temporais. Havendo, para o caso da DCGAN, a aprendizagem de representações hierárquica dos padrões, portanto a captura de suas dependências. 
 
 ![Bases de Dados](./reports/figures/dcgan_schem.png)
 
 #### 5.3.2 CNN-VAE
+A CNN-VAE possui a mesma característica de construção hierárquica de aprendizagem de padrões presente na DCGAN. A diferença que se buscou encontrar com essa arquitetura frente a DCGAN é uma maior estabilidade durante o treino, e portanto, melhores resultados.
+
+Outra diferença da CNN-VAE em relação ao DCGAN é que a arquitetura da VAE com seu encoder-decoder e espaço latente permide com que o modelo aprenda a representação comprimida dos dados de entrada, o que é muito bem vindo para séries temporais, que muito comumente são carregadas de padrão temporais complexos.
 
 ![Bases de Dados](./reports/figures/convvae_schem.png)
 
 #### 5.3.2 cLSTM-GAN
+A cLSTM-GAN é uma rede que combina LSTMs (*Long Short-Term Memory*) e GANs para a geração condicional dos dados. A principial diferenças entre as outras redes está na informação adicional que a classe contém e o fato do LSTM ser um tipo de rede neural recorrente (RNN) construída para lidar com dados sequênciais ao manter a memória de longas sequências.
+
+A motivação do uso dessa rede está na possibilidade de geração de séries temporais mais realísticas um vez que padrões temporais mais sequências são capturadas.
 
 ![Bases de Dados](./reports/figures/clstmgan_schem.png)
 
 #### 5.3.2 Métricas e Análises
 
 
-
 ##### (a) Acurácia de classificação
 
+A acurácia é uma das métricas mais simples para avaliar o desempenho de um modelo de classificação. Em termos simples, a acurácia mede a proporção de predições corretas feitas pelo modelo em relação ao total de predições. É uma métrica que pode dar uma visão geral do quão bem o modelo está performando em todas as classes (média por classe ou por conjunto de treino).
 
 
 ##### (b) Train on Synthetic, Test on Real (TSTR)
 
-
+É uma abordagem muito utilizada para avaliar junto de um classificador a qualidade dos dados sintéticos. Para usá-la basta treinar um modelo usando dados sintéticos e depois testar o modelo em dados reais.
 
 ##### (c) Train on Real, Test on Synthetic (TRTS)
 
-
+Outra abordagem avaliativa muito utilizada para avaliar os dados sintéticos gerados, porém funciona ao contrário da primeira. Para usá-la o modelo é treinado com dados reais e depois é testado em dados sintéticos.
 
 ##### (d) Distância Euclidiana (ED)
+
+É uma métrica que pode fornecer uma medida quantitativa da diferença entre os dados sintéticos em relação aos dados reais. Consegue expressar então quão bem os dados sintéticos representam a variabilidade e a distribuição dos dados reais.
 
 ## 6. Resultados
 <!--
@@ -225,6 +241,8 @@ Os resultados que obtidos pelos modelos não podem ser considerados bons em nenh
 
 Por mais que os modelos generativos treinados não tenham sido capazes de realizar a geração sintética de sinais de EEG de forma satisfatória, fomos capazes de demonstrar que a simples adição de ruído gaussiano pode ser uma forma muito mais simples, computacionalmente barata e eficiente de fazer data augmentation neste tipo de dado. Como podemos ver nos resultados, gráficos e espectrogramas, a adição de ruído gaussiano funciona tão bem quanto os dados reais no classificador que utilizamos.
 
+Por fim, apesar dos resultados não terem sido satisfatórios lidar com diferentes redes neurais se fez desafiador, principalmente no ajuste dos parâmetros como também no entendimento de como a adição de cada *layer* impacta na dimensão do *output* e no desempenho dos modelos. Para trabalhos futuros, seria interessante analizar uma rede condicional generativa com camadas LSTM e convolucionais, assim como também, tentar trabalhar com os dados em forma de espectogramas, forma de *input formulation* para séries temporais que está sendo muito recorrente na literatura [[14]](https://link.springer.com/article/10.1007/s00521-021-06352-5).
+
 ## 8. Cronograma
 
 O cronograma proposto é uma estimativa temporal das principais etapas pelo projeto. Ademais, junto marcamos os *checkpoints* previstos para guiar e lembrar-nos das entregas e da geração das *release tags*.
@@ -259,3 +277,7 @@ O cronograma proposto é uma estimativa temporal das principais etapas pelo proj
 [12] Tangermann, M., Müller, K. R., Aertsen, A., Birbaumer, N., Braun, C., Brunner, C., ... & Blankertz, B. (2012). Review of the BCI competition IV. Frontiers in neuroscience, 55.
 
 [13] https://www.medicine.mcgill.ca/physio/vlab/biomed_signals/eeg_n.htm, acessado em Outubro, 2023.
+
+[14] https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10102265
+
+[15] https://www.frontiersin.org/articles/10.3389/fncom.2021.723843/full
