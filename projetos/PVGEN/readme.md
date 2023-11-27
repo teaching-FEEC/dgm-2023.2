@@ -166,11 +166,11 @@ Table IV: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic
 | MAE   | 0.00854 | 0.11554 |
 | RMSE  | 0.01391 | 0.16549 |
 
-These metrics show that the model thus manages to get it right ideally, which is why its values in validation are shallow, but in the test, its performance is worse. These results show that the task is complex, and the generative model may not be good enough to be used in a new dataset.
+These metrics show that the model does a good job on the validation set, with low MAE and RMSE values. But, in the test, its performance is worse. This means the task is complex and the generative model might not be good enough to handle new data yet.
 
 ### Case 2: Synthetic UNICAMP PV Profile Generation by Models Trained with UNICAMP PV Data
 
-To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. It means the evaluation of the NFs model is made over the same dataset. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
+To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. This implies that the evaluation of the NF model is done on a test set derived from the same dataset used for training. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
 
 ![image info](./reports/figs/Results/2-unicamp_gen_from_unicamp.svg)
 

@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 
+import warnings
+warnings.filterwarnings('ignore')
+
 def periods_where_pv_is_null(df_inputs:pd.DataFrame, samples_per_day:int=24):
     """
     Compute the time periods where the PV generation is always 0 for the solar track.
@@ -32,8 +35,37 @@ def load_data(path_name: str, random_state: int = 0, test_size:int=2*12*2, sampl
     # Select all columns that are not 'TIMESTAMP' or 'POWER'
     features = [col for col in df_load.columns if col not in ['TIMESTAMP', 'POWER']]
 
+    if not isinstance(df_load.index, pd.DatetimeIndex):
+        df_load.index = pd.to_datetime(df_load.index, utc=True)
+
+    # Remove timezone information
+    df_load.index = df_load.index.tz_localize(None)
+
+    df_load = df_load[df_load.index.minute == 0]
+
     # Group the data by day
     grouped = df_load.groupby(df_load.index.date)
+
+    # Create a new DataFrame to store the resampled data
+    df_resampled = pd.DataFrame()
+
+    # Iterate over each group (day)
+    for _, group in grouped:
+        # Check if the first timestamp of the day is not at 0:00
+        if group.index.min().hour != 0:
+            # Create a new date range that starts at 0:00 of the day
+            date_range = pd.date_range(start=group.index.min().replace(hour=0), end=group.index.min().replace(hour=23), freq='H')
+        else:
+            # Create a date range for the day that spans 24 hours
+            date_range = pd.date_range(start=group.index.min(), end=group.index.min() + pd.Timedelta(hours=23), freq='H')
+
+        # Reindex the group with the date range and fill missing values with 0
+        group = group.reindex(date_range).fillna(0)
+        # Append the group to the new DataFrame
+        df_resampled = df_resampled.append(group)
+
+    # Group the resampled data by day
+    grouped = df_resampled.groupby(df_resampled.index.date)
 
     # Reshape each group into a 1D array and store it in a list
     x = [group[features].values.flatten() for _, group in grouped if len(group) == samples_per_day]
@@ -43,6 +75,9 @@ def load_data(path_name: str, random_state: int = 0, test_size:int=2*12*2, sampl
     x = np.array(x)
     y = np.array(y)
 
+    print("First day:")
+    print(df_resampled.head(24))
+    
     # Remove the indices where PV is always 0
     y = np.delete(y, indices, axis=1)
 
