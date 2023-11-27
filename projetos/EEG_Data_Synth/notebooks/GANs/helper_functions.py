@@ -49,7 +49,7 @@ def get_windows(
         window_stride_samples      = window_stride_samples,
         preload                    = True,
         # mapping = {'left_hand': 0, 'right_hand': 1},
-        picks                      = picks
+        #picks                      = picks
         )
     
     return windows_dataset
