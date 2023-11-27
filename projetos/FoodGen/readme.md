@@ -14,7 +14,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 
 ## Resumo (Abstract)
 
-Este trabalho se propôs a gerar imagens convincentes de alimentos por meio de redes neurais gerativas. Para isso, várias redes diferentes foram utilizadas, principalmente GANs, e treinadas na base de dados Food101. Os resultados foram pouco satisfatórios, uma vez que as imagens geradas não chegaram a retratar alimentos existentes de forma convincente, no máximo imitando formas ou texturas relevantes.
+Este trabalho se propôs a gerar imagens convincentes de alimentos por meio de redes neurais gerativas. Para isso, várias redes diferentes foram utilizadas, principalmente GANs e modelos basados em difussion process, e treinadas na base de dados Food101. Os resultados foram moderadamente satisfatórios, mas as imagens geradas não chegaram a retratar alimentos existentes de forma convincente, no máximo imitando formas ou texturas relevantes.
 
 ## Descrição do Problema/Motivação
 
