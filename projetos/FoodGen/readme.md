@@ -212,6 +212,10 @@ Infelizmente, os dois modelos de difusão exigiram muita memória e processament
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result9_examples.png" style="float:left" width="540px">
 </div>
 
+### Acessando as redes
+
+As redes podem ser acessadas no diretório "notebooks". Os arquivos NetExtention e NetRecreation são variantes da primeira GAN, sendo que a segunda possui uma alteração para treinar o gerador mais vezes que o discriminador. O subdiretório Progressive-GAN-pytorch-master contém os arquivos da PGAN. Diffusion contém o código da primeira rede de difusão, baseada na rede de exemplo disponibilizada na disciplina. Por fim, Diffusion2 contém um modelo alternativo, ainda sim baseado na UNet, que foi mais treinado, mas igualmente sem sucesso.
+
 ## Conclusão
 
 Os resultados do experimento não alcançaram o nível esperado. Porém, foram uma boa oportunidade de aprendizado para os integrantes do projeto. Várias redes foram analizadas, utilizadas e avaliadas, oferecendo melhor compreensão das técnicas e desafios enfrentados na pesquisa de redes neurais.
