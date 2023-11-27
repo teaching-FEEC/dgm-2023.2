@@ -2,16 +2,17 @@
 
 ## Instruções Gerais
 
-O objetivo geral do projeto final desta disciplina é dar a oportunidade de implementação de um modelo de síntese de sinais (imagens, áudio, texto, dados de saúde, sinais fisiológicos, sinais físicos, etc.) em deep learning.
+O objetivo geral do projeto final desta disciplina é dar a oportunidade de implementação de um modelo generativo de sinais multimodais (imagens, áudio, texto, dados de saúde, sinais fisiológicos, sinais físicos, etc.), utilizando técnicas de deep learning.
 
-Na entrega final do seu projeto, deve-se:
- - Criar uma tag release 2022.1_IA376L_E3;
- - Realizar a atualização final do arquivo README.md do repositório, que caracterizará o relatório final de projeto;
- - Preparar-se para uma apresentação de no máximo 15 minutos sobre o status atual do projeto.
+Na entrega final do seu projeto, seu grupo deverá:
+ - Criar uma tag release 2023.2_IA376L_E2;
+ - Atualizar o arquivo README.md do repositório segundo orientações dadas a seguir;
+ - Submeter um novo pull request;
+ - Preparar-se para a apresentação final de 15 minutos sobre o projeto.
 
 ## Orientações para edição do arquivo README.md do projeto
 
-Para a entrega E3, o README.md do repositório deve conter as seções previstas no modelo de entrega final do projeto [disponibilizado neste link](https://github.com/pdpcosta/dgm/blob/main/templates/E2-E3_template.md).
+Para a entrega E3, o README.md do repositório deve conter as seções previstas no modelo de entrega final do projeto [disponibilizado neste link](https://github.com/teaching-FEEC/dgm-2023.2/blob/main/templates/E2-E3_template.md).
 
 ## Estrutura do Repositório
 

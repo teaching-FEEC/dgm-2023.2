@@ -1,0 +1,6 @@
+Braindecode==0.7
+numpy==1.26.1
+PyYAML==6.0.1
+moabb==0.5.0
+tqdm==4.66.1
+wandb==0.15.12
