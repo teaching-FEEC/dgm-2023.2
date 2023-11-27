@@ -84,8 +84,6 @@ A parte do processamento de dados foi discutido do tópico anterior. Na parte de
 
 Os dados foram obtidos através da biblioteca em Python chamada [Braindecode](https://braindecode.org/stable/index.html), que é construída sobre outras bibliotecas em Python, a [MOABB](https://neurotechx.github.io/moabb/) e o [MNE](https://mne.tools/stable/index.html). O site de referência é o site *source* direcionado pelo artigo ([[12]](#referências-bibliográficas)).
 
-Nessa primeira parte buscamos nos familiarizar com os dados e também montar uma pipeline de modo a ficar mais fácil o teste de outros modelos generativos.
-
 Os dados são baixados em formato `.mat` e são acessados por `subject_id`, no total há 9 voluntários saudáveis. Cada voluntário participou em duas sessões conduzidas em dias diferentes. Cada sessão teve 6 *runs* separados por *breaks* e tinham por objetivo registrar os sinais à partir da imaginação de 1 dos 4 movimentos, a saber: imaginação de movimento da mão esquerda, mão direita, ambos os pés e língua. Dentro dessas sessões cada um dos 6 *runs* consistiu de 48 *trials*, 12 para cada uma das 4 classes. 
 
 A figura abaixo exemplifica a organização do dataset obtido junto do uso da biblioteca [Braindecode](https://braindecode.org/stable/index.html). É possível notar as principais frequências, que compõem do sinal (Delta, Theta, Alpha ou Beta).
@@ -96,7 +94,9 @@ A figura abaixo contém um exemplo dos sinais coletados `subject_id=3`. Observa-
 
 ![Bases de Dados](./reports/figures/time_series-data.png)
 
-Para o treino dos modelos utilizamos o `subject_id=3`. Os dados foram pré-processados, seguindo o tutorial fornecido pelo Braindecode ([aqui](https://braindecode.org/stable/auto_examples/plot_dataset_example.html#sphx-glr-auto-examples-plot-dataset-example-py)), de modo a remover quaisquer canais que não fosse canais de EEG, com o posterior escalonamento dos dados e filtragem dentro do intervalo [4, 38]Hz. Tal sequência de processamento foi baseada na observação dos artigos ([[1]](#referências-bibliográficas)-[[3]](#referências-bibliográficas)). Com diferença de nós, nesse primeiro momento, ter escolhido manter todos os 22 canais dos dados. Dessa forma, após o processamento dos dados, tem-se a seguinte configuração para os dados de treinamento: `X.size = [576, 1, 22, 1125]` e `y.size = [576]`.
+Para o treino dos modelos utilizamos os 9 voluntátios. Os dados foram pré-processados, seguindo o tutorial fornecido pelo Braindecode ([aqui](https://braindecode.org/stable/auto_examples/plot_dataset_example.html#sphx-glr-auto-examples-plot-dataset-example-py)), de modo a remover quaisquer canais que não fosse canais de EEG, com o posterior escalonamento dos dados e filtragem dentro do intervalo [4, 38]Hz. Tal sequência de processamento foi baseada na observação dos artigos ([[1]](#referências-bibliográficas)-[[3]](#referências-bibliográficas)). Com diferença de nós, nesse primeiro momento, ter escolhido manter todos os 22 canais dos dados. Dessa forma, após o processamento dos dados, tem-se a seguinte configuração para os dados de treinamento: `X.size = [576, 1, 22, 1125]` e `y.size = [576]`.
+
+Em seguida, os dados foram usados para treinar 3 redes, a saber, uma CNN-VAE, uma DCGAN e uma LSTM-GAN.
 
 #### Tools
 À princípio, as ferramentas que serão utilizadas serão: 
@@ -141,7 +141,7 @@ Já a VAE é constituída de camadas [Linear]. A *loss function* da VAE tem como
 Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto.
 -->
 
-Com a *pipeline* quase totalmente definida, para E3 buscaremos um modelo que se comporte melhor com o formato do dado, considerando suas características. Para isso, temos alguns artigos separados de modelos generativos que possuem mecanismos capaz de atender tais características. Ademais, buscaremos termos mais controle sobre a geração das classes dos dados sintetizados.
+Com a *pipeline* quase totalmente definida, para E3 buscamos um modelo que se comporte melhor com o formato do dado, considerando suas características. Para isso, analisamos 3 modelos, o DCGAN, CNN-VAE e o LSTM-GAN. Dentro os modelos utilizados nenhum foi capaz de superar, por exemplo, uma técnica simples de *data augmentation* de adicionar ruído Gaussiano ao dado original. Uma justificativa pode vir a ser a simplicidade dos modelos utilizados, assim como as técnicas adotas durante o treino para a estabilização das GANs.
 
 ## Cronograma
 O cronograma proposto é uma estimativa temporal das principais etapas pelo projeto. Ademais, junto marcamos os *checkpoints* previstos para guiar e lembrar-nos das entregas e da geração das *release tags*.
