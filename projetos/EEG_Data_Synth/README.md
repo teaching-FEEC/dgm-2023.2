@@ -354,7 +354,7 @@ Comparando as distribuições de frequência entre os dados reais e sintéticos 
 
 Os manifolds para os dados reais e os dados sintéticos são mostrados na Figura 6 a seguir, onde foi possível observar que com os dados reais os pontos ficaram menos espaçados, podendo haver mistura de classes e indicando que codificador não foi capaz de extratir as características de cada classe. Por outro lado, com os dados sintéticos é possível observar que as classes ficaram mais separadas em dois grupos maiores (roxo e amarelo á esquerda e laranja e azul á direita), mostrando que o manifold gerado pelo codificador conseguiu aprender alguma regra sobre os dados sintéticos. Uma possível explicação para o ocorrido é que o gerador da GAN pode estar enviesando a síntese de alguma classe em especial. 
 
-|![Manifold_dados_reais](./figure/manifolds.png "Manifold_dados_reaiss")**Figura 6: A esquerda manifold dos dados reais e a direita  dos dados sintéticos.**|
+|![Manifold_dados_reais](./figure/manifolds.PNG "Manifold_dados_reais")**Figura 6: A esquerda manifold dos dados reais e a direita  dos dados sintéticos.**|
 |:--:| 
 
 ## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
