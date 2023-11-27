@@ -143,7 +143,7 @@ The first case involves generating synthetic data for GECAD's rooftop PV generat
 ![image info](./reports/figs/Results/HPO-UNICAMP.png)
 
 
-Figure 8: Hyperparameter Optimization Results
+Figure 8: Hyperparameter Optimization Results. [HPO LINK](https://wandb.ai/feec/Normalizing-Flows-Hyperparameter-Optimization)
 
 
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
@@ -169,13 +169,12 @@ These metrics show that the model does a good job on the validation set, with lo
 
 ### Case 2: Synthetic UNICAMP PV Profile Generation by Models Trained with UNICAMP PV Data
 
-To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. This implies that the evaluation of the NF model is done on a test set derived from the same dataset used for training. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
+To investigate the reasons behind the low performance of the generative model, a proposal for data generation for a subset of UNICAMP was made. This implies that the evaluation of the NF model is done on a test set derived from the same dataset used for training. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
 
 ![image info](./reports/figs/Results/2-unicamp_gen_from_unicamp.svg)
 
 
-Figure 10: Qualitative Analysis between Real and Generated Data
-
+Figure 10: Qualitative Analysis between Real and Generated Data. 
 
 With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
 
@@ -186,7 +185,7 @@ Since the model trained solely on one database did not yield satisfactory result
 ![image info](./reports/figs/Results/HPO-UNICAMP-HOLANDA.png)
 
 
-Figure 11: Hyperparameter Optimization Results
+Figure 11: Hyperparameter Optimization Results. [HPO LINK](https://wandb.ai/feec/unicamp-holanda)
 
 
 After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
@@ -197,7 +196,7 @@ After training the model with the lowest RMSE, the obtained data could have been
 Figure 12: Qualitative Analysis between Real and Generated Data
 
 
-Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in table VI.
+Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in Table VI.
 
 Table V: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic PV as Input using UNICAMP + HOLLAND datasets.
 
