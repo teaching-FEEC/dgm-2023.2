@@ -74,11 +74,6 @@ A Food101 apresenta uma boa quantidade de imagens, mas também uma grande varied
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/ChineFood%20dataset.png" style="float:right" width="540px">
 </div>
 
-
-
-
-
-
 ## Experimentos, Resultados e Discussão dos Resultados
 
 Como experimentos, vários treinos foram realizados com diferentes modelos de IAs gerativas. O código delas pode ser lido no diretório de Notebooks. No caso, foram duas redes neurais do tipo GAN e duas de Difusão. Para verificar a qualidade das imagens geradas, foi observada a função _loss_ em conjunto com uma análise visual de amostras do espaço latente.
@@ -87,6 +82,20 @@ Os resultados obtidos de nenhuma das redes chegou a produzir imagens convincente
 
 Curiosamente, a primeira GAN usada, uma simples arquitetura convolucional, produziu estranhos artefatos conforme o gerador teve mais tempo para treinar. É possível que isso seja uma espécie de mínimo local, onde a imagem ruidosa causa problemas para o discriminador. Foram feitos experimentos treinando o gerador mais vezes que o discriminador, mas isso intensificou a presença de artefatos.
 
+#### Arquitetura geral das camadas geradora e discriminadora
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/arquitectura__1.png" style="float:left" width="540px">
+</div>
+
+#### Arquitetura da camada do gerador
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/generador_1.png" style="float:left" width="540px">
+</div>
+
+#### Arquitetura da camada do discriminador
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/discriminador_1.png" style="float:left" width="540px">
+</div>
 A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados semelhantes à outra GAN, mas produziu imagens em uma resolução maior e sem artefatos.
 
 Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
