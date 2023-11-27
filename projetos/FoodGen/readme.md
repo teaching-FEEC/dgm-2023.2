@@ -6,31 +6,28 @@
 O presente projeto foi originado no contexto das atividades da disciplina de pós-graduação *IA376L - Deep Learning aplicado a Síntese de Sinais*, 
 oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra. Paula Dornhofer Paro Costa, do Departamento de Engenharia de Computação e Automação (DCA) da Faculdade de Engenharia Elétrica e de Computação (FEEC).
 
-> Incluir nome RA e foco de especialização de cada membro do grupo. Os grupos devem ter no máximo três integrantes.
-> |Nome  | RA | Especialização|
-> |--|--|--|
 > | Rafael Pedrosa Silva Clerici  | 273034  | Eng. de Computação|
+
 > | Marco Antonio Cáceres Choqque  | 239271  | Eng. de Sistemas|
-> | Nome3  | 123456  | XXX|
+
+> | Kevin Inofuente  | 272316  | XXX|
+
+## Resumo (Abstract)
+
+Este trabalho se propôs a gerar imagens convincentes de alimentos por meio de redes neurais gerativas. Para isso, várias redes diferentes foram utilizadas, principalmente GANs, e treinadas na base de dados Food101. Os resultados foram pouco satisfatórios, uma vez que as imagens geradas não chegaram a retratar alimentos existentes de forma convincente, no máximo imitando formas ou texturas relevantes.
+
+## Descrição do Problema/Motivação
+
+Restaurantes menores possuem menos recursos à disposição para fotografar seus pratos disponíveis e gerar boas imagens para anúncios e cardápios. Uma rede neural suficientemente treinada pode gerar as imagens necessárias sem o custo associado, permitindo competitividade aos restaurantes.
+Em todo caso, a motivação principal do projeto foi o aprendizado por parte dos seus integrantes.
+## Objetivo
 
 
-## Descrição Resumida do Projeto
-> Descrição do tema do projeto, incluindo contexto gerador, motivação.
-> Descrição do objetivo principal do projeto.
-> Esclarecer qual será a saída do modelo generativo.
-> 
-> Incluir nessa seção link para vídeo de apresentação da proposta do projeto (máximo 5 minutos).
-
-A proposta deste projeto é criar uma rede generativa capaz de gerar imagens convincentes de alimentos.
-
-## Metodologia Proposta
-> Para a primeira entrega, a metodologia proposta deve esclarecer:
-> * Qual(is) base(s) de dado(s) o projeto pretende utilizar, justificando a(s) escolha(s) realizadas.
-> * Quais abordagens de modelagem generativa o grupo já enxerga como interessantes de serem estudadas.
-> * Artigos de referência já identificados e que serão estudados ou usados como parte do planejamento do projeto
-> * Ferramentas a serem utilizadas (com base na visão atual do grupo sobre o projeto).
-> * Resultados esperados
-> * Proposta de avaliação dos resultados de síntese
+Gerar imagens convincentes de alimentos.
+-  Revisar a bibliografia em busca de trabalhos similares.
+-  Testar várias arquiteturas de redes diferentes para verificar suas propriedades.
+-  Ser capaz de gerar imagens fotorrealistas de alimentos.
+## Metodologia
 
 O projeto usará a base de dados Food-101, que pode ser acessada em https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/, feita por Lukas Bossard, Matthieu Guillaumin, Luc Van Gool. Essa base contém 1000 imagens para cada uma das 101 categorias presentes na base, totalizando então 101000 imagens. Por estar bem organizada, documentada e anotada, deve conter um número adequado de imagens para treinar uma rede geradora. Adicionalmente, as bases de dados Food-11 (16643 imagens anotadas) e ChineseFoodNet (185628 imagens) também serão usadas para adicionar mais imagens caso necessário.
 
@@ -47,27 +44,35 @@ Serão usadas técnicas tradicionais como caminhada pelo espaço latente e *drop
 2. Aparência da comida (se parece algo gostoso ou detestável)
 3. Presença ou ausência de artefatos ou anomalias (borrões, cores estranhas)
 
-## Cronograma
-> Proposta de cronograma. Procure estimar quantas semanas serão gastas para cada etapa do projeto.
+### Bases de Dados e Evolução
 
-O projeto pode ser dividido em 6 etapas:
+|Base de Dados | Endereço na Web | Resumo descritivo|
+|Food101 | https://huggingface.co/datasets/food101 | Base mais comum usada para alimentos. Possui 101 classes com 100 imagens cada. |
+|Food11 | https://www.kaggle.com/datasets/trolukovich/food11-image-dataset | Base contendo 11 classes diferentes de alimentos.|
+|Chinese Food Net | https://sites.google.com/view/chinesefoodnet/ | Base com mais de 200 classes e milhares de imagens de alimentos da culinária chinesa.|
 
-1. Setup do projeto e da hierarquia
-   - 04/09 até 17/09
-2. Leitura da base de dados e pré-processamento
-   - 18/09 até 24/09
-3. Estudo de artigos e escolha do método para geração
-   - 25/09 até 08/10
-4. Planejamento da arquitetura
-   - 09/10 até 22/10
-5. Treinamento
-   - 23/10 até 05/11
-6. Análise dos resultados
-   - 06/11 até 19/11
+Apesar de três redes serem selecionadas, apenas a Food101 foi usada no projeto. A Food11 não apresentou quantidade suficiente de imagens para treinamento, e o link de acesso para a ChineseFoodNet não está funcionando (contato foi tentado com o mantenedor do site, sem sucesso).
+
+A Food101 apresenta uma boa quantidade de imagens, mas também uma grande variedade. Essa variedade advém de suas muitas classes de alimentos e das condições de iluminação, ângulo e preparo dos alimentos retratados: desde imagens com boas condições e o prato claramente retratado em seu centro até imagens com outros objetos, má iluminação e diferença no arranjo dos ingredientes no prato. Acredita-se que isso tenha afetado o treinamento das IAs, necessitando mais tempo para aprender a recriar a diversidade retratada.
+
+## Experimentos, Resultados e Discussão dos Resultados
+
+Como experimentos, vários treinos foram realizados com diferentes modelos de IAs gerativas. O código delas pode ser lido no diretório de Notebooks. No caso, foram duas redes neurais do tipo GAN e duas de Difusão. Para verificar a qualidade das imagens geradas, foi observada a função _loss_ em conjunto com uma análise visual de amostras do espaço latente.
+
+Os resultados obtidos de nenhuma das redes chegou a produzir imagens convincentes de alimentos, sendo capazes de apenas replicar cores ou texturas de forma um tanto abstrata (avaliação visual por parte dos desenvolvedores do projeto). Acredita-se que isso tenha ocorrido devido à baixos tempos de treinamento e capacidade de processamento disponível. Assim, nem todas as métricas descritas na metodologia foram empregadas para avaliar as redes: dado que imagens fotorrealistas não foram produzidas, não se achou necessário verificar _overfitting_ nas redes testadas.
+
+Curiosamente, a primeira GAN usada, uma simples arquitetura convolucional, produziu estranhos artefatos conforme o gerador teve mais tempo para treinar. É possível que isso seja uma espécie de mínimo local, onde a imagem ruidosa causa problemas para o discriminador. Foram feitos experimentos treinando o gerador mais vezes que o discriminador, mas isso intensificou a presença de artefatos.
+
+A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados semelhantes à outra GAN, mas produziu imagens em uma resolução maior e sem artefatos.
+
+Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
+
+## Conclusão
+
+Os resultados do experimento não alcançaram o nível esperado. Porém, foram uma boa oportunidade de aprendizado para os integrantes do projeto. Várias redes foram analizadas, utilizadas e avaliadas, oferecendo melhor compreensão das técnicas e desafios enfrentados na pesquisa de redes neurais.
+O projeto se beneficiaria de uma extensão, especialmente se mais recursos computacionais pudessem ser utilizados, uma vez que as imagens geradas ficaram aquém do esperado por, muito provavelmente, falta de treino para as redes: os integrantes do projeto não possuíam acesso a máquinas poderosas o suficiente para realizar os cálculos necessários.
 
 ## Referências Bibliográficas
-> Apontar nesta seção as referências bibliográficas adotadas no projeto.
-
 ###Trabalhos relacionados:
 CookGAN: Meal Image Synthesis from Ingredients, de Fangda Han, Ricardo Guerrero, Vladimir Pavlovic (https://openaccess.thecvf.com/content_WACV_2020/papers/Han_CookGAN_Meal_Image_Synthesis_from_Ingredients_WACV_2020_paper.pdf)
 Conditional Synthetic Food Image Generation, de Wenjin Fu1, Yue Han, Jiangpeng He, Sriram Baireddy, Mridul Gupta, Fengqing Zhu (https://arxiv.org/pdf/2303.09005.pdf)
@@ -77,3 +82,6 @@ Food Image Generation using A Large Amount of Food Images with Conditional GAN: 
 Food-101 – Mining Discriminative Components with Random Forests, de Lukas Bossard, Matthieu Guillaumin, Luc Van Gool (https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
 Food-11 (https://www.epfl.ch/labs/mmspg/downloads/food-image-datasets/)
 ChineseFoodNet, de Chen, Xin and Zhou, Hua and Zhu, Yu and Diao, Liang (https://sites.google.com/view/chinesefoodnet/)
+
+###Redes usadas:
+Progressive GAN - PROGRESSIVE GROWING OF GANS FOR IMPROVED QUALITY, STABILITY, AND VARIATION, de Tero Karras, Timo Aila, Samuli Laine e Jaakko Lehtinen (https://research.nvidia.com/sites/default/files/pubs/2017-10_Progressive-Growing-of/karras2018iclr-paper.pdf)
