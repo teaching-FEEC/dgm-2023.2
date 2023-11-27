@@ -116,13 +116,13 @@ A GAN tem como gerador uma rede constituída de blocos com camadas [Linear, Batc
 
 Já a VAE é constituída de camadas [Linear]. A *loss function* da VAE tem como termo de reconstrução a BCE (Binary Cross-Entropy) e como termo de regularização o KL (Kullback-Leibler Divergence Term). Os são também são gerados com *shape* [576, 24750], e redimensionados para [576, 22, 1125]. Sendo também uma rede capaz de gerar dados de todos os canais.
 
-|**Avaliação** | **GAN** | **VAE**|
-|----- | ----- | ------------------|
-|TRTR|79.86%|79.51%|
-|TRTS|27.78%|23.61%|
-|TSTR|28.47%|35.07%|
-|TSTS|22.22%|25.35%|
-|ED (Euclidian Distance)|112.5746|113.4993|
+||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
+|-----|----- | ----- | ------------------| ------------------|
+|Dados Reais|    0.5976|--|     --|    --| 
+|Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11.171,89
+|DCGAN|         1.0000|0.2620| 0.2620 | 44.012,61 
+|CNN-VAE|       1.000|0.2504| 0.2504 | 23.613,57
+
 
 Curvas de treinamento para a GAN:
 
