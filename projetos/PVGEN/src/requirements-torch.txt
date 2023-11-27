@@ -1,0 +1,1 @@
+Use the following link to install pythorch on your machine: https://pytorch.org/get-started/locally/

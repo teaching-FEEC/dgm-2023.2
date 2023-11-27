@@ -1,17 +1,21 @@
-# `Synthetic Photovoltaic Power Curve using GANs and Transformers`
+# `Synthetic Photovoltaic Generation: Deep Learning for Forecasting in Data-Scarce Environments`
 
 
 ## Presentation
 
-### Assigment 1
+### Assignment 1
 
 [Video on YouTube for the first assignment](https://youtu.be/TmnOccnPoUU)
 
-### Assigment 2
+### Assignment 2
 
 [Slides](https://docs.google.com/presentation/d/1MgKqQnf7F7JzvSkJVg6RY7zdao9B-Bte/edit?usp=sharing&ouid=105026589240211170070&rtpof=true&sd=true)
 
-This project was developed in the post-graduate class IA376 - Deep Learning Applied to Signal Synthesis, offered in the second semester of 2023 at the University of Campinas (UNICAMP), supervised by Prof. Paula Dornhofer Paro Costa, Ph.D., from the Department of Computer Engineering and Automation (DCA) of the School of Electrical and Computer Engineering (FEEC)
+### Assignment 3
+
+[Slides](https://docs.google.com/presentation/d/1s3bzTyyO0hTWTvmFcjaD9GAqgSdZInZf/edit?usp=sharing&ouid=101611810474111417437&rtpof=true&sd=true)
+
+This project presents an approach that uses a normalizing flow (NF) model to generate synthetic photovoltaic (PV) generation curves based on historical PV energy and weather data. It addresses the challenge of deploying energy management systems (EMSs) in new locations without historical data by creating synthetic PV data from weather information. Taking advantage of real data sets from photovoltaic installations, the study explores the generation of synthetic data to train photovoltaic forecasting models for the following day. Although promising in the reference work, the results reveal limitations in accurately representing the various climatic variations that affect photovoltaic production, affecting the generative model's ability to create representative synthetic data. In addition, transfer learning strategies faced obstacles in adjusting prediction models using synthetic data from different geographical areas. The project underlines the potential of generative models in energy forecasting. However, it highlights the need for improved methodologies and more reliable data to generate more representative synthetic data for effective transfer learning in new locations devoid of historical photovoltaic data.
 
 Group:
 |Names                                   | Academic Record |  Course                                         |
@@ -28,143 +32,202 @@ This project proposes generating synthetic daily photovoltaic (PV) generation cu
 
 The increase of Distributed Energy Resources (DERs) integration into the distribution grid has heightened the need for Energy Management Systems (EMSs) to achieve optimal control of devices such as Battery Energy Storage Systems (BESS) and Electric Vehicle Charging Stations (EVCSs). Figure 1 illustrates an example environment in which an EMS is required to optimize Electric Vehicles (EVs) charging.
 
-![image info](./Figs/Example.svg)
+![image info](./reports/figs/Example.svg)
 
-Figure 1: Example os environment that need to be controlled with an EMS
+Figure 1: Example of environment that needs to be controlled with an EMS
 
 To enhance the quality of energy management, predictions such as load and photovoltaic (PV) generation are necessary. However, how can an EMS be applied in a system without historical data? How can a PV forecasting model be trained to assist an EMS in a system installed in a new location?
 
 Therefore, this project aims to generate synthetic PV generation data based on climatic data. The synthetic data will be used to train a prediction model, and an evaluation will be conducted to quantify the performance of these approaches.
 
-### Related works
-
-The following papers address GANs for time series generation and will be used as a guide for this work.
-
-* Reference articles:
-  * *[RCGAN](https://arxiv.org/pdf/1706.02633.pdf)* (Recurrent Conditional GAN) is a framework for training models to produce realistic real-valued multi-dimensional time series, with an emphasis on their application to medical data. RGANs make use of recurrent neural networks in the generator and the discriminator (Esteban, Hyland, & Rätsch, 2017).
-
-  * *[RTSGAN](https://arxiv.org/pdf/2111.08386.pdf)* (Real-world Time Series GAN) is a novel generative framework for real-world time series data. RTSGAN first learns an encoder-decoder module which provides a mapping between a time series instance and a fixed-dimension latent vector and then learns a generation module to generate vectors in the same latent space (Pei, Ren, Yang, Liu, Qin, & Li, 2021).
-
-  * *[TimeVAE](https://arxiv.org/pdf/2111.08095.pdf)* (Time-series Variational Auto-Encoder) is a novel architecture for synthetically generating time-series data with the use of Variational Auto-Encoders (VAEs). The proposed architecture has several distinct properties: interpretability, ability to encode domain knowledge, and reduced training times (Desai, Freeman, Wang, & Beaver, 2021).
-
-  * *[TimeGAN](https://papers.nips.cc/paper/2019/file/c9efe5f26cd17ba6216bbe2a7d26d490-Paper.pdf)* (Time-series Generative Adversarial Network) is a framework for generating synthetic time-series data. The goal is to create smoothed time series data via a GAN. The paper proposes a novel approach for generating realistic time-series data using supervised and unsupervised learning techniques. (Yoon, Jordon, & van der Schaar, 2019).
-
-  * *[TSGAN](https://arxiv.org/pdf/2006.16477.pdf)* (Time Series GAN) is a novel architecture that uses two GANs in unison to model fake time series examples. TSGAN focuses on one dimensional times series and explores the few shot approach, which is the ability of an algorithm to perform well with limited data (Wang, Zhang, & Zhang, 2020).
-
+### Reference Paper
 The groundwork for this study is rooted in the [Reference Paper](https://doi.org/10.1016/j.apenergy.2021.117871), a publication featured in Applied Energy. The paper introduces a deep learning technique known as normalizing flows (NF), which is designed to produce accurate scenario-based probabilistic forecasts. It compares NF with other state-of-the-art DL generative models, such as generative adversarial networks and variational autoencoders, in generating weather-based wind, PV power, and load scenarios.
 
 ## Methodology
 
-The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses normalizing flows (NF), CGAN, and Transformers as generative models. Upon training the generative model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The final evaluation of the approach is carried out using MAE and RMSE for the forecasting model. The proposed framework is shown in Figure 2.
+The proposed framework uses two datasets to extrapolate PV power behavior from the first to the second dataset. It is supposed that the first dataset contains PV power and weather data, while the second dataset only has weather information. A generative model is trained to generate new PV samples from weather and PV data using the first dataset. This project uses NFs as a generative model. Upon training NFs model, it is used to generate synthetic PV curves from the weather data of the second dataset. These synthetic PV curves and the weather variables are the input for the day-ahead PV power prediction model based on LSTM networks. The hyperparameter of the generative model and the forecasting model are optimized with a Bayesian algorithm using Weights & Biases and Optuna respectively. The proposed framework is shown in Figure 2.
 
-![image info](./Figs/PVGAN_framework.svg)
-
+![image info](./reports/figs/PVGAN_framework.svg)
 Figure 2: Proposed Framework
 
-<!--The creation of synthetic data will be carried out using three different architectures. One of them will be based on a conditional GAN, as shown in Figure 3. Additionally, another architecture based on flow models or transformers will be proposed for synthetic PV data generation.
 
-![image info](./Figs/GAN.svg)
+Figure 3 shows the architecture used and its hyperparameters regarding the NF model. 
 
-Figure 3: Proposed Conditional GAN -->
+![image info](./reports/figs/Results/Normalizing-Flows.png)
+Figure 3: Normalizing Flow architecture
 
-* Tools:
-  * Python 3
-  * Google Colab
-  * PyTorch
-  * Weights & Biases
+* Steps: A specific transformation is applied to the data on each step changing its distribution to make it more similar to the target distribution.
 
-## Dataset
+* Layers: The "Flows" transform the data, they are neural networks, composed of layers.
 
-The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 3 and 4 respectively. The description of the datasets is presented in Table I.
+* Neurons: Each Layer is composed by neurons. They take in input, work together to apply a function to it and produce an output.
 
-Table I: Description of the datasets
+
+### Tools
+
+Table I: Tools decription
+| Library           | Description                                                                                                                                                                                            |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Python 3          | Python 3 is a high-level programming language known for its readability and vast community support. It offers a wide range of libraries and frameworks for various purposes, making it versatile for tasks ranging from scripting to web development and data analysis to machine learning.  |
+| Google Colab      | Google Colab (Colaboratory) is a cloud-based Jupyter notebook environment provided by Google, commonly used for machine learning, data analysis, and collaboration due to its accessibility and integration with Google Drive.  |
+| PyTorch           | PyTorch is an open-source machine learning library known for its flexibility and ease of use in building and training deep neural networks, providing dynamic computation graphs facilitating faster experimentation in deep learning.  |
+| Weights & Biases  | Weights & Biases (wandb) is a platform designed for experiment tracking, visualization, and collaboration in machine learning projects, enabling better reproducibility and collaboration through experiment logging and result visualization.  |
+| Optuna            | Optuna is a hyperparameter optimization framework automating the process of tuning machine learning models, providing an easy-to-use interface and various algorithms for efficient hyperparameter search, enhancing model performance.  |
+| TensorFlow        | TensorFlow is an open-source machine learning framework known for its scalability and extensive use in building and deploying machine learning models across various domains.  |
+| scikit-learn      | scikit-learn is a machine learning library providing simple and efficient tools for data mining and analysis, built on NumPy, SciPy, and matplotlib. It offers various algorithms for classification, regression, clustering, and more.  |
+
+
+### Dataset
+
+The proposed framework uses two datasets of real PV installations. The PV installations are shown in Figures 4 and 5 respectively. The description of the datasets is presented in Table II.
+
+Table II: Description of the datasets
 
 | **ID** | **Dataset** |     **Availability**          |                                                                               **Description**  |
 |:------:|:-----------:|:----------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 |    1   |   UNICAMP   | Not Public. Available upon request | PV power data from a solar farm located in Campinas, Brazil at UNICAMP, of 276.5 kWp. Weather data was obtained from a meteorological station, and complementary features such as irradiation were obtained from [Solcast](https://solcast.com/). The timestamp of the dataset is 15 minutes and spans four years. |
 |    2   |    GECAD    | Not Public. Available upon request | PV power data from rooftop PV arrays of 7.5 kWp, located in Porto, Weather data for this location is sourced from [Solcast](https://solcast.com/), and the dataset comprises timestamps at 5-minute intervals, covering a period of nearly four years.|
 
-![image info](./Figs/unicamp.jpg)
+![image info](./reports/figs/unicamp.jpg)
 
-Figure 3: UNICAMP
+Figure 4: UNICAMP
 
 
-![image info](./Figs/GECAD.jpg)
+![image info](./reports/figs/GECAD.jpg)
 
-Figure 4: GECAD 
+Figure 5: GECAD 
 
-The datasets are used as follows. Historical PV generation data from UNICAMP and data are employed to train PV generative models. Synthetic PV power data is obtained using the generative model, and the weather features from the GECAD dataset. Finally, the synthetic PV data and weather features are used to train a day-ahead PV power forecasting model.
+The datasets are used as follows. Historical PV power data from UNICAMP and weather data are employed to train the PV generative model. UNICAMP dataset is split randomly 50% for training (2 years), 25% for validation (1 year), and 25% for testing (1 year) as can be seen in Figure 6a. Synthetic PV power is obtained using 75% of the GECAD dataset using only weather features as input; the remaining 25%, which corresponds to the data of the last year, is not used (see Figure 6b). For the forecasting model, the synthetic PV is concatenated to GECAD dataset and used chronologically for training the forecasting model, which means that 50% of the data is used for training and 25% for validating. Finally, the last 25% is used to evaluate the entire methodology, where real PV data is concatenated with the available weather data (see Figure 6c). 
+
+![image info](./reports/figs/PVGAN_dataset_spit.svg)
+
+Figure 6: Dataset splits
+
+### Evaluation
+
+The evaluation of the framework is proposed using two different approaches. 
+
+ - Compute the MAE and RMSE of the day ahead PV power forecasts obtained for the GECAD database, for the test set. The test dataset contains the historical values of real PV. For this evaluation, a forecasting model is also trained for GECAD using historical PV power that is assumed not to be available for the proposed methodology.
+ -	Transfer Learning. To do this, a forecast model is trained for the UNICAMP database, and one year of synthetic data is used to adjust the weights of the initial model, based on three transfer learning strategies described in this [paper]([https://www.nature.com/articles/s41598-022-18516-x]).
+
 
 ## Workflow
 
-On working...
-
-## Experiments, Results and Discussion
-
-### Experiments
-
-As a first step, a code available in a [GitHub repository](https://github.com/jonathandumas/generative-models) made by the authors of the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) is used to implement the NF. Here, some difficulties emerged, such as understanding the code developed by its authors and adapting it for use with the UNICAMP dataset. In this phase, the code was simplified by removing the other generative models proposed in the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) and functions that were not interesting to our proposal. The load data generation code of that paper was adapted to generate the PV curves of our dataset, given that the [reference paper](https://doi.org/10.1016/j.apenergy.2021.117871) uses the PV of three different zones while the load model is only one. The UNICAMP data pre-processing included resampling the features every hour. This adaptation to the UNICAMP dataset required the optimization of the hyperparameters of the NF model. Therefore, the hyperparameters of the model are optimized using Bayesian optimization using Weights & Biases. Seventy different architectures were evaluated, minimizing the RMSE as an objective function. Figure 5 shows the Optimization history plot, and Figure 6 shows the parallel coordinates plot. It is highlighted that the best model was obtained in iteration 69 and will be used to generate the synthetic data from the GECAD database. Finally, Figure 7 shows the loss curve for the training, validation and test set.
+Fig. 7 shows the workflow adopted in the PV GEN project. Initially, a training database, exemplified in the diagram, is trained using the 1-training.py script. For the generative model, hyperparameter optimization (HPO) must be done separately; in this project, the weight and biases platform was used. Once a model has been created, the 2-gen.py script generates the normalized PV generation time series based on a climate data frame.
+The file 3-forecasting.py reads the dataset generated by the NFs model. Then, divide the database into training, validation, and testing. Finally, using Optuna performs hyperparameter optimization and saves the best forecast model. The next step, the script 4-eval_1.py, performs the first proposed evaluation. It loads the model trained in with 3.py and evaluates it on the validation and test set in terms of MAE and RMSE.
+Regarding 4-eval_2.py, this file reads the best model entered with 3-forecasting.py and applies three transfer learning strategies. This is done using only the validation set to adjust the weights of the forecast model according to the strategy adopted. For each strategy, the forecasting quality is measured in terms of MAE and RMSE.
 
 
-![image info](./Figs/bayesian_optimizacion.png)
+![image info](./reports/figs/workflow.png)
 
-Figure 5: Optimization History
+Figure 7: Generation and Forecasting workflow
+
+## Results
+
+The proposed methodology is evaluated through the MAE and RMSE of a forecasting model and the use of transfer learning. A forecasting model is trained considering real PV power data from the GECAD dataset to provide a reference point. The results of this model are presented in Table III.
+
+Table III: Metrics of PV Forecasting Model of GECAD Dataset Considering Real PV as Input
+
+|metric |  valid  |  test   |
+|-------|---------|---------|
+| MAE   | 0.05230 | 0.06313 |
+| RMSE  | 0.08501 | 0.10154 |
+
+## Forecasting Model
+
+In this subsection, three different cases are presented, showing the performance of the forecasting model, the performance of the generative model, and the performance of the predictive model with an additional dataset.
+
+### Case 1: Synthetic GECAD PV profile generation using models trained with UNICAMP PV data.
+
+The first case involves generating synthetic data for GECAD's rooftop PV generation using the generative model trained using solely the UNICAMP dataset. To determine a good NFs model, a hyperparameter optimization (HPO) was conducted, as depicted in the Figure below.
+
+![image info](./reports/figs/Results/HPO-UNICAMP.png)
 
 
-![image info](./Figs/search_space.png)
-
-Figure 6: Parallel coordinates plot 
+Figure 8: Hyperparameter Optimization Results
 
 
-![image info](./Figs/loss_epoch.png)
-
-Figure 7: Training and Validation Loss
-
-### Results
-
-After hyperparameter optimization, the NF model is evaluated using the MAE and RMSE metrics. This evaluation involves utilizing weather data from the UNICAMP set as input for the NF model. The model generates 100 distinct PV curves, as illustrated in Figure 8. The average of these curves, depicted in Figure 9, is regarded as the forecast for that day. Finally, the MAE and RMSE are computed by comparing this forecast with the actual PV power output. These evaluation metrics are summarized in Table II for valid and train sets.
-
-![image info](./Figs/PVforecasting100_d100_synthetic.png)
-
-Figure 8: 100 synthetic PV curves for a single day
-
-![image info](./Figs/PVforecasting_d10_real_predicted.png)
-
-Figure 9: Average PV curve for a single day
-
-Table II: Metrics for NF model
-
-| Metric    | Valid    | Test     |
-|-----------|----------|----------|
-| MAE       | 1.81     | 2.85     |
-| RMSE      | 2.01     | 3.29     |
-
-A Q-Q (Quantile-Quantile) plot commonly used in statistical analysis is also used to evaluete the performance of the model. This plot lets to assess how well a dataset adheres to a theoretical normal distribution. A perfect adherence to this distribution would result in all data points forming an identity line. Deviations from this line offer insights into the distributional characteristics of data. Figure 10 shows the Q-Q plot for valid and test sets.
-
-![image info](./Figs/qq_plot.png)
-
-Figure 10: Q-Q plot
-
-### Discussion
-
-In delivery 1, it had been planned to initially carry out a CGAN and then use transformers to generate synthetic PV power curves. However, when trying to make a code from scratch, the results were wrong. Therefore, based on the reference paper where the superiority of NF over CGAN is highlighted, and considering that its authors made their code available on GitHub, it was decided to use NF as the first option. After understanding the code and partially modifying it, the experiments reported in the previous subsections were carried out. The results obtained metrics are similar to the original paper, so it can be concluded that the NF model is adequate to generate PV power curves.
-
-In order to compare NF, transformers will be implemented, and the CGAN model will persist in development, trying to find similar or better results. In parallel, the development of the proposed framework will continue. Climate data from the GECAD database will be used to generate synthetic PV power curves. Once the different models generate these curves, they will be used to train LSTM forecast models, starting from the assumption that there is no PV power data from the GECAD database. This approach will be compared to simply performing transfer learning assuming the existence of a few PV power data from the GECAD dataset. This transfer learning assumes that a forecast model trained with the UNICAMP dataset is available and that a fine adjustment can be made using partial data from the GECAD dataset. Finally, these forecasting results regarding RSME and MAE will be compared with a forecast model based on actual PV power data in the GECAD.
-
-<!--The PV generation model will be evaluated using the method described in Figure 4. The proposed method will compare the model's performance when trained on synthetic data generated through data augmentation by the generator and real data.
-
-![image info](./Figs/Evaluation.svg)
-
-Figure 10: Evaluation method -->
+The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
                                              
-## Tasks
+![image info](./reports/figs/Results/1-gecad_gen_from_unicamp.svg)
 
-- [ ] Implement Transformers
-- [ ] Continue CGAN Model Development.
-- [ ] Compare Synthetic data (NF, CGAN, and Transformers) in terms of MAE and RMSE
-- [ ] Train LSTM Forecast Models for day ahead PV power for GECAD dataset
-- [ ] Compare Forecasting Results in terms of MAE and RMSE
-- [ ] Project finished </sub> :tada: 
+
+Figure 9: Qualitative Analysis between Real and Generated Data
+
+
+Regarding metrics of NFs model, the Mean Absolute Error (MAE) between the generated and synthetic data (both normalized) was 0.1057. Meanwhile, the Root Mean Square Error (RMSE) obtained was 0.1195. 
+
+The generated synthetic data is used to train a forecasting model. HPO is applied over the forecasting model. The training and validation data corresponds to synthetic data, while the test data is real PV data. Table IV. shows the MAE and RMSE of the predictive model.
+
+Table IV: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic PV as Input
+
+|metric |  valid  |  test   |
+|-------|---------|---------|
+| MAE   | 0.00854 | 0.11554 |
+| RMSE  | 0.01391 | 0.16549 |
+
+These metrics show that the model thus manages to get it right ideally, which is why its values in validation are shallow, but in the test, its performance is worse. These results show that the task is complex, and the generative model may not be good enough to be used in a new dataset.
+
+### Case 2: Synthetic UNICAMP PV Profile Generation by Models Trained with UNICAMP PV Data
+
+To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. It means the evaluation of the NFs model is made over the same dataset. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
+
+![image info](./reports/figs/Results/2-unicamp_gen_from_unicamp.svg)
+
+
+Figure 10: Qualitative Analysis between Real and Generated Data
+
+
+With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
+
+### Case 3: Synthetic GECAD PV Profile Generation by Models Trained with UNICAMP and NETHERLANDS PV Data
+
+Since the model trained solely on one database did not yield satisfactory results, training with data from two distinct locations was attempted. For this new dataset (HOLLAND), an HPO was conducted, as depicted in the following Figure.
+
+![image info](./reports/figs/Results/HPO-UNICAMP-HOLANDA.png)
+
+
+Figure 11: Hyperparameter Optimization Results
+
+
+After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
+
+![image info](./reports/figs/Results/3-gecad_gen_from_unicamp-holanda.svg)
+
+
+Figure 12: Qualitative Analysis between Real and Generated Data
+
+
+Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in table VI.
+
+Table V: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic PV as Input using UNICAMP + HOLLAND datasets.
+
+|metric |  valid  |  test   |
+|-------|---------|---------|
+| MAE   | 0.01178 | 0.12083 |
+| RMSE  | 0.01755 | 0.16712 |
+
+## Transfer Learning
+
+The second evaluation approach uses one year of generated data to adjust a forecast model based on three transfer learning strategies. The forecast model in the source domain is trained with UNICAMP data. Table VI shows the metrics of the forecast model when applying transfer learning strategies, considering that there is actual PV data in the GECAD dataset. Table VII, on the other hand, shows the result of the transfer learning strategies with the adjustment with synthetic data.
+
+Table VI: Unicamp + Fine Tuning with Real PV Power
+
+| Metrics |   w/o    |    S1    |    S2    |    S3    |
+|---------|----------|----------|----------|----------|
+|   MAE   | 0.20273  | 0.08745  | 0.07684  | 0.11176  |
+|   RMSE  | 0.26323  | 0.12775  | 0.11427  | 0.16528  |
+
+Table VII: Unicamp + Fine Tuning with Synthetic PV Power
+
+| Metrics |   w/o    |    S1    |    S2    |    S3    |
+|---------|----------|----------|----------|----------|
+|   MAE   | 0.20273  | 0.12259  | 0.12168  | 0.11422  |
+|   RMSE  | 0.26323  | 0.1665   | 0.15796  | 0.16168  |
+
+## Discussion and Conclusions
+
+The base paper used as a basis for this project proposed NFs as the one that performed best for generating scenarios for PV data compared to Conditional VAE and Conditional GAN. However, our experiments show that the scenarios generated by the model do not accurately represent the original distribution. Despite being conditioned on weather data, the model's output does not reflect this conditioning effectively, particularly under certain climate conditions. This can be concluded with case II, where it could not generate real PV curves for the database with which it was trained. As presented in case 3, the forecast model worsened when an additional dataset was added to train a new model. This may be directly related to the difficulty of creating a general model for PV generation due to the data normalizations carried out in the process. On the other hand, there is a gap in the literature, precisely in the generation of representative synthetic data that allows transfer learning to be carried out between models that have been previously trained in a real dataset when there is no data of the new localization. Therefore, it is concluded that it was not possible to use NFs to generate PV power curves for another location that would allow the training of a forecast model.
 
 ## References
 
@@ -174,3 +237,4 @@ Figure 10: Evaluation method -->
 * Yoon, J., Jordon, J., & van der Schaar, M. (2019). Time-series Generative Adversarial Networks. In Advances in Neural Information Processing Systems (pp. 5509-5520).
 * Smith, K. E., & Smith, A. O. (2020). Conditional GAN for timeseries generation. arXiv preprint arXiv:2006.16477.
 * Dumas, J., Wehenkel, A., Lanaspeze, D., Cornélusse, B., & Sutera, A. (2022). A deep generative model for probabilistic energy forecasting in power systems: normalizing flows. Applied Energy, 305, 117871.
+* Sarmas, E., Dimitropoulos, N., Marinakis, V., Mylona, Z., & Doukas, H. (2022). Transfer learning strategies for solar power forecasting under data scarcity. Scientific Reports, 12(1), 14643.

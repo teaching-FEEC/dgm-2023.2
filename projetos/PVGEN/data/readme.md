@@ -1,0 +1,1 @@
+The files in this folder correspond to the data generated in the experiment. The data used for training and generation is private and requires a request.
