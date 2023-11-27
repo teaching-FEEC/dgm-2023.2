@@ -181,7 +181,48 @@ Prompt: `Com queda na Selic, investidor adota cautela e Ibovespa segue avançand
 Com queda na Selic, investidor adota cautela e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Ibovespa segue avançando na linha dos 57 mil pontos e Iboves
 ````
 
-Note que o modelo entra em loop na geração de uma amostra e não consegue terminá-la, sempre repetindo o padrão " e Ibovespa segue avançando na linha dos 57 mil pontos".
+Note que o modelo entra em loop na geração de uma amostra e não consegue terminá-la, sempre repetindo o padrão " e Ibovespa segue avançando na linha dos 57 mil pontos" indefinidamente.
+
+### O dataset artificial de títulos de notícias
+
+Nosso dataset artificial de títulos de notícias está [disponível livremente para download](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/data/dataset_final.zip) e contém 229.639 amostras únicas de títulos de notícias relacionados majoritariamente a assuntos do mercado financeiro.
+
+
+#### Alucinações
+``Com maior margem para pagamento, clientes reclamam do IPTU em Campina Grande; veja Com menor margem para pagamento, clientes reclama do IPTU em Campina Grande; veja Veja as tarifas cobradas pelos bancos em até dois dias, mas bancos só pagaram com desconto após a declaração do IR 2017``
+
+#### Miniloop
+``Bovespa sobe, com bancos e siderúrgicas ofuscando queda de Bovespa sobe, com Petrobras e siderúrgicas ofuscando queda de Bovespa fecha em movimento de baixa pela primeira vez desde julho``
+``BC deve reforçar taxa de juros para evitar intervenção do BC deve reforçar taxa de juros para evitar intervenção do BB deve reforçar taxa de juros para evitar intervenção do BB anuncia redução de juros nos próximos dias``
+``BB eleva limite de crédito imobiliário para bancos em R$ 12 bi no BB aumenta limite de crédito imobiliário para bancos em R$ 12 bi no Minha Casa, Minha Vida 2``
+``BTG Pactual vai investir US$ 1 bi e se unirá ao BTG Pactual vai investir US$ 1 bi e se unirá ao BTG Pactual vai investir US$1 bi e se unirá ao BB quer retomar obras em áreas como saúde. Acionistas querem aprovar a privatização do banco a partir de 2018``
+``Bancos Centrais devem anunciar data para novos estímulos à Bancos Centrais devem anunciar data para novos estímulos à Bancos Centrais devem anunciar data para novos estímulos à Bovespa cai 0,29%; Banco Central baixa para 0,57% a desvalorização de 0,2% do dólar``
+
+#### Predileção por assalto a agências bancárias
+Provavelmente proveniente da quantidade de notícias sobre o assunto no conjunto de treinamento.
+
+``Quadrilha explode caixas de banco e depois atira contra destacamento da PM``
+``Ladrões furtam caixas eletrônicos do Itaú em Itaju do Colônia, RS``
+``Quadrilha explode caixas eletrônicos de duas agências em Boquira``
+``Grupo explode caixas eletrônicos em São Domingos dos de Benfica, SP``
+``Grupo armado invade banco e explode caixas eletrônicos em São José do Vale do Rio Preto, no RJ``
+``Em 3 minutos, quadrilha armada rouba caixas eletrônicos de duas agências``
+
+#### Notícias abandonadas no meio da geração
+``Ações de construção e empresas da Vale puxam ganhos da Depois de abrir a semana em alta, Bovespa fecha no vermelho nesta quinta``
+``Bolsas operam em alta nesta terça-feira, mas balanços ainda atrapalham a Bovespa tem pior desempenho mensal desde novembro de 2009``
+
+#### Notícias de outros assuntos
+O melhor da hora - Mauro Nogueira Jr.
+Confira programação da ExpoSP no Paraná e AL
+Brasil vence o Japão e garante vaga olímpica
+Eclipse causa destruição em várias cidades do Brasil
+Em Manaus, moradores de rua têm vagas para quem têm conta paga até dia 30; veja as oportunidades
+Polícia Federal encerra investigação que investiga negócios de Cabral em obras nos EUA
+
+#### Títulos aparentemente incompletos
+Grupo de hackers
+O novo presidente do Banco Central
 
 ### Avaliação Quantitativa
 
