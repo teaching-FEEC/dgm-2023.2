@@ -6,12 +6,14 @@
 O presente projeto foi originado no contexto das atividades da disciplina de pós-graduação *IA376L - Deep Learning aplicado a Síntese de Sinais*, 
 oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra. Paula Dornhofer Paro Costa, do Departamento de Engenharia de Computação e Automação (DCA) da Faculdade de Engenharia Elétrica e de Computação (FEEC).
 
-> | Rafael Pedrosa Silva Clerici  | 273034  | Eng. de Computação|
 
-> | Marco Antonio Cáceres Choqque  | 239271  | Eng. de Sistemas|
+|            Name               |    RA    |    Graduação       |
+| ----------------------------  | -------  | -----------------  |
+|Rafael Pedrosa Silva Clerici   |   273034 | Eng. de Computação |
+|Marco Antonio Cáceres Choqque  |   239271 | Eng. de Sistemas   |
+|Kevin Inofuente Colque         |   272316 | Eng. Eletrônica    |
 
-> | Kevin Inofuente  | 272316  | XXX|
-
+  
 ## Resumo (Abstract)
 
 Este trabalho se propôs a gerar imagens convincentes de alimentos por meio de redes neurais gerativas. Para isso, várias redes diferentes foram utilizadas, principalmente GANs e modelos basados em difussion process, e treinadas na base de dados Food101. Os resultados foram moderadamente satisfatórios, mas as imagens geradas não chegaram a retratar alimentos existentes de forma convincente, no máximo imitando formas ou texturas relevantes.
@@ -25,6 +27,7 @@ Em todo caso, a motivação principal do projeto foi o aprendizado por parte dos
 
 Gerar imagens convincentes de alimentos.
 -  Revisar a bibliografia em busca de trabalhos similares.
+-  Analise diferentes conjuntos de dados da literatura.
 -  Testar várias arquiteturas de redes diferentes para verificar suas propriedades.
 -  Ser capaz de gerar imagens fotorrealistas de alimentos.
 ## Metodologia
@@ -46,10 +49,11 @@ Serão usadas técnicas tradicionais como caminhada pelo espaço latente e *drop
 
 ### Bases de Dados e Evolução
 
-|Base de Dados | Endereço na Web | Resumo descritivo|
-|Food101 | https://huggingface.co/datasets/food101 | Base mais comum usada para alimentos. Possui 101 classes com 100 imagens cada. |
-|Food11 | https://www.kaggle.com/datasets/trolukovich/food11-image-dataset | Base contendo 11 classes diferentes de alimentos.|
-|Chinese Food Net | https://sites.google.com/view/chinesefoodnet/ | Base com mais de 200 classes e milhares de imagens de alimentos da culinária chinesa.|
+|**Base de Dados** | **Endereço na Web**                                                  | **Resumo descritivo**|
+| ---------------  | -------------------------------------------------------------------  | -------------------  |
+|Food101           | https://huggingface.co/datasets/food101                              | Base mais comum usada para alimentos. Possui 101 classes com 100 imagens cada. |
+|Food11            | https://www.kaggle.com/datasets/trolukovich/food11-image-dataset     | Base contendo 11 classes diferentes de alimentos.|
+|Chinese Food Net  | https://sites.google.com/view/chinesefoodnet/                        | Base com mais de 200 classes e milhares de imagens de alimentos da culinária chinesa.|
 
 Apesar de três redes serem selecionadas, apenas a Food101 foi usada no projeto. A Food11 não apresentou quantidade suficiente de imagens para treinamento, e o link de acesso para a ChineseFoodNet não está funcionando (contato foi tentado com o mantenedor do site, sem sucesso).
 
