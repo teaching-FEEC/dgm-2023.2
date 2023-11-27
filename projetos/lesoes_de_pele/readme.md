@@ -11,6 +11,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
  | Thiago Soares Laitz  | 224898  | Eng. Eletricista |
  | Vinícius Hirono Gonçalves  | 188182  | Eng. Eletricista |
 
+Apresentação - [Link](https://docs.google.com/presentation/d/1PrUui6LvmY9h1L6cxschIxMUiQ440VCA6t7QTRwDI1g/edit?usp=sharing)
 
 ## Resumo (Abstract)
  O projeto consiste em explorar formas de data augmentation para imagens de lesões de pele utilizando GANs, com o objetivo de melhorar a precisão dos modelos de classificação. Para isso, utilizaremos o dataset HAM10000, disponível no Kaggle, que contém 10015 imagens de lesões de pele, classificadas em 7 classes. Os modelos explorados serão a ACGAN e a ProGAN, que têm mostrado resultados promissores em tarefas de síntese de imagens.
@@ -23,7 +24,7 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 Descobrir se usar data augmentation a partir de uma ACGAN ou ProGAN é capaz de melhorar a qualidade de classificadores de lesões de pele.
 
 ## Metodologia Proposta
-Treinar ACGANs e ProGANs em um dataset isolado de cada tipo de lesão de pele. Gerar novas imagens usando os modelos treinados. Treinar um classificador usando o dataset aumentado e comparar sua precisão ao classificador treinado com o dataset original.
+Treinar ACGANs e ProGANs em um dataset isolado de cada tipo de lesão de pele. Gerar novas imagens usando os modelos treinados. Treinar um classificador usando o dataset aumentado e comparar sua precisão ao classificador treinado com o dataset original
 
 ### Bases de Dados e Evolução
 HAM10000, processado em .jpg 64x64 64int, guardado no Git. 
@@ -36,17 +37,22 @@ checkpoint da ACGAN e PROGAN treinadas, guardadas no Drive local Google Colab + 
 ## Experimentos, Resultados e Discussão dos Resultados
 Foram realizados experimentos envolvendo a GAN tradicional na geração de imagens sintéticas para o HAM10000, com o objetivo de verificar a viabilidade da abordagem. Os resultados qualitativos obtidos foram satisfatórios visualmente para as classes com uma boa quantidade de imagens disponíveis (+1000), porém houve uma grande dificuldade em gerar dados sintéticos para os dados com menos exemplos. Além disso, a fim de validar o código criado para a ACGAN, foi criado um notebook que implementa o modelo para a base de dados MNIST, uma vez que a variabilidade entre as classes pode ser facilmente identificada. 
 
-![Mnist samples generated using ACGAN](reports/figures/mnist/images_mnist_acgan.jpg)
+![Mnist samples generated using ACGAN](reports/figures/mnist/acgan_mnist_final.jpg)
 
-![HAM10000 samples generated using GAN](reports/figures/ham10000/imagens_sinteticas.jpg)
+![HAM10000 samples generated using GAN](reports/figures/ham10000/sintetico_ham.jpg)
 
-Por fim, podemos identificar que durante o treinamento da ACGAN para a base MNIST, o gerador sofreu com o fenômeno colapso de modo. A hipótese inicial é que devido ao grande número de camadas utilizadas na rede geradora, ocorreu overfitting nos dados, fazendo com que a rede discriminadora facilmente identificasse os dados sintéticos.
+ | Data Augmentation | Num samples | Num classes | Validation Acc |
+ |--|--|--| -- |
+ | No  | - | 7 | 0.675 |
+ | Yes | 500 | 7 | 0.679 |
+ | No | - | 3 | 0.75 |
+ | Yes | 500 | 3 | 0.75 |
 
- A seguir, exploramos a aplicação da PROGAN usando o conjunto de dados HAM10000. Mais uma vez, os resultados foram satisfatórios em termos visuais para as classes que dispunham de uma quantidade significativa de imagens (mais de 1000 exemplos) para o treinamento da rede. No entanto, enfrentamos desafios semelhantes ao utilizar a PROGAN para as classes com menos exemplos, destacando a complexidade de gerar dados sintéticos precisos nessas circunstâncias.
+ Podemos perceber que as embora as imagens geradas pela GAN de fato sejam semelhantes às imagens reais, a qualidade das imagens geradas não é suficiente para melhorar a precisão do classificador.
 
 
 ## Conclusão
-Para avançar na análise de lesões de pele por meio de aprendizado profundo, é fundamental abordar a escassez de amostras de treinamento. O problema persiste no treinamento de GANs para data augmentation.
+Para avançar na análise de lesões de pele por meio de aprendizado profundo, é fundamental abordar a escassez de amostras de treinamento. O problema persiste no treinamento de GANs para data augmentation. Além disso, se tratando de imagens médicas, é fundamental utilizarmos imagens com alta resolução, o que torna o treinamento de GANs ainda mais custoso.
 
 ## Referências Bibliográficas
 - Odena, Augustus, Christopher Olah, and Jonathon Shlens. "Conditional image synthesis with auxiliary classifier gans." International conference on machine learning. PMLR, 2017.
