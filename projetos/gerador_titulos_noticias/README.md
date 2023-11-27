@@ -356,7 +356,7 @@ Observa-se acima que para limiares abaixo de 95%, atinge-se o critério de parad
 Os experimentos conduzidos para os limiares escolhidos mostraram, como ilustrados pelos gráficos abaixo, que as métricas de desempenho foram diminuindo a cada iteração, conforme dos dados eram incorporados ao conjunto de treinamento. A única exceção é a métrica de precisão, que aumentou em alguns períodos prossivelmente devido ao claro viés do modelo treinado pela classificação de amostras como negativas.
 ![Gráfico do tamanho do conj. treinamento por threshold e iteration](https://github.com/mmakita/IA376_gerador_titulos/blob/main/projetos/gerador_titulos_noticias/reports/figures/metricas_semisuper.png)
 
-## Sobre a pegada de carbono no desenvolvimento do projeto
+## O Dilema da Pegada de Carbono na Pesquisa em Inteligência Artificial
 Ao realizar os testes para o desenvolvimento deste projeto, geramos uma pegada de carbono estimada em mais de 50 kg de CO2 emitido. Essa quantidade de emissão, equivalente à energia consumida por um carro em cerca de 240 km, levanta questões éticas cruciais. A necessidade de avanços tecnológicos e experimentação em inteligência artificial deve ser ponderada em relação ao impacto ambiental que tais testes acarretam. Até que ponto vale a pena investir recursos significativos e realizar experimentos extensivos, considerando o impacto ambiental substancial associado? É fundamental repensar e buscar abordagens mais sustentáveis na pesquisa e desenvolvimento de tecnologias, visando minimizar o impacto ambiental, especialmente em setores que demandam intensa computação como o da inteligência artificial.
 
 ## Conclusão
