@@ -1,7 +1,7 @@
 # `Gerador de títulos de notícias do mercado financeiro [AKA: Estagiário da Folha]`
 # `Stock market news headlines generator`
 
-## Apresentação
+## [Apresentação](https://docs.google.com/presentation/d/1vpfkDbYBhLrSSPCOt8wAtnoQ-Ma7QTZG-SsXnTdVcXc/edit?usp=sharing)
 
 O presente projeto foi originado no contexto das atividades da disciplina de pós-graduação *IA376L - Deep Learning aplicado a Síntese de Sinais*, 
 oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra. Paula Dornhofer Paro Costa, do Departamento de Engenharia de Computação e Automação (DCA) da Faculdade de Engenharia Elétrica e de Computação (FEEC).
