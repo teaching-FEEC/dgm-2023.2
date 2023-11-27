@@ -185,12 +185,16 @@ O projeto se beneficiaria de uma extensão, especialmente se mais recursos compu
 ## Referências Bibliográficas
 ### Trabalhos relacionados:
 CookGAN: Meal Image Synthesis from Ingredients, de Fangda Han, Ricardo Guerrero, Vladimir Pavlovic (https://openaccess.thecvf.com/content_WACV_2020/papers/Han_CookGAN_Meal_Image_Synthesis_from_Ingredients_WACV_2020_paper.pdf)
+
 Conditional Synthetic Food Image Generation, de Wenjin Fu1, Yue Han, Jiangpeng He, Sriram Baireddy, Mridul Gupta, Fengqing Zhu (https://arxiv.org/pdf/2303.09005.pdf)
+
 Food Image Generation using A Large Amount of Food Images with Conditional GAN: RamenGAN and RecipeGAN, de Yoshifumi Ito Wataru Shimoda Keiji Yanai (http://img.cs.uec.ac.jp/pub/conf18/180715shimok2_0.pdf)
 
 ### Datasets:
 Food-101 – Mining Discriminative Components with Random Forests, de Lukas Bossard, Matthieu Guillaumin, Luc Van Gool (https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
+
 Food-11 (https://www.epfl.ch/labs/mmspg/downloads/food-image-datasets/)
+
 ChineseFoodNet, de Chen, Xin and Zhou, Hua and Zhu, Yu and Diao, Liang (https://sites.google.com/view/chinesefoodnet/)
 
 ### Redes usadas:
