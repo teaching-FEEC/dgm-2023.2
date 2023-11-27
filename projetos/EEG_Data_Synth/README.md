@@ -419,6 +419,13 @@ Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo 
 | Resultado das métricas de avaliação   |              |             |             |             | X           | X           |
 | Escrita final do projeto              |              |             |             |             |             | X           |
 -->
+## Dificuldades e limitações
+### Dificuldades:
+* Convergência do modelo: tivemos dificuldade em encontrar um bom conjunto de hiperparâmetros da rede e pré-processamento de dados para fazer a arquitetura CGAN convergir para um bom resultado.
+### Limitações: 
+* Acesso a GPU: para treinar uma arquitetura como uma GAN, é necessário ter acesso a bons recursos computacionais. Recursos disponíveis para uso, como o Colab, quase sempre não permite finalizar um treinamento longo, impossibilitando o treinamento de uma GAN.
+* Diversidade entre sujeitos: por se tratar de dados de EEG adquiridos por diferentes sujeitos, existe grande variabilidade entre os movimentos realizados ou imaginados. Isso imposibilíta, para um projeto de curta duração, utilizar mais de um sujeito para treinamento. É necessário avaliar se usar dados de vários sujeitos é viável, estudar a melhor forma de colocar isso em prática e quais pré-processamento de dados devem ser realizados.
+
 ## Conclusão
 
 <!--
@@ -447,6 +454,11 @@ Este projeto estudou a possibilidade de gerar dados sintéticos de EEG usando um
 No entanto, ao executar experimento usando augmentation no classificador, observamos que a adição de dados sintéticos não ajudou significativamente a melhorar o desempenho do modelo. Apenas o sujeito 7 obteve uma pequena melhora de 1% ao adicionar 5% de dados sintéticos. Será necessário avaliar caminhos alternativos para melhorar a geração de dados sintéticos. 
 
 Além disso, na avaliação da diversidade de movimento entre sujeitos foram obtidos resultados significativamente diferentes, indicando que deve haver certo cuidado ao treinar um modelo com suijeitos diferentes. Por outro lado, isso pode ser interessante para a generalização do modelo.
+
+### Trabalhos futuros:
+Ficou evidente que os dados gerados pelo modelo proposto não ajudou na classificação de movimentos. Portanto, os trabalhos futuros pensados são: 
+* Testar outra forma de utilizar os dados no treinamento: usar os dados como dados tabulados ou os próprios sinais pode ser mais vantajoso do que interpretá-los como imagens.
+* Considerar outras técnicas de geração dedados: outra alternativa é considerar outras técnicas, como modelo de difusão, uma vez que as arquiteturas GANs não parecem ser uma boa proposta para sinais de series temporais. 
 
 <!-- Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo seria alterar o formato da entrada para matrizes de covariância, como proposto nos trabalhos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso seria tentar trocar o tipo de modelo generativo, por exemplo o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068).  -->
 
