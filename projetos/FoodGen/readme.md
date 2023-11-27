@@ -59,6 +59,26 @@ Apesar de três redes serem selecionadas, apenas a Food101 foi usada no projeto.
 
 A Food101 apresenta uma boa quantidade de imagens, mas também uma grande variedade. Essa variedade advém de suas muitas classes de alimentos e das condições de iluminação, ângulo e preparo dos alimentos retratados: desde imagens com boas condições e o prato claramente retratado em seu centro até imagens com outros objetos, má iluminação e diferença no arranjo dos ingredientes no prato. Acredita-se que isso tenha afetado o treinamento das IAs, necessitando mais tempo para aprender a recriar a diversidade retratada.
 
+#### Ejemplos de Food101
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/Examples%20of%20Food101%20dataset.png" style="float:left" width="540px">
+</div>
+  
+#### Ejemplos de Food11
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/Food11%20dataset.png" style="float:right" width="540px">
+</div>
+
+#### Ejemplos de Chinese Food Net
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/ChineFood%20dataset.png" style="float:right" width="540px">
+</div>
+
+
+
+
+
+
 ## Experimentos, Resultados e Discussão dos Resultados
 
 Como experimentos, vários treinos foram realizados com diferentes modelos de IAs gerativas. O código delas pode ser lido no diretório de Notebooks. No caso, foram duas redes neurais do tipo GAN e duas de Difusão. Para verificar a qualidade das imagens geradas, foi observada a função _loss_ em conjunto com uma análise visual de amostras do espaço latente.
