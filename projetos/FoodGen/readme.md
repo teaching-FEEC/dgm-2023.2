@@ -32,13 +32,13 @@ Gerar imagens convincentes de alimentos.
 -  Ser capaz de gerar imagens fotorrealistas de alimentos.
 ## Metodologia
 
-O projeto usará a base de dados Food-101, que pode ser acessada em https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/, feita por Lukas Bossard, Matthieu Guillaumin, Luc Van Gool. Essa base contém 1000 imagens para cada uma das 101 categorias presentes na base, totalizando então 101000 imagens. Por estar bem organizada, documentada e anotada, deve conter um número adequado de imagens para treinar uma rede geradora. Adicionalmente, as bases de dados Food-11 (16643 imagens anotadas) e ChineseFoodNet (185628 imagens) também serão usadas para adicionar mais imagens caso necessário.
+O projeto usa a base de dados Food-101, que pode ser acessada em https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/, feita por Lukas Bossard, Matthieu Guillaumin, Luc Van Gool. Essa base contém 1000 imagens para cada uma das 101 categorias presentes na base, totalizando então 101000 imagens. Por estar bem organizada, documentada e anotada, deve conter um número adequado de imagens para treinar uma rede geradora. Adicionalmente, as bases de dados Food-11 (16643 imagens anotadas) e ChineseFoodNet (185628 imagens) também foram estudadas.
 
 Caso o conjunto das três bases não seja suficiente, serão abordadas técnicas de *few-shot learning*, ou seja, aprendizado com poucas amostras de treinamento.
 
 As redes CookGAN, StyleGAN3 e cGAN foram identificadas como boas inspirações para o projeto. Todas elas geram imagens fotorrealistas de alimentos e usam a estrutura de GAN.
 
-A principal ferramenta a ser utilizada é o Google Colaboratory, que permite o desenvolvimento online de notebooks python. Com ele, serão usadas as bibliotecas pytorch e pandas para processar a base de dados, criar e treinar a rede. Posteriormente, bibliotecas como numpy, matplot e seaborn serão usadas para produzir gráficos e outras ferramentas de análise.
+A principal ferramenta utilizada é o Google Colaboratory, que permite o desenvolvimento online de notebooks python. Com ele, serão usadas as bibliotecas pytorch e pandas para processar a base de dados, criar e treinar a rede.
 
 Espera-se que a rede seja capaz de produzir imagens convincentes de comidas existentes, ou seja, que um humano consiga reconhecer como um prato. Porém, não se descarta a possibilidade de gerar imagens semelhantes a comidas reais, mas com detalhes anômalos, como coloração diferente do usual. Também há a possibilidade de gerar arranjos e pratos diferentes dos apresentados no grupo de treino.
 
@@ -55,21 +55,21 @@ Serão usadas técnicas tradicionais como caminhada pelo espaço latente e *drop
 |Food11            | https://www.kaggle.com/datasets/trolukovich/food11-image-dataset     | Base contendo 11 classes diferentes de alimentos.|
 |Chinese Food Net  | https://sites.google.com/view/chinesefoodnet/                        | Base com mais de 200 classes e milhares de imagens de alimentos da culinária chinesa.|
 
-Apesar de três redes serem selecionadas, apenas a Food101 foi usada no projeto. A Food11 não apresentou quantidade suficiente de imagens para treinamento, e o link de acesso para a ChineseFoodNet não está funcionando (contato foi tentado com o mantenedor do site, sem sucesso).
+Apesar de três bases serem estudadas, apenas a Food101 foi usada no projeto. A Food11 não apresentou quantidade suficiente de imagens para treinamento, e o link de acesso para a ChineseFoodNet não está funcionando (contato foi tentado com o mantenedor do site, sem sucesso).
 
 A Food101 apresenta uma boa quantidade de imagens, mas também uma grande variedade. Essa variedade advém de suas muitas classes de alimentos e das condições de iluminação, ângulo e preparo dos alimentos retratados: desde imagens com boas condições e o prato claramente retratado em seu centro até imagens com outros objetos, má iluminação e diferença no arranjo dos ingredientes no prato. Acredita-se que isso tenha afetado o treinamento das IAs, necessitando mais tempo para aprender a recriar a diversidade retratada.
 
-#### Ejemplos de Food101
+#### Exemplos de Food101
 <div align="center">
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/Examples%20of%20Food101%20dataset.png" style="float:left" width="540px">
 </div>
   
-#### Ejemplos de Food11
+#### Exemplos de Food11
 <div align="center">
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/Food11%20dataset.png" style="float:right" width="540px">
 </div>
 
-#### Ejemplos de Chinese Food Net
+#### Exemplos de Chinese Food Net
 <div align="center">
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/ChineFood%20dataset.png" style="float:right" width="540px">
 </div>
@@ -101,7 +101,7 @@ Curiosamente, a primeira GAN usada, uma simples arquitetura convolucional, produ
 
 Realizamos muitas tentativas com a primeira GAN, mas decidimos mostrar os 6 resultados mais relevantes que ajudam a compreender e visualizar melhor o desempenho da nossa GAN. Para isso, é importante saber que temos 2 imagens para cada teste ou resultado; a primeira imagem exibe as curvas de perda do Gerador e do Discriminador em relação ao número de épocas, lembrando que a função de perda utilizada foi a BCE; a segunda imagem mostra alguns exemplos de imagens geradas pela primeira arquitetura GAN implementada, onde, na parte superior de cada imagem, estão os hiperparâmetros configurados para esse teste, enquanto na parte inferior de cada imagem é exibida a perda do Discriminador e do Gerador.
 
-> Resultado 1 - Ruim por ser o primeiro
+> Resultado 1
 
 Para o primeiro resultado, utilizamos uma dimensão de vetor latente igual a 100 e uma taxa de aprendizado de 0,0005, com um total de 150 épocas. Isso resultou na primeira imagem parecendo um bom resultado, pois o custo do Discriminador estava próximo de zero, e o Gerador estava tentando subir. No entanto, ao observar a segunda imagem, percebe-se que as imagens geradas dos pratos são incomíveis, indicando que a geração não foi bem-sucedida.
 
@@ -113,7 +113,7 @@ Para o primeiro resultado, utilizamos uma dimensão de vetor latente igual a 100
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result1_examples.png" style="float:left" width="540px">
 </div>
 
-> Resultado 2 - Ruim por treinar 5 veces mais o Gerador que o Discriminador
+> Resultado 2
 
 No segundo resultado, o comportamento do gerador foi muito ruim. Isso ocorreu porque, embora tenhamos utilizado os mesmos hiperparâmetros do resultado 1, tentamos treinar o Gerador 5 vezes mais do que o Discriminador no resultado 2. Isso resultou em resultados incorretos tanto na primeira imagem de perdas quanto na segunda imagem de imagens geradas.
 
@@ -173,7 +173,7 @@ Para o teste número 6, os resultados foram bons, sendo assim nossos segundos re
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result6_examples.png" style="float:left" width="540px">
 </div>
 
-A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados semelhantes à outra GAN, mas produziu imagens em uma resolução maior e sem artefatos.
+A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados, mas produziu imagens em uma resolução maior e sem artefatos. Foi capaz de imitar cores e texturas, mas não gerou imagens convincentes de pratos com alimentos.
 
 Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
 
@@ -183,15 +183,15 @@ Os resultados do experimento não alcançaram o nível esperado. Porém, foram u
 O projeto se beneficiaria de uma extensão, especialmente se mais recursos computacionais pudessem ser utilizados, uma vez que as imagens geradas ficaram aquém do esperado por, muito provavelmente, falta de treino para as redes: os integrantes do projeto não possuíam acesso a máquinas poderosas o suficiente para realizar os cálculos necessários.
 
 ## Referências Bibliográficas
-###Trabalhos relacionados:
+### Trabalhos relacionados:
 CookGAN: Meal Image Synthesis from Ingredients, de Fangda Han, Ricardo Guerrero, Vladimir Pavlovic (https://openaccess.thecvf.com/content_WACV_2020/papers/Han_CookGAN_Meal_Image_Synthesis_from_Ingredients_WACV_2020_paper.pdf)
 Conditional Synthetic Food Image Generation, de Wenjin Fu1, Yue Han, Jiangpeng He, Sriram Baireddy, Mridul Gupta, Fengqing Zhu (https://arxiv.org/pdf/2303.09005.pdf)
 Food Image Generation using A Large Amount of Food Images with Conditional GAN: RamenGAN and RecipeGAN, de Yoshifumi Ito Wataru Shimoda Keiji Yanai (http://img.cs.uec.ac.jp/pub/conf18/180715shimok2_0.pdf)
 
-###Datasets:
+### Datasets:
 Food-101 – Mining Discriminative Components with Random Forests, de Lukas Bossard, Matthieu Guillaumin, Luc Van Gool (https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/)
 Food-11 (https://www.epfl.ch/labs/mmspg/downloads/food-image-datasets/)
 ChineseFoodNet, de Chen, Xin and Zhou, Hua and Zhu, Yu and Diao, Liang (https://sites.google.com/view/chinesefoodnet/)
 
-###Redes usadas:
+### Redes usadas:
 Progressive GAN - PROGRESSIVE GROWING OF GANS FOR IMPROVED QUALITY, STABILITY, AND VARIATION, de Tero Karras, Timo Aila, Samuli Laine e Jaakko Lehtinen (https://research.nvidia.com/sites/default/files/pubs/2017-10_Progressive-Growing-of/karras2018iclr-paper.pdf)
