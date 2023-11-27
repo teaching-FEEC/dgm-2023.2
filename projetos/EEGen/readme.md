@@ -80,7 +80,7 @@ A parte do processamento de dados foi discutido do tópico anterior. Na parte de
 
 |**Database** | **Website** | **Descriptive Summary**|
 |----- | ----- | ------------------|
-|BCI Competition IV 2a/BNCI2014_001|http://bnci-horizon-2020.eu/database/data-sets | |
+|BCI Competition IV 2a/BNCI2014_001|http://bnci-horizon-2020.eu/database/data-sets |https://lampx.tugraz.at/~bci/database/001-2014/description.pdf|
 
 Os dados foram obtidos através da biblioteca em Python chamada [Braindecode](https://braindecode.org/stable/index.html), que é construída sobre outras bibliotecas em Python, a [MOABB](https://neurotechx.github.io/moabb/) e o [MNE](https://mne.tools/stable/index.html). O site de referência é o site *source* direcionado pelo artigo ([[12]](#referências-bibliográficas)).
 
@@ -96,10 +96,11 @@ A figura abaixo contém um exemplo dos sinais coletados `subject_id=3`. Observa-
 
 Para o treino dos modelos utilizamos os 9 voluntátios. Os dados foram pré-processados, seguindo o tutorial fornecido pelo Braindecode ([aqui](https://braindecode.org/stable/auto_examples/plot_dataset_example.html#sphx-glr-auto-examples-plot-dataset-example-py)), de modo a remover quaisquer canais que não fosse canais de EEG, com o posterior escalonamento dos dados e filtragem dentro do intervalo [4, 38]Hz. Tal sequência de processamento foi baseada na observação dos artigos ([[1]](#referências-bibliográficas)-[[3]](#referências-bibliográficas)). Com diferença de nós, nesse primeiro momento, ter escolhido manter todos os 22 canais dos dados. Dessa forma, após o processamento dos dados, tem-se a seguinte configuração para os dados de treinamento: `X.size = [576, 1, 22, 1125]` e `y.size = [576]`.
 
-Em seguida, os dados foram usados para treinar 3 redes, a saber, uma CNN-VAE, uma DCGAN e uma LSTM-GAN.
+Em seguida, os dados foram usados para treinar 3 redes, a saber, uma CNN-VAE, uma DCGAN e uma cLSTM-GAN.
 
 #### Tools
-À princípio, as ferramentas que serão utilizadas serão: 
+
+As ferramentas que foram utilizadas são: 
 
 - [Pytorch](https://pytorch.org/)
 - Notebook interfaces ([GoogleColab](https://colab.google/), [JupyterLab](https://jupyter.org/))
@@ -116,24 +117,88 @@ E como Pytorch requirements, usamos (por curiosidade, ["The safest way to instal
 
 - `conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch`
 
-### Experimentos, Resultados e Discussão dos Resultados
+## Modelos
+
+
+
+### DCGAN
+
+
+
+### CNN-vAE
+
+
+
+### cLSTM-GAN
+
+
+
+## Geração
+
+Para termos certeza com relação aos labels dos dados gerados por nossos modelos, para cada arquitetura foram treinados 4 modelos, um para cada label.
+
+Além disso foram treinados modelos para um conjunto misto de dados (dados mistos de todos os 9 pacientes) e modelos separados para cada um dos pacientes.
+
+Após o pré processamento, cada paciente apresenta 144 amostras de cada label, totalizando 576 amostras no total.
+
+Quando misturamos os dados dos 9 pacientes, conseguimos alcançar 1296 amostras de cada label, totalizando 5184.
+
+
+## Métricas
+
+
+
+### Acurácia de classificação
+
+
+
+### Train on Synthetic, Test on Real (TSTR)
+
+
+
+### Train on Real, Test on Synthetic (TRTS)
+
+
+
+### Distância Euclidiana
+
+
+
+## Resultados
 <!--
 > Na entrega final do projeto (E3), essa seção deverá elencar os principais resultados obtidos (não necessariamente todos), que melhor representam o cumprimento dos objetivos do projeto.
 > A discussão dos resultados pode ser realizada em seção separada ou integrada à seção de resultados. Isso é uma questão de estilo. Considera-se fundamental que a apresentação de resultados não sirva como um tratado que tem como único objetivo mostrar que "se trabalhou muito". O que se espera da seção de resultados é que ela apresente e discuta somente os resultados mais relevantes, que mostre os potenciais e/ou limitações da metodologia, que destaquem aspectos de performance e que contenha conteúdo que possa ser classificado como compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade.
 -->
-Como experimentos, decidimos utilizar um voluntário de 9, o `subject_id=3` para treino e teste dos modelos GAN e VAE. 
+Os resultados obtidos nas quatro métricas avaliadas podem ser visualizado na tabela ao lado. Estes resultados foram obtidos para um conjunto de dados conjunto de todos os 9 pacientes. 
 
-A GAN tem como gerador uma rede constituída de blocos com camadas [Linear, BatchNorm1d, ReLU] e o discriminador, blocos com camadas [Linear, LeakyReLU]. Ambos possuem como função de otimização o Adam com learning_rate de 1e5. A *loss function* utilizada é a Binary Cross-Entropy Loss with Logits. Os são gerados com *shape* [576, 24750], sem posteriormente redimensionados para [576, 22, 1125]. Por tanto, a rede é capaz de gerar dado para todos os canais.
-
-Já a VAE é constituída de camadas [Linear]. A *loss function* da VAE tem como termo de reconstrução a BCE (Binary Cross-Entropy) e como termo de regularização o KL (Kullback-Leibler Divergence Term). Os são também são gerados com *shape* [576, 24750], e redimensionados para [576, 22, 1125]. Sendo também uma rede capaz de gerar dados de todos os canais.
 
 ||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
 |-----|----- | ----- | ------------------| ------------------|
 |Dados Reais|    0.5976|--|     --|    --| 
 |Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11,171.89
 |DCGAN|         1.0000|0.2620| 0.2620 | 44,012.61 
-|CNN-VAE|       1.000|0.2504| 0.2504 | 23,613.57
+|CNN-VAE|       1.0000|0.2504| 0.2504 | 23,613.57
 |cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
+
+
+### Espectrogramas
+
+
+
+### Acurácia por paciente
+
+
+
+### TSTR por paciente
+
+
+
+### TRTS por paciente
+
+
+
+### Distância Euclidiana por paciente
+
 
 
 ## Conclusão
@@ -142,12 +207,33 @@ Já a VAE é constituída de camadas [Linear]. A *loss function* da VAE tem como
 Na entrega final do projeto (E3) espera-se que a conclusão elenque, dentre outros aspectos, possibilidades de continuidade do projeto.
 -->
 
-Com a *pipeline* quase totalmente definida, para E3 buscamos um modelo que se comporte melhor com o formato do dado, considerando suas características. Para isso, analisamos 3 modelos, o DCGAN, CNN-VAE e o LSTM-GAN. Dentro os modelos utilizados nenhum foi capaz de superar, por exemplo, uma técnica simples de *data augmentation* de adicionar ruído Gaussiano ao dado original. Uma justificativa pode vir a ser a simplicidade dos modelos utilizados, assim como as técnicas adotas durante o treino para a estabilização das GANs.
+Os resultados que obtidos pelos modelos não podem ser considerados bons em nenhuma das métricas aplicadas. Os resultados obtidos na métrica de acurácia são ilusórios, uma vez que a métrica de TSTR e TRTS demonstra que os dados sintéticos não conversam com os dados reais quando combinados. O que podemos concluir é que nossos modelos são pobres e não foram capazes de generalizar bem a distribuição dos dados de EEG.
+
+Por mais que os modelos generativos treinados não tenham sido capazes de realizar a geração sintética de sinais de EEG de forma satisfatória, fomos capazes de demonstrar que a simples adição de ruído gaussiano pode ser uma forma muito mais simples, computacionalmente barata e eficiente de fazer data augmentation neste tipo de dado. Como podemos ver nos resultados, gráficos e espectrogramas, a adição de ruído gaussiano funciona tão bem quanto os dados reais no classificador que utilizamos.
+
+
+## Descrição dos arquivos
+
+|||
+|-----|-----|
+|[Data_acquiring.ipynb](./notebooks/Data_acquiring.ipynb)|Processamento dos dados e separação por label|
+|[Images.ipynb](./notebooks/Images.ipynb)|Geração de gráficos|
+|[Gaussian_noise.ipynb](./notebooks/Gaussian_noise.ipynb)|Ruido Gaussiano para cojunto misto dos 9 pacientes|
+|[Gaussian_noise_sub.ipynb](./notebooks/Gaussian_noise_sub.ipynb)|Ruido Gaussiano separado por paciente|
+|[CNN_VAE.ipynb](./notebooks/CNN_VAE.ipynb)|CNN-VAE para cojunto misto dos 9 pacientes|
+|[CNN_VAE_sub.ipynb](./notebooks/CNN_VAE_sub.ipynb)|CNN-VAE separado por paciente|
+|[DCGAN.ipynb](./notebooks/DCGAN.ipynb)|DCGAN para cojunto misto dos 9 pacientes|
+|[DCGAN_sub.ipynb](./notebooks/DCGAN_sub.ipynb)|DCGAN separado por paciente|
+|[cLSTM_GAN.ipynb](./notebooks/cLSTM_GAN.ipynb)|cLSTM-GAN para cojunto misto dos 9 pacientes|
+|[cLSTM_GAN_val.ipynb](./notebooks/cLSTM_GAN_val.ipynb)|Calculo de métricas para o modelo cLSTM-GAN|
+|||
 
 ## Cronograma
+
 O cronograma proposto é uma estimativa temporal das principais etapas pelo projeto. Ademais, junto marcamos os *checkpoints* previstos para guiar e lembrar-nos das entregas e da geração das *release tags*.
 
 ![Cronograma](./reports/figures/cronograma.png)
+
 
 ## References
 
