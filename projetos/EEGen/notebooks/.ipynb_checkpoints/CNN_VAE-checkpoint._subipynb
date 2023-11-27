@@ -52,6 +52,7 @@
     "X_3 = torch.load('../data/processed/X_3.pt')\n",
     "\n",
     "X_0 = torch.from_numpy(np.expand_dims(X_0, axis=1))\n",
+    "\n",
     "X_1 = torch.from_numpy(np.expand_dims(X_1, axis=1))\n",
     "X_2 = torch.from_numpy(np.expand_dims(X_2, axis=1))\n",
     "X_3 = torch.from_numpy(np.expand_dims(X_3, axis=1))\n",
