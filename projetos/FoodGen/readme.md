@@ -96,6 +96,83 @@ Curiosamente, a primeira GAN usada, uma simples arquitetura convolucional, produ
 <div align="center">
 <img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/discriminador_1.png" style="float:left" width="540px">
 </div>
+
+#### Resultados da primeira arquitetura GAN
+
+Realizamos muitas tentativas com a primeira GAN, mas decidimos mostrar os 6 resultados mais relevantes que ajudam a compreender e visualizar melhor o desempenho da nossa GAN. Para isso, é importante saber que temos 2 imagens para cada teste ou resultado; a primeira imagem exibe as curvas de perda do Gerador e do Discriminador em relação ao número de épocas, lembrando que a função de perda utilizada foi a BCE; a segunda imagem mostra alguns exemplos de imagens geradas pela primeira arquitetura GAN implementada, onde, na parte superior de cada imagem, estão os hiperparâmetros configurados para esse teste, enquanto na parte inferior de cada imagem é exibida a perda do Discriminador e do Gerador.
+
+> Resultado 1 - Ruim por ser o primeiro
+
+Para o primeiro resultado, utilizamos uma dimensão de vetor latente igual a 100 e uma taxa de aprendizado de 0,0005, com um total de 150 épocas. Isso resultou na primeira imagem parecendo um bom resultado, pois o custo do Discriminador estava próximo de zero, e o Gerador estava tentando subir. No entanto, ao observar a segunda imagem, percebe-se que as imagens geradas dos pratos são incomíveis, indicando que a geração não foi bem-sucedida.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result1_chart.png" style="float:left" width="540px">
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result1_examples.png" style="float:left" width="540px">
+</div>
+
+> Resultado 2 - Ruim por treinar 5 veces mais o Gerador que o Discriminador
+
+No segundo resultado, o comportamento do gerador foi muito ruim. Isso ocorreu porque, embora tenhamos utilizado os mesmos hiperparâmetros do resultado 1, tentamos treinar o Gerador 5 vezes mais do que o Discriminador no resultado 2. Isso resultou em resultados incorretos tanto na primeira imagem de perdas quanto na segunda imagem de imagens geradas.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result2_chart.png" style="float:left" width="540px">
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result2_examples.png" style="float:left" width="540px">
+</div>
+
+> Resultado 3 - O Primeiro Resultado Bom
+
+Para o terceiro resultado, aumentamos a dimensão do vetor latente para 200, reduzimos as épocas para 50 e ajustamos a taxa de aprendizado para 0,0003. A escolha de 0,0003 para a taxa de aprendizado foi baseada na experimentação, pois Andrej Karpathy (Diretor de IA da Tesla) mencionou que um bom valor para a taxa de aprendizado ao usar o otimizador Adam é 0,0003. Assim, decidimos experimentar com esse valor, já que estávamos usando o otimizador Adam. Os resultados desta tentativa foram melhores do que os dois primeiros, não apenas na imagem de perdas, mas também na imagem de exemplo, pois pela primeira vez tínhamos exemplos gerados mais claros de pratos.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result3_chart.png" style="float:left" width="540px">
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result3_examples.png" style="float:left" width="540px">
+</div>
+
+> Resultado 4 - Ruim, porque aumentamos a quantidade de épocas em 250 do teste 3.
+
+Para o resultado 4, apenas aumentamos a quantidade de épocas, pois, como no resultado 3 havia dado um bom resultado, pensamos que aumentar a quantidade de épocas poderia melhorar. No entanto, não foi o caso. Na verdade, isso resultou em alguns resultados semelhantes aos da tentativa anterior, outros muito ruins, definitivamente representando pratos não apetitosos. Portanto, aumentar as épocas não funcionou para essa configuração de hiperparâmetros.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result4_chart.png" style="float:left" width="540px">
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result4_examples.png" style="float:left" width="540px">
+</div>
+
+> Resultado 5 - Ruim, porque aumentamos a quantidade de épocas em 500 do teste 3.
+
+En el caso del resultado número 5, mantivemos a mesma configuração utilizada nos testes 3 e 4, ou seja, Dimensão do Vetor Latente de 200 e Taxa de Aprendizado de 0,0003, alterando apenas a quantidade de épocas, aumentando para 500. Como esperado, o resultado não foi bom. Ao analisar a segunda imagem, percebe-se que as imagens geradas não fazem sentido e não representam pratos de comida. Na imagem 1, é possível observar que o resultado das perdas começou a falhar por volta das 380 épocas aproximadamente.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result5_chart.png" style="float:left" width="540px">
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result5_examples.png" style="float:left" width="540px">
+</div>
+
+> Resultado 6 - O Segundo Resultado Bom
+
+Para o teste número 6, os resultados foram bons, sendo assim nossos segundos resultados positivos. No entanto, se tivéssemos que comparar com os primeiros resultados positivos, então esses resultados do teste 6 seriam os melhores. Para alcançar esses bons resultados, utilizamos uma dimensão latente de 100, reduzimos a taxa de aprendizado para 0,0002 e também diminuímos a quantidade de épocas para 100. Com esses hiperparâmetros, as perdas do Gerador e do Discriminador são melhores do que nos outros casos, e as imagens geradas também parecem representar pratos comestíveis, ou pelo menos se assemelham a pratos reais.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result6_chart.png" style="float:left" width="540px">
+</div>
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result6_examples.png" style="float:left" width="540px">
+</div>
+
 A segunda GAN usada, a Progressive GAN, precisou de mais tempo para treinar e alcançar resultados semelhantes à outra GAN, mas produziu imagens em uma resolução maior e sem artefatos.
 
 Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
