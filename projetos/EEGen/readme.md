@@ -85,7 +85,7 @@ Para o treino dos modelos utilizamos o `subject_id=3`. Os dados foram pré-proce
 -->
 O workflow geral pode ser observado na figura abaixo. Em um primeiro momento o objetivo era familiarizar-se com os dados e montar uma *pipeline*, ilustrada na figura. A parte do processamento de dados foi discutido do tópico anterior. Na parte de `Modelo Generativo`, exploramos, as versões simples da GAN e da VAE. Familiarizando-se com a biblioteca Braindecode, decidimos obter de lá um classificador para ajudar na avaliação dos dados gerados. O classificador que escolhemos é o EEGNetv4, pois é um dos classificadores que vimos sendo usado nos artigos [[1]](#referências-bibliográficas) e [[2]](#referências-bibliográficas). Ademais, a ideia é ter os dados gerados avaliados não somente através da acurácia do classificador, mas também através de outras métricas. Por enquanto, temos somente a métrica Euclidean Distance implementada ([[2]](#referências-bibliográficas)).
 
-![Bases de Dados](./reports/figures/workflow_e2.png)
+![Bases de Dados](./reports/figures/workflow_E3.png)
 
 #### Tools
 À princípio, as ferramentas que serão utilizadas serão: 
