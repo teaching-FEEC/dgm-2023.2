@@ -197,7 +197,20 @@ O sétimo resultado foi feito com os parâmetros recomendados da rede, e produzi
 
 No oitavo teste, alguns parâmetros foram alterados de acordo com o que foi aprendido com a GAN anterior. A _learning rate_ foi reduzida para 0,0003. Porém, devido ao longo tempo de treino, a quantidade de iterações também foi reduzida. Acredita-se que isso tenha alterado significativamente a qualidade dos resultados, uma vez que reduções na _learning rate_ tendem a exigir mais tempo de treino para alcançar resultados semelhantes.
 
-Os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto.
+#### Difusão
+
+Os dois modelos utilizados são inspirados na UNet, um tipo bastante comum para análise de imagens. Ele tem esse nome por possuir uma estrutura onde camadas são gradualmente reduzidas e depois aumentadas, deixando um gargalo no meio, mas camadas posteriores ainda tem acesso às respostas das camadas anteriores à redução. Dessa forma, busca-se ter contato com detalhes em alto e baixo nível.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/arquitectura_2.png" style="float:left" width="540px">
+</div>
+
+Infelizmente, os dois modelos de difusão exigiram muita memória e processamento do computador utilizado para treiná-los, e os resultados se resumem a ruído indistinto. Cerca de 12 horas foram necessárias para treinar apenas 10 epochs da segunda rede de difusão, cujos resultados são apresentados abaixo, com um tamanho de batch bem pequeno, o que limitou a capacidade de realizar experimentos com elas.
+
+>Resultado 9 - Ruído difuso
+<div align="center">
+<img src="https://raw.githubusercontent.com/Racdi/dgm-2023.2/main/projetos/FoodGen/readme_images/result9_examples.png" style="float:left" width="540px">
+</div>
 
 ## Conclusão
 
