@@ -15,7 +15,6 @@
 
 [Slides](https://docs.google.com/presentation/d/1s3bzTyyO0hTWTvmFcjaD9GAqgSdZInZf/edit?usp=sharing&ouid=101611810474111417437&rtpof=true&sd=true)
 
-This project presents an approach that uses a normalizing flow (NF) model to generate synthetic photovoltaic (PV) generation curves based on historical PV energy and weather data. It addresses the challenge of deploying energy management systems (EMSs) in new locations without historical data by creating synthetic PV data from weather information. Taking advantage of real data sets from photovoltaic installations, the study explores the generation of synthetic data to train photovoltaic forecasting models for the following day. Although promising in the reference work, the results reveal limitations in accurately representing the various climatic variations that affect photovoltaic production, affecting the generative model's ability to create representative synthetic data. In addition, transfer learning strategies faced obstacles in adjusting prediction models using synthetic data from different geographical areas. The project underlines the potential of generative models in energy forecasting. However, it highlights the need for improved methodologies and more reliable data to generate more representative synthetic data for effective transfer learning in new locations devoid of historical photovoltaic data.
 
 Group:
 |Names                                   | Academic Record |  Course                                         |
@@ -26,7 +25,7 @@ Group:
 
 ## Abstract
 
-This project proposes generating synthetic daily photovoltaic (PV) generation curves by leveraging historical PV power and weather data using generative models such as normalizing flows, conditional generative adversarial networks (GANs), and transformers. Subsequently, the trained model generates synthetic data for a different geographical location to complete missing data and train a day ahead PV forecasting model where only weather data is available. The forecasting model will be constructed using a Long Short-Term Memory (LSTM) network. The forecasting algorithm's performance will be evaluated based on Mean Absolute Error (MAE) and Root Mean Square Error (RMSE).
+This project presents an approach that uses a normalizing flow (NF) model to generate synthetic photovoltaic (PV) generation curves based on historical PV energy and weather data. It addresses the challenge of deploying energy management systems (EMSs) in new locations without historical data by creating synthetic PV data from weather information. Taking advantage of real data sets from photovoltaic installations, the study explores the generation of synthetic data to train photovoltaic forecasting models for the following day. Although promising in the reference work, the results reveal limitations in accurately representing the various climatic variations that affect photovoltaic production, affecting the generative model's ability to create representative synthetic data. In addition, transfer learning strategies faced obstacles in adjusting prediction models using synthetic data from different geographical areas. The project underlines the potential of generative models in energy forecasting. However, it highlights the need for improved methodologies and more reliable data to generate more representative synthetic data for effective transfer learning in new locations devoid of historical photovoltaic data.
 
 ## Description
 
@@ -144,7 +143,7 @@ The first case involves generating synthetic data for GECAD's rooftop PV generat
 ![image info](./reports/figs/Results/HPO-UNICAMP.png)
 
 
-Figure 8: Hyperparameter Optimization Results
+Figure 8: Hyperparameter Optimization Results. [HPO LINK](https://wandb.ai/feec/Normalizing-Flows-Hyperparameter-Optimization)
 
 
 The following figure compares the generated and actual data for the corresponding period. It is important to note that the model used the hyperparameters defined by HPO.
@@ -166,17 +165,16 @@ Table IV: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic
 | MAE   | 0.00854 | 0.11554 |
 | RMSE  | 0.01391 | 0.16549 |
 
-These metrics show that the model thus manages to get it right ideally, which is why its values in validation are shallow, but in the test, its performance is worse. These results show that the task is complex, and the generative model may not be good enough to be used in a new dataset.
+These metrics show that the model does a good job on the validation set, with low MAE and RMSE values. But, in the test, its performance is worse. This means the task is complex and the generative model might not be good enough to handle new data yet.
 
 ### Case 2: Synthetic UNICAMP PV Profile Generation by Models Trained with UNICAMP PV Data
 
-To investigate the reasons behind the low performance of generative model, a proposal for data generation for a subset of UNICAMP was made. It means the evaluation of the NFs model is made over the same dataset. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
+To investigate the reasons behind the low performance of the generative model, a proposal for data generation for a subset of UNICAMP was made. This implies that the evaluation of the NF model is done on a test set derived from the same dataset used for training. Thus, the subset of data corresponding to 2023 was used as generation parameters, while the remaining data was used to train the model. In this case, the model exhibited poorer performance with an MAE of 0.1172 and an RMSE of 0.1370. The following figure illustrates an example of 5 generated days for qualitative analysis. 
 
 ![image info](./reports/figs/Results/2-unicamp_gen_from_unicamp.svg)
 
 
-Figure 10: Qualitative Analysis between Real and Generated Data
-
+Figure 10: Qualitative Analysis between Real and Generated Data. 
 
 With this, the generative model, based on NFs, fails to generate real and representative PV generation scenarios that reflect the various climate variations in PV generation.
 
@@ -187,7 +185,7 @@ Since the model trained solely on one database did not yield satisfactory result
 ![image info](./reports/figs/Results/HPO-UNICAMP-HOLANDA.png)
 
 
-Figure 11: Hyperparameter Optimization Results
+Figure 11: Hyperparameter Optimization Results. [HPO LINK](https://wandb.ai/feec/unicamp-holanda)
 
 
 After training the model with the lowest RMSE, the obtained data could have been more satisfactory, with an MAE of 0.1140 and an RMSE of 0.1259. The following figure illustrates a qualitative comparison between the synthetic and real data.
@@ -198,7 +196,7 @@ After training the model with the lowest RMSE, the obtained data could have been
 Figure 12: Qualitative Analysis between Real and Generated Data
 
 
-Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in table VI.
+Again, the MAE and RMSE are evaluated when training a forecast model for GECAD. The results are shown in Table VI.
 
 Table V: Metrics of PV Forecasting Model of GECAD Dataset Considering Synthetic PV as Input using UNICAMP + HOLLAND datasets.
 

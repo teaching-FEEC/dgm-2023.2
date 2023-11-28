@@ -45,3 +45,4 @@ tzdata==2023.3
 UMNN==1.68
 urllib3==1.26.13
 wandb==0.16.0
+tqdm
