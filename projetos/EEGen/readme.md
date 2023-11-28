@@ -192,15 +192,43 @@ Outra abordagem avaliativa muito utilizada para avaliar os dados sintéticos ger
 
 É uma métrica que pode fornecer uma medida quantitativa da diferença entre os dados sintéticos em relação aos dados reais. Consegue expressar então quão bem os dados sintéticos representam a variabilidade e a distribuição dos dados reais.
 
-## 6. Resultados
+## 6. Experimentos e Resultados
 <!--
 > Na entrega final do projeto (E3), essa seção deverá elencar os principais resultados obtidos (não necessariamente todos), que melhor representam o cumprimento dos objetivos do projeto.
 > A discussão dos resultados pode ser realizada em seção separada ou integrada à seção de resultados. Isso é uma questão de estilo. Considera-se fundamental que a apresentação de resultados não sirva como um tratado que tem como único objetivo mostrar que "se trabalhou muito". O que se espera da seção de resultados é que ela apresente e discuta somente os resultados mais relevantes, que mostre os potenciais e/ou limitações da metodologia, que destaquem aspectos de performance e que contenha conteúdo que possa ser classificado como compartilhamento organizado, didático e reprodutível de conhecimento relevante para a comunidade.
 -->
+Para o treino das redes utilizamos o conjunto de dados descrito na Sessão Dados. Utilizamos todos os 9 pacientes e todos os 22 canais para os treinos.
 
+Os parâmetros das redes para o treino foram:
 
-Os resultados obtidos nas quatro métricas avaliadas podem ser visualizado na tabela ao lado. Estes resultados foram obtidos para um conjunto de dados conjunto de todos os 9 pacientes. 
+- DCGAN
+||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
+|-----|----- | ----- | ------------------| ------------------|
+|Dados Reais|    0.5976|--|     --|    --| 
+|Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11,171.89
+|DCGAN|         1.0000|0.2620| 0.2620 | 44,012.61 
+|CNN-VAE|       1.0000|0.2504| 0.2504 | 23,613.57
+|cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
 
+- CNN-VAE
+||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
+|-----|----- | ----- | ------------------| ------------------|
+|Dados Reais|    0.5976|--|     --|    --| 
+|Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11,171.89
+|DCGAN|         1.0000|0.2620| 0.2620 | 44,012.61 
+|CNN-VAE|       1.0000|0.2504| 0.2504 | 23,613.57
+|cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
+
+- cLSTM-GAN
+||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
+|-----|----- | ----- | ------------------| ------------------|
+|Dados Reais|    0.5976|--|     --|    --| 
+|Ruído Gaussiano|0.6343|0.6674| 0.6373 | 11,171.89
+|DCGAN|         1.0000|0.2620| 0.2620 | 44,012.61 
+|CNN-VAE|       1.0000|0.2504| 0.2504 | 23,613.57
+|cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
+
+Os resultados obtidos nas quatro métricas avaliadas podem ser visualizado na tabela ao lado. Como mencionado, esses resultados foram obtidos para um conjunto de dados conjunto de todos os 9 pacientes. 
 
 ||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
 |-----|----- | ----- | ------------------| ------------------|
