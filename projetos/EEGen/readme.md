@@ -174,19 +174,63 @@ A motivação do uso dessa rede está na possibilidade de geração de séries t
 
 #### 5.3.2 Métricas e Análises
 
+As principais métricas utilizadas neste projeto são dependentes da acurácia de classificação dos dados de EEG. O classificador utilizado, bem conhecido na literatura, foi a EEGNet. EEGNet é um modelo de classificação convolucional que alcança uma taxa de acerto de, em média, 70% para dados de EEG de um mesmo indivíduo. 
+
+ - Arquitetura da EEGNet
+
+![Arquitetura EEGNet](./reports/figures/EEGNet_arch.jpg)
 
 ##### (a) Acurácia de classificação
 
 A acurácia é uma das métricas mais simples para avaliar o desempenho de um modelo de classificação. Em termos simples, a acurácia mede a proporção de predições corretas feitas pelo modelo em relação ao total de predições. É uma métrica que pode dar uma visão geral do quão bem o modelo está performando em todas as classes (média por classe ou por conjunto de treino).
 
+ - Matriz de confusão para acurácia dos dados reais
+
+![Matriz Acuracia Reais](./reports/figures/matrix_acc_real.png)
+
+ - Matriz de confusão para acurácia da DCGAN
+
+![Matriz Acuracia Reais](./reports/figures/matrix_acc_dcgan.png)
+
+ - Matriz de confusão para acurácia da CNN-VAE
+
+![Matriz Acuracia Reais](./reports/figures/matrix_acc_vae.png)
+
+ - Matriz de confusão para acurácia da cLSTM-GAN
+
+![Matriz Acuracia Reais](./reports/figures/matrix_acc_lstm.png)
 
 ##### (b) Train on Synthetic, Test on Real (TSTR)
 
 É uma abordagem muito utilizada para avaliar junto de um classificador a qualidade dos dados sintéticos. Para usá-la basta treinar um modelo usando dados sintéticos e depois testar o modelo em dados reais.
 
+ - Matriz de confusão para TSTR da DCGAN
+
+![Matriz Acuracia Reais](./reports/figures/matrix_tstr_dcgan.png)
+
+ - Matriz de confusão para TSTR da CNN-VAE
+
+![Matriz Acuracia Reais](./reports/figures/matrix_tstr_vae.png)
+
+ - Matriz de confusão para TSTR da cLSTM-GAN
+
+![Matriz Acuracia Reais](./reports/figures/matrix_tstr_lstm.png)
+
 ##### (c) Train on Real, Test on Synthetic (TRTS)
 
 Outra abordagem avaliativa muito utilizada para avaliar os dados sintéticos gerados, porém funciona ao contrário da primeira. Para usá-la o modelo é treinado com dados reais e depois é testado em dados sintéticos.
+
+ - Matriz de confusão para TRTS da DCGAN
+
+![Matriz Acuracia Reais](./reports/figures/matrix_trts_dcgan.png)
+
+ - Matriz de confusão para TRTS da CNN-VAE
+
+![Matriz Acuracia Reais](./reports/figures/matrix_trts_vae.png)
+
+ - Matriz de confusão para TRTS da cLSTM-GAN
+
+![Matriz Acuracia Reais](./reports/figures/matrix_trts_lstm.png)
 
 ##### (d) Distância Euclidiana (ED)
 
@@ -202,6 +246,7 @@ Para o treino das redes utilizamos o conjunto de dados descrito na Sessão Dados
 Os parâmetros das redes para o treino foram:
 
 - DCGAN
+
 ||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
 |-----|----- | ----- | ------------------| ------------------|
 |Dados Reais|    0.5976|--|     --|    --| 
@@ -211,6 +256,7 @@ Os parâmetros das redes para o treino foram:
 |cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
 
 - CNN-VAE
+
 ||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
 |-----|----- | ----- | ------------------| ------------------|
 |Dados Reais|    0.5976|--|     --|    --| 
@@ -220,6 +266,7 @@ Os parâmetros das redes para o treino foram:
 |cLSTM-GAN|     0.5785|0.2573| 0.2549 | 15,045.13
 
 - cLSTM-GAN
+
 ||**Acurácia** | **TSTR** | **TRTS**| **ED (Euclidian Distance)**|
 |-----|----- | ----- | ------------------| ------------------|
 |Dados Reais|    0.5976|--|     --|    --| 
@@ -241,23 +288,43 @@ Os resultados obtidos nas quatro métricas avaliadas podem ser visualizado na ta
 
 ### 6.2 Espectrogramas
 
+Os resultados obtidos pelos os modelos podem ser mais facilmente visualizados ao realizar o cálculo de seus espectrogramas. Colocando os espectrogramas dos dados reais lado a lado com os espectrogramas dos dados sintéticos, é possível perceber uma grande diferença.
 
+ - Dados reais
+
+![Espectograma Dados Reais](./reports/figures/real_specto.png)
+
+ - Ruido Gaussiano
+
+![Espectograma Ruido Gaussiano](./reports/figures/gau_specto.png)
+
+ - DCGAN
+
+![Espectograma DCGAN](./reports/figures/dcgan_specto.png)
+
+ - CNN-VAE
+
+![Espectograma CNN-VAE](./reports/figures/vae_specto.png)
+
+ - cLSTM-GAN
+
+![Espectograma cLSTM-GAN](./reports/figures/lstm_specto.png)
 
 ### 6.3 Acurácia por paciente
 
-
+![Acurácia por paciente](./reports/figures/acc_sub.png)
 
 ### 6.4 TSTR por paciente
 
-
+![TSTR por paciente](./reports/figures/tstr_sub.png)
 
 ### 6.5 TRTS por paciente
 
-
+![TRTS por paciente](./reports/figures/trts_sub.png)
 
 ### 6.5 Distância Euclidiana por paciente
 
-
+![Distância Euclidiana por paciente](./reports/figures/dist_sub.png)
 
 ## 7. Conclusão
 <!--
