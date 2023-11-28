@@ -38,7 +38,7 @@ Uma abordagem notável dentro desse contexto é a utilização do paradigma de i
 
 |Base de Dados | Endereço na Web | Resumo descritivo|
 |----- | ----- | -----|
-|BNCI2014_001| https://encurtador.com.br/lpsAK| Dados de EEG de 9 indivíduos, adquiridos por meio 22 eletrodos dispostos no escalpo de cada indivíduo, durante o experimento de realização de 4 movimentos diferentes. 
+|BNCI2014_001| [Link](https://encurtador.com.br/lpsAK)| Dados de EEG de 9 indivíduos, adquiridos por meio 22 eletrodos dispostos no escalpo de cada indivíduo, durante o experimento de realização de 4 movimentos diferentes. 
 
 <!---
 
@@ -113,12 +113,12 @@ Amostras por Janela | 400
 
 
 ## Workflow
-Na Figura 2 tem-se o workflow da *Conditional DCGAN* implementada, em que a Rede Generativa contém 4 camadas convolucionais que recebem como entrada um ruído de dimensão (n_amostras,68,1,1) e retorna dados sintéticos de dimensão (n_amostras,1,22,400). A Rede Discriminativa possui 2 camadas convolucionais para classificação dos dados em reais ou falsos e recebe em sua entrada os dados reais pré-processados também com dimensão (n_amostras,1,22,400). Para o esquema da Figura 2, utilizou-se um exemplo de *n_amostras = 4*.
+Na Figura 2 tem-se o workflow da *Conditional Deep Convolutional GAN*, ou *Conditional DCGAN*, implementada. A rede Generativa contém quatro camadas convolucionais que recebem como entrada um ruído de dimensão (n_amostras,68,1,1) e retorna dados sintéticos de dimensão (n_amostras,1,22,400). A Rede Discriminativa possui três camadas convolucionais para classificação dos dados em reais ou falsos e recebe em sua entrada os dados reais pré-processados também com dimensão (n_amostras,1,22,400).
 
 |![Workflow](./figure/new_workflow.jpeg "Workflow")**Figura 2: Workflow da Conditional DCGAN. Fonte: Própria.**|
 |:--:| 
 
-O código implementado da arquitetura da DCGAN utilizada neste trabalho pode ser encontrada no [GitHub](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/MyGAN.py).
+O código implementado da arquitetura da DCGAN utilizada neste trabalho pode ser encontrada no [GitHub](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/CGAN_EEG.ipynb).
 
 
 ### Criação de ruído
@@ -168,9 +168,9 @@ A rede discriminativa classifica os dados de entrada como reais ou falsos. Ela r
 
 ```
 
-### Configuração de treinamento da DCGAN
+### Configuração de treinamento da GAN
 
-O treinamento da DCGAN foi feito com os dados EEG do indivíduo 3 do dataset, utilizando todas as 12 runs (treino + validação). Todos os eletrodos foram selecionados e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador e com os dados da entrada do classificador.
+O treinamento da GAN foi feito com os dados EEG do indivíduo três do dataset, utilizando todas as 12 runs (treino + validação). Todos os eletrodos foram selecionados e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador e com os dados da entrada do classificador.
 
 As configurações de treinamento da rede e o algoritmo de treinamento são mostrados a seguir:
 
