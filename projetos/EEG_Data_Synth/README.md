@@ -38,7 +38,7 @@ Uma abordagem notável dentro desse contexto é a utilização do paradigma de i
 
 |Base de Dados | Endereço na Web | Resumo descritivo|
 |----- | ----- | -----|
-|BNCI2014_001| https://encurtador.com.br/lpsAK| Dados de EEG de 9 indivíduos, adquiridos por meio 22 eletrodos dispostos no escalpo de cada indivíduo, durante o experimento de realização de 4 movimentos diferentes. 
+|BNCI2014_001| [Link](https://encurtador.com.br/lpsAK)| Dados de EEG de 9 indivíduos, adquiridos por meio 22 eletrodos dispostos no escalpo de cada indivíduo, durante o experimento de realização de 4 movimentos diferentes. 
 
 <!---
 
@@ -61,19 +61,15 @@ and here
 As transformações foram feitas usando a biblioteca 'braindecode.preprocessing.Preprocessor', que  aplica a função de pré-processamento fornecida aos dados brutos. 
 A primeira transformação realizada foi uma reamostragem para 100 Hz e uma filtragem utilizando um filtro passa faixas com frequências de corte de 4 e 38 Hz, para eliminar frequências irrelevantes, por exemplo  60 Hz oriunda da rede elétrica. Além disso, foi utilizado um filtro CAR - [Common Average Reference](https://pressrelease.brainproducts.com/referencing/#:~:text=When%20applying%20the%20so%2Dcalled,resulting%20signal%20from%20each%20channel.) - para remover os ruídos internos e externos, e os dados normalizados utilizando [Starndard Scale](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html). 
 
-Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes e reduzir a quantidade de amostras processadas pelo o algoritmo, melhorando também o tempo de processamento. Neste processamento, todos os 22 eletrodos foram utilizados. Abaixo está um exemplo de sinal de EEG no domínio da frequência para todos os eletrodos.
+Por último, foi feito o janelamento dos dados em janelas de  4s (400 amostras) para dividir os dados entre as 4 classes e reduzir a quantidade de amostras processadas pelo o algoritmo, melhorando também o tempo de processamento. Neste processamento, todos os 22 eletrodos foram utilizados. A Figura 1 abaixo mostra um exemplo de sinal de EEG no domínio da frequência para todos os eletrodos.
 
-|![EEG Channels Frequency Curve](./figure/eeg_frequency_example.png "EEG Channels Frequency Curve")**EEG Channels Frequency Curve**|
+|![EEG Channels Frequency Curve](./figure/eeg_frequency_example.png "EEG Channels Frequency Curve")Figura 1: Espectro de EEG para todos os 22 eletrodos. Fonte: Própria. |
 |:--:| 
 
+A Tabela 1 a seguir mostra como estão dispostos os para um dos sujeitos da base de dados, Q1, median e Q3 são respectivamente o primeiro quartil, a mediana e o terceiro quartil, que representam as estatísticas descritivas da base de dados após o pré-processamento. Na Tabela 2 tem-se em resumo as informações relevantes  usadas no projeto. 
 
-
-
-<!---
-> * Inclua um sumário com estatísticas descritivas da(s) base(s) de estudo.
--->
-
-A tabela a seguir mostra as estatísticas descritivas da base de estudo após o pré-processamento, sendo Q1 o primeiro quartil e Q3 o terceiro quartil.  
+|*Tabela 1: Estatísticas descritivas da base de dados*|
+|:--:| 
 
 | ch  | name  | type | unit | min           | Q1          | median  | Q3          | max          |
 |----:|-------|------|------|--------------:|------------:|--------:|------------:|------------:|
@@ -101,11 +97,8 @@ A tabela a seguir mostra as estatísticas descritivas da base de estudo após o 
 |  21 | POz   | EEG  | µV   | -36473536.55  | -3385989.48 | -12468.79 | 3385965.87  | 29828793.42 |
 
 
-<!---
-> * Utilize tabelas e/ou gráficos que descrevam os aspectos principais da base que são relevantes para o projeto.
-> -->
-
-##### As informações relevantes da base de dados usadas para o projeto são:
+|*Tabela 2: Aspectos principais da base usados no projeto.*|
+|:--:| 
 
 Informações  | Descrição
 --------- | ------
@@ -118,18 +111,14 @@ Tempo por Janela | 4s
 Amostras por Janela | 400
 
 
+
 ## Workflow
+Na Figura 2 tem-se o workflow da *Conditional Deep Convolutional GAN*, ou *Conditional DCGAN*, implementada. A rede Generativa contém quatro camadas convolucionais que recebem como entrada um ruído de dimensão (n_amostras,68,1,1) e retorna dados sintéticos de dimensão (n_amostras,1,22,400). A Rede Discriminativa possui três camadas convolucionais para classificação dos dados em reais ou falsos e recebe em sua entrada os dados reais pré-processados também com dimensão (n_amostras,1,22,400).
 
-Workflow da proposta de geração de dados sintéticos [Figura 1](new_workflow.jpeg).
-
- A rede generativa contém 4 camadas convoluvionais que recebem como entrada ruído de dimensão (n_amostras,68,1,1) e retorna dados sintéticos de dimensão (n_amostras,1,22,400). O discriminador possui duas camadas convolucionais para classificação dados em reais ou falsos. Na figura, utilizou-se n_amostras = 4
-
-|![Workflow](./figure/new_workflow.jpeg "Workflow")**Figura 1: Workflow**|
+|![Workflow](./figure/new_workflow.jpeg "Workflow")**Figura 2: Workflow da Conditional DCGAN. Fonte: Própria.**|
 |:--:| 
 
-
-
-A arquitetura da CGAN utilizada neste trabalho pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/MyGAN.py).
+O código implementado da arquitetura da DCGAN utilizada neste trabalho pode ser encontrada no [GitHub](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/CGAN_EEG.ipynb).
 
 
 ### Criação de ruído
@@ -179,11 +168,11 @@ A rede discriminativa classifica os dados de entrada como reais ou falsos. Ela r
 
 ```
 
-### Configuração de treinamento da GAN
+### Configuração de treinamento da CGAN
 
-O treinamento da GAN foi feito com os dados EEG do indivíduo três do dataset, utilizando todas as 12 runs (treino + validação). Todos os eletrodos foram selecionados e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador e com os dados da entrada do classificador.
+O treinamento da CGAN foi feito com os dados EEG do indivíduo três do dataset, utilizando todas as 12 runs (treino + validação). Todos os eletrodos foram selecionados e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foram transformadas em formato one-hot encoding.  Posteriormente, houve a concatenação destes labels com o ruído de entrada no gerador e com os dados da entrada do classificador.
 
-As configurações de treinamento da rede e o algoritmo de treinamento são mostrados a seguir:
+As configurações de treinamento da rede e o algoritmo de treinamento são mostrados na tabela abaixo:
 
 | Parâmetros | Valor | 
 |:---------:|:-----:|
@@ -195,7 +184,7 @@ As configurações de treinamento da rede e o algoritmo de treinamento são most
 |Loss Function|`nn.BCEWithLogitsLoss`|
 
 
-### Algoritmo de Treinamento da CGAN
+### Algoritmo de Treinamento da DCGAN
 
 #### Passo 1: Inicialização
 - Para cada época no número total de épocas (n_epochs):
@@ -229,9 +218,10 @@ As configurações de treinamento da rede e o algoritmo de treinamento são most
 
 
 ## Métricas de avaliação
+Nesta seção são explicadas as métricas de avaliação adotadas para verificar a qualidade dos dados sintéticos em comparação com os dados reais. 
 
 ### Classificador
-Utilizou-se uma implementação do classificador [EEGNetV4](https://braindecode.org/stable/generated/braindecode.models.EEGNetv4.html) da biblioteca ``braindecode`` para classificar as labels dos dados de EEG. A estrutura do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024), e os parâmetros de treinamento utilizados foram os padrões da biblioteca, adaptados aos nossos dados:
+Para a comparação das acurácias utilizou-se uma implementação do classificador da [EEGNetV4](https://braindecode.org/stable/generated/braindecode.models.EEGNetv4.html) disponível na biblioteca ``braindecode`` para classificar as labels dos dados de EEG. A estrutura do classificador foi baseada no artigo [EEGNet](https://arxiv.org/abs/1611.08024), e os parâmetros de treinamento utilizados foram os padrões da biblioteca, adaptados aos nossos dados:
 
 ```python
 n_epochs = 300
@@ -251,14 +241,14 @@ model = EEGNetv4(
 
 Nesta métrica, o objetivo é, inicialmente, treinar o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da GAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos para este paradigma cérebro-computador. Foram utilizados diferentes valores de augmentation para comparação da eficiência na classificação: 
 
-   ``0% (base), '5%', '10%', '20%', '50%', '70%', '100%', '200%' ``
+   ``0% (base), 5%, 10%, 15%, 20%, 25%, 30%, 40%, 50%, 70%, 100% ``
 
-### Divergencia de Jensen Shannon (JS)
+### Divergência de Jensen Shannon (JS)
 <!-- A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb). -->
 
 A divergência de Jensen-Shannon é um método para medir a similaridade entre duas distribuições de probabilidade. Ela é baseada na divergência de Kullback-Leibler, com simetria entre as distribuições e sempre com um valor finito. A raiz quadrada da divergência de Jensen-Shannon é referida como a distância de Jensen-Shannon.
 
-A fórmula para calcular a divergência de Jensen-Shannon é uma combinação ponderada das divergências de Kullback-Leibler entre as distribuições de probabilidade de interesse e sua média. Isso resulta em uma medida que captura tanto as semelhanças quanto as diferenças entre as distribuições, tornando-a uma métrica valiosa para tarefas de classificação, clusterização e recuperação de informações. A implementação utilizada neste trabalho pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
+A fórmula para calcular a divergência de Jensen-Shannon é uma combinação ponderada das divergências de Kullback-Leibler entre as distribuições de probabilidade de interesse e sua média. Isso resulta em uma medida que captura tanto as semelhanças quanto as diferenças entre as distribuições, tornando-a uma métrica valiosa para tarefas de classificação, clusterização e recuperação de informações. A implementação utilizada neste trabalho pode ser encontrada neste [notebook](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Entrega_Final.ipynb).
 
 
 ### Histogramas
@@ -266,7 +256,7 @@ A fórmula para calcular a divergência de Jensen-Shannon é uma combinação po
 Histogramas foram utilizados para comparação visual entre as distribuições dos canais dos dados reais e dados sintéticos, na proporção de 1:1. Para análise, foram escolhidos três eletrodos posicionados na região motora do cérebro (Cz, C3 e C4) e dois eletrodos cujo valor de divergência de JS mais variaram de indivíduo para indivíduo (FC2, C2). 
 
 ### Espaços latentes de um Autoencoder Variacional
-Foi utilizada a arquitetura de um Autoencoder Variacional (VAE) como ponto de partida inicial (o código fonte usado está disponível no [GitHub](https://github.com/arkanivasarkar/EEG-Data-Augmentation-using-Variational-Autoencoder)), para gerar o espaço latente dos dados reais e sintéticos através da extração de característica realizada pelo encoder. Após alguns testes, obteve-se a seguinte configuração final: 
+A arquitetura de um Autoencoder Variacional (VAE) foi utilizada para gerar o espaço latente dos dados reais e sintéticos através da extração de característica realizada pelo encoder. Após alguns testes e alterações no código original (o código fonte usado está disponível no [GitHub](https://github.com/arkanivasarkar/EEG-Data-Augmentation-using-Variational-Autoencoder)) obteve-se a seguinte configuração final: 
 
 * Modelo do Encoder: 
 
@@ -308,19 +298,19 @@ Com a arquitetura final do VAE, composta pela junção do codificador e do decod
 |Learning Rate| 0.001|
 |Loss Function|`mse`|
 
- A separação das classes na representação dos espaços latentes foi realizada por meio do método [K-means](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html). Além disso, para a visualização dos manifolds, empregou-se a biblioteca [UMAP](https://umap-learn.readthedocs.io/en/latest/). Como resultado, obteve-se o espaço latente tanto para a base de dados real quanto para a base de dados sintéticos, permitindo a comparação de suas representações por meio dos manifolds em cada cenário. 
+As predições geradas pelo *encoder* foram submetidas ao métodos do [K-means](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) para geração dos rótulos das classes, em seguida para a visualização dos manifolds, empregou-se a biblioteca [UMAP](https://umap-learn.readthedocs.io/en/latest/). Como resultado, obteve-se o espaço latente tanto para a base de dados real quanto para a base de dados sintéticos, permitindo a comparação de suas representações por meio dos manifolds em cada cenário. 
 
 # Resultados
 
 ## Resultados para o terceiro indivíduo
-Nesta seção inicial, apresentam-se os resultados relacionados aos dados de EEG provenientes do indivíduo 3, uma vez que ele foi utilizado como referência para o ajuste fino dos parâmetros. Na próxima seção, será realizada uma comparação dos resultados entre os indivíduos 1, 3, 7 e 9.
+Nesta seção, apresentamos os resultados relacionados aos dados de EEG provenientes do indivíduo 3, uma vez que ele foi utilizado como referência para o ajuste fino dos parâmetros. Na próxima seção, será realizada uma comparação dos resultados entre os indivíduos 1, 3, 7 e 9.
 
 
 ### Curvas de Loss da GAN
 
-Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas, mostrado na [Figura 2](22ch_batch64_lr37e6_decay7.png). A figura ilustra o comportamento observado para a melhor arquitetura e parâmetros encontrados, com o discriminador convergindo para valores de perda muito próximos `0.5`, e o gerador convergindo para valores próximos de `0.8`, ambos resultados desejáveis no treinamento adversário. 
+Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas, mostrado na Figura 3. A figura ilustra o comportamento para a melhor arquitetura e parâmetros encontrados, com o discriminador convergindo para valores de perda muito próximos `0.5`, e o gerador convergindo para valores próximos de `0.8`, ambos resultados desejáveis no treinamento adversário. 
 
-|![Loss Curve](./figure/subject_3/22ch_batch64_lr37e6_decay7.png "Loss Curve")**Figura 2: Convergência da curva de loss do gerador e discriminador**|
+|![Loss Curve](./figure/subject_3/22ch_batch64_lr37e6_decay7.png "Loss Curve")**Figura 3: Convergência da curva de loss do gerador e discriminador**|
 |:--:| 
 
 ### Classificador
@@ -347,35 +337,31 @@ Assim, os resultados destacam que o modelo não respondeu da forma esperada para
 A divergência de Jensen-Shannon (JS) foi calculada entre os dados reais e os dados gerados pela rede generativa condicional. Essa métrica é utilizada para avaliar a "distância" ou similaridade entre duas distribuições de probabilidade, sendo que  valores menores dessa métrica indicam que as distribuições estão mais próximas, enquanto valores maiores indicam que as distribuições são mais distintas. A comparação foi realizada para cada classe e para cada canal das duas distribuições. Ambos conjuntos de dados reais possuem dimensão (1152, 22), representando 288 amostras para cada classe em cada canal. 
 
 
-A matriz abaixo, [Figura 3](JS_Metric_Heatmap.png), apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito 3. As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, indicando boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
+A matriz abaixo, Figura 4, apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito três. As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, indicando boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
 
-|![Heatmap](./figure/subject_3/JS_Metric_Heatmap.png "Heatmap da Métrica JS")**Figura 3: Heatmap da métrica JS**|
+|![Heatmap](./figure/subject_3/JS_Metric_Heatmap.png "Heatmap da Métrica JS")**Figura 4: Heatmap da métrica JS**|
 |:--:| 
 
 ### Histogramas de Distribuição
-Comparamos a distribuição de frequência dos dados reais com os dados sintéticos a partir do histograma apenas para os eletrodos (FC2, C3, Cz, C2 e C4) [Figura 4](Real_and_Fake_Histogram_Comparison.png). Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2, indicando, assim como mostrado pela métrica JS, que obtiveram os melhores resultados. Entre esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
+Comparamos a distribuição de frequência dos dados reais com os dados sintéticos a partir do histograma apenas para os eletrodos (FC2, C3, Cz, C2 e C4) Figura 5. Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2, indicando, assim como mostrado pela métrica JS, que obtiveram os melhores resultados. Entre esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
 
-Comparando as distribuições de frequência entre os dados reais e sintéticos através do histograma para os eletrodos (FC2, C3, Cz, C2 e C4) [Figura 4](Real_and_Fake_Histogram_Comparison.png). Observa-se que o eletrodo FC2 apresenta o melhor resultado. No entanto, o eletrodo C2 exibe uma semelhança significativa com o FC2, indicando, conforme refletido pela métrica JS, que ambos obtiveram resultados positivos. Por outro lado, os eletrodos C3 e C4 revelaram os piores resultados, exibindo distribuições significativamente diferentes.
 
-|![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Figura 4: Histogramas das distribuições de dados reais e sintéticos**|
+|![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Figura 5: Histogramas das distribuições de dados reais e sintéticos**|
 |:--:| 
 
 ### Comparação dos espaços latentes do terceiro indivíduo
 
-Os manifolds para os dados reais e os dados sintéticos são mostrados nas figuras abaixo. Foi possível observar que na [Figura 5](manifold_reais.png), com os dados reais ficaram mais espaçados, e quase não há mistura de classes, e o codificador foi capaz de extratir as características de cada classe juntamente com o algoritmo do k-means que contribuiu bastante para o resultado final. Na [Figura 6](manifold_sinteticos.png) para os dados sintéticos, é possível oberservar que as classes não ficaram muito bem separadas em um mesmo agrupamento, principalmente o grupo roxo referente a classe 1 que ficou um pouco misturado em dois grupos. Contudo, pode-se concluir que mesmo para as bases diferentes, o algoritmo conseguiu fazer a representação do espaço latente das quatros classes de EEG, mostrando assim a similaridade dos dados sintéticos com o reais.
+Os manifolds para os dados reais e os dados sintéticos são mostrados na Figura 6 a seguir, onde foi possível observar que com os dados reais os pontos ficaram menos espaçados, podendo haver mistura de classes e indicando que codificador não foi capaz de extratir as características de cada classe. Por outro lado, com os dados sintéticos é possível observar que as classes ficaram mais separadas em dois grupos maiores (roxo e amarelo á esquerda e laranja e azul á direita), mostrando que o manifold gerado pelo codificador conseguiu aprender alguma regra sobre os dados sintéticos. Uma possível explicação para o ocorrido é que o gerador da GAN pode estar enviesando a síntese de alguma classe em especial. 
 
-|![Manifold_dados_reais](./figure/manifold_reais.png "Manifold_dados_reaiss")**Figura 5: Manifold_dados_reais**|
-|:--:| 
-
-|![Manifold_dados_sintéticos](./figure/manifold_sinteticos.png "Manifold_dados_sintéticos")**Figura 6: Manifold_dados_sintéticos**|
+|![Manifold_dados_reais](./figure/manifolds.PNG "Manifold_dados_reais")**Figura 6: A esquerda manifold dos dados reais e a direita  dos dados sintéticos.**|
 |:--:| 
 
 ## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
-Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais para verificar variabilidade dos indivíduos no processo de aquisição de dados, e ao adicionar augmentation de ('5%', '10%', '20%', '50%', '70%', '100%' e '200%') para verificar o impacto da variabilidade e também da adição dos dados gerados no classificador [Figura 7](EEGNet_Accuracy_vs_Augmentation.png). 
+Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais para verificar variabilidade dos indivíduos no processo de aquisição de dados, e ao adicionar augmentation de (5%, 10%, 15%, 20%, 25%, 30%, 40%, 50%, 70%, 100%) para verificar o impacto da variabilidade e também da adição dos dados gerados no classificador (Figura 7). 
 
 Ao analisar os resultados apenas com dados reais, observa-se variabilidade relevante entre os sujeitos, com exceção dos sujeitos 3 e 7, que apresentaram valores de acurácia muito próximo. Isso pode ter ocorrido devido a variabilidade de movimentos diferentes entre sujeitos durante a aquisição dos dados. Para esses dois sujeitos (3 e 7) a semelhança no valor da acurácia se mantém apenas com 20% de augmentation, porém houve uma diminuição no valor do acurácia de pelo menos 0.1.  
 
-Percebe-se que existe diminuição significativa nos valores da acurácia ao adicionar os dados sintéticos para todos os sujeitos, com exceção do sujeito 7, que ao adicionar 5% de dados sintéticos apresentou melhor desempenho em relação ao treinar apenas com dados reais. Ou seja, quanto mais adicionamos dados sintéticos, menor é o desempenho do classificador. Isso indica que os dados gerados pelo modelo proposto, pode não ser bom o suficiente para melhorar o desempenho do classificador.
+Percebe-se que existe diminuição significativa nos valores da acurácia ao adicionar os dados sintéticos para todos os sujeitos, com exceção do sujeito 7, que ao adicionar 5% de dados sintéticos apresentou pequeno ganho de desempenho em relação ao treinar apenas com dados reais. Isso indica que os dados gerados pelo modelo proposto não são bons o suficiente para melhorar o desempenho do classificador.
 
 Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo ser comparável om o sujeito 3. Os piores resultados foram obtidos pelo sujeito 1.  
 
@@ -419,6 +405,14 @@ Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo 
 | Resultado das métricas de avaliação   |              |             |             |             | X           | X           |
 | Escrita final do projeto              |              |             |             |             |             | X           |
 -->
+## Dificuldades e limitações
+### Dificuldades:
+* Convergência do modelo: tivemos dificuldade em encontrar um bom conjunto de hiperparâmetros da rede e pré-processamento de dados para fazer a arquitetura CGAN convergir para um bom resultado.
+* Definição das métricas e configuração da VAE: encontrar as métricas mais apropriadas para avaliar a qualidade das distribuições foi um desafio, uma vez que não há uma abordagem única ou padrão para essa tarefa. Isso também se aplica à configuração da VAE, que ainda pode ser mais refinada para atender ao objetivo proposto.
+### Limitações: 
+* Acesso a GPU: para treinar uma arquitetura como a GAN, é necessário ter acesso a bons recursos computacionais. Recursos disponíveis para uso, como o Colab, nem sempre permitem finalizar um treinamento longo, impossibilitando o treinamento de uma GAN para mais épocas.
+* Diversidade entre sujeitos: por se tratar de dados de EEG adquiridos por diferentes sujeitos, existe grande variabilidade entre os movimentos realizados ou imaginados. Isso imposibilita, para um projeto de curta duração, utilizar mais de um sujeito para treinamento. É necessário avaliar se usar dados de vários sujeitos é viável, estudar a melhor forma de colocar isso em prática e quais pré-processamento de dados devem ser realizados.
+
 ## Conclusão
 
 <!--
@@ -442,11 +436,18 @@ Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo 
 
 Caso a CGAN continue sem produzir resultados satisfatórios, uma opção alternativa é modificar o formato de entrada para matrizes de covariância, conforme sugerido nos estudos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso, considera-se a substituição do tipo de modelo generativo, como o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068). -->
 
-Este projeto estudou a possibilidade de gerar dados sintéticos de EEG usando uma arquitetura CGAN. De acordo com os resultados apresentados, houve um pequeno ganho de desempenho durante o desenvolvimento do projeto. Conseguimos melhorar o treinamento do modelo ao utilizar todos os canais disponíveis do dataset, realizar pré-processamento dos dados e modificar hiperparâmetros da rede, como a taxa de aprendizagem.
+Este projeto estudou a possibilidade de gerar dados sintéticos de EEG usando uma arquitetura CGAN. De acordo com os resultados apresentados, foi possível sintetizar os dados e obter uma boa convergência no treinamento do modelo generativo adversário, como mostrado na Figura 3.
 
-No entanto, ao executar experimento usando augmentation no classificador, observamos que a adição de dados sintéticos não ajudou significativamente a melhorar o desempenho do modelo. Apenas o sujeito 7 obteve uma pequena melhora de 1% ao adicionar 5% de dados sintéticos. Será necessário avaliar caminhos alternativos para melhorar a geração de dados sintéticos. 
+ Os resultados indicam que alguns canais da base de dados tiveram uma melhor distribuição sintetizada pela arquitetura, como foi o caso do eletrodo FC2 mostrado na métrica de JS e nos histogramas (Figuras 4 e 5), ao passo que outros canais não apresentaram o mesmo resultado. 
 
-Além disso, na avaliação da diversidade de movimento entre sujeitos foram obtidos resultados significativamente diferentes, indicando que deve haver certo cuidado ao treinar um modelo com suijeitos diferentes. Por outro lado, isso pode ser interessante para a generalização do modelo.
+Analisando a métrica de acurácia, observou-se que ao executar o experimento usando *data augmentation* no classificador, observou-se que a adição de dados sintéticos não ajudou significativamente a melhorar o desempenho do modelo. Apenas o sujeito 7 obteve uma pequena melhora de 1% ao adicionar 5% de dados sintéticos. 
+
+Por fim, com a comparação dos espaços latentes, levantou-se a hipótese de que o gerador esteja enviesando a sintetização de algumas classes, gerando dados com algumas distribuições melhores do que outras. Isso pode ter se refletido no resultado da acurácia durante o processo de data augmentation.
+
+Como trabalhos futuros, alguns caminhos possíveis são:
+-  Refinar a arquitetura da GAN com mais testes como tipo de camada, funções de ativação, funções de loss e otimizadores;
+- Utilizar matrizes de covariância como dados de entrada e geometria riemaniana para o mapeamento dos dados em outro espaço, como proposto por [Wilson, Daniel et al.](https://arxiv.org/pdf/2212.10426.pdf)
+-  Considerar outras técnicas de geração de dados, como modelo de difusão.
 
 <!-- Caso ainda assim a CGAN não apresente bons resultados, um caminho alternativo seria alterar o formato da entrada para matrizes de covariância, como proposto nos trabalhos de [Marco Congedo et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192) e [Alexandre Barachant et. al](https://www.tandfonline.com/doi/full/10.1080/2326263X.2017.1297192). Em último caso seria tentar trocar o tipo de modelo generativo, por exemplo o modelo de difusão proposto por [Giulio Tosato et. al](https://arxiv.org/abs/2303.06068).  -->
 
