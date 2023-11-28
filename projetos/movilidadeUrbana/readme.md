@@ -8,16 +8,16 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 
 | Nome          | RA     | Curso           |
 | ------------- | ------ | --------------- |
-| Ana Briones (Github owner)| 272309 | Mestrado em Elétrica    |
-| Miguel Gaybor  | 252040 | Mestrado em Elétrica    |
-| Johsac Gomez   | 216401 | Doutorado em Elétrica   |
+| Ana Briones (Github owner)| 272309 | Mestrando em Elétrica    |
+| Miguel Gaybor  | 252040 | Mestrando em Elétrica    |
+| Johsac Gomez   | 216401 | Doutorando em Elétrica   |
 
 <h2 id="resumo">Resumo (Abstract)</h2>
-Este projeto utiliza a geração de dados sintéticos e coordenadas GPS para prever dados de velocidade ao longo do tempo e do espaço. Além das metodologias tradicionais de processamento de dados, ele incorpora uma avançada Rede Generativa Adversarial Profunda (GAN) para aprimorar a qualidade dos dados sintéticos. A metodologia envolve a coleta abrangente de dados de ônibus da Universidade de Campinas, filtragem e rotulagem, com ênfase especial nos dados de 2022. A aplicação do GAN contribui para conjuntos de dados sintéticos mais precisos e realistas, abordando a escassez de conjuntos de dados abertos para pesquisa em mobilidade urbana e transporte. Esses conjuntos de dados enriquecidos são inestimáveis para o estudo e a melhoria dos sistemas de transporte urbano, promovendo o desenvolvimento sustentável na área.
+Este projeto utiliza a geração de dados sintéticos para prever informações de velocidade ao longo do tempo. Embora o enfoque principal seja na velocidade, características como latitude, altitude, longitude e tempo foram incorporadas para enriquecer a obtenção de dados. Além das metodologias tradicionais de processamento de dados, integra-se uma Rede Generativa Adversarial Profunda (GAN) para aprimorar a qualidade dos dados sintéticos. A metodologia envolve a coleta abrangente de dados de ônibus da Universidade de Campinas, filtragem e rotulagem, com ênfase especial nos dados de 2022. A aplicação do GAN contribui para conjuntos de dados sintéticos mais precisos e realistas, abordando a escassez de conjuntos de dados abertos para pesquisa em mobilidade urbana e transporte. Esses conjuntos de dados enriquecidos são inestimáveis para o estudo e a melhoria dos sistemas de transporte urbano, promovendo o desenvolvimento sustentável na área.
 
 
 <h2 id="descrição-do-projeto">Descrição do Projeto</h2>
-Nosso projeto tem como foco a geração sintética de dados de velocidade, altitude, longitude e latitude para ônibus, utilizando modelos de redes generativas. O objetivo é lidar com a escassez de conjuntos de dados abertos para pesquisa e desenvolvimento em mobilidade urbana e transporte. Esses dados sintéticos fornecerão uma alternativa em termos de privacidade e segurança, reduzindo a necessidade de uma coleta intensiva de dados físicos e permitindo a criação de cenários diversos não disponíveis nos dados do mundo real. Ao mesmo tempo, nossa abordagem reduzirá o impacto ambiental associado à coleta de dados, promovendo o desenvolvimento sustentável na área. Os dados sintéticos gerados serão valiosos para testar algoritmos, simular ambientes e melhorar aplicativos baseados em dados relacionados a ônibus, contribuindo para o avanço da mobilidade urbana."
+Nosso projeto tem como foco a geração sintética de dados de velocidade do ônibus, utilizando modelos de redes generativas. O objetivo é lidar com a escassez de conjuntos de dados abertos para pesquisa e desenvolvimento em mobilidade urbana e transporte. Esses dados sintéticos fornecerão uma alternativa em termos de privacidade e segurança, reduzindo a necessidade de uma coleta intensiva de dados físicos e permitindo a criação de cenários diversos não disponíveis nos dados do mundo real. Os dados sintéticos gerados serão valiosos para testar algoritmos, simular ambientes e melhorar aplicativos baseados em dados relacionados a ônibus, contribuindo para o avanço da mobilidade urbana.
 
 
 
@@ -47,7 +47,7 @@ Pré-processamento de Dados:
 | Longitude       |     Orientação    |
 | Altitude        |     Orientação    |
 | Latitude        |     Orientação    |
-| Tempo          |     Tempo        |
+| Tempo  (segundos)      |     Tempo        |
 |Número de Viagens|     Horario       |
 
 ### Bases de Dados e Evolução
@@ -109,12 +109,15 @@ Esses dados oferecem uma visão clara de quanto tempo os ônibus passam nos esta
 Neste projeto, exploramos arquiteturas como as Redes Generativas Adversariais (GANs) e os Autoencoders Variacionais (VAEs) para a geração de dados sintéticos. Após extensivos experimentos, observamos que os modelos GANs ofereceram os melhores resultados em termos de precisão e realismo na síntese de dados. Portanto, não apresentamos resultados específicos com VAEs. 
 
 ### Workflow
-https://miro.com/app/board/uXjVMjWZwUU=/?share_link_id=824147713133
+https://miro.com/app/board/uXjVMjWZwUU=/?share_link_id=277061908932
 
 ## Experimentos, Resultados e Discussão dos Resultados
 * Para todos os modelos as Epochs: 500
 
-#### Variante 1: MLP (Perceptron Multicamada)
+### Experimentos e Resultados
+
+
+#### Modelo 1: MLP (Perceptron Multicamada)
 * Camadas:
 Gerador e Discriminador com apenas
 camadas MLP com regularização L2.
@@ -123,9 +126,13 @@ Adam
 * Funções de Perda:
 Entropia Cruzada Binária
 
+##### Grafico de Velocidade vs Tempo (Dados Sintéticos)
+
 ![modelo4](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/5e9a8c08-3755-4763-983a-fe4f34884e12)
 
-#### Variante 2: LSTM + GRU
+Conjunto sequencial de gráficos de velocidade versus tempo gerados pelo Modelo 1
+
+#### Modelo 2: LSTM + GRU
 * Camadas:
 Gerador e Discriminador com LSTM
 + GRU e regularização L2.
@@ -135,9 +142,14 @@ Adam
 Erro Quadrático Médio (MSE)
 Entropia Cruzada Binária
 
-![modelo2](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/cda5b866-8c81-4dcb-9762-f02e8256b370)
+##### Grafico de Velocidade vs Tempo (Dados Sintéticos)
+![modelo5](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/4251ec10-ef8a-4360-98a8-dc5fcab18b5f)
 
-#### Variante 3: Conv1D
+
+Conjunto sequencial de gráficos de velocidade versus tempo gerados pelo Modelo 2
+
+
+#### Modelo 3: Conv1D
 * Camadas:
 Gerador e Discriminador com Convolucionais e
 regularização L2.
@@ -146,10 +158,13 @@ Adam y RMSprop
 * Funções de Perda:
 Entropia Cruzada Binária
 
-![modelo3 (1)](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/07e85a61-52b0-447d-8810-31b1dbc832de)
+##### Grafico de Velocidade vs Tempo (Dados Sintéticos)
+![modelo6](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/8dcca7a2-11a0-4438-afd3-b0b1df3d777a)
+
+Conjunto sequencial de gráficos de velocidade versus tempo gerados pelo Modelo 3
 
 
-#### Variante 4: MLP + LSTM + GRU
+#### Modelo 4: MLP + LSTM + GRU
 * Camadas:
 MLP + Bi(LSTM) + GRU e
 regularização L2.
@@ -160,13 +175,43 @@ Erro Quadrático Médio
 (MSE)
 Entropia Cruzada Binária
 
-![modelo6](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/8dcca7a2-11a0-4438-afd3-b0b1df3d777a)
+##### Grafico de Velocidade vs Tempo (Dados Sintéticos)
+
+![modelo3 (1)](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/07e85a61-52b0-447d-8810-31b1dbc832de)
+
+Conjunto sequencial de gráficos de velocidade versus tempo gerados pelo Modelo 4
+
+
+##### Gráficos de Velocidade de Dados reales
+
+![velocidad real](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/6c3038b2-dc43-411b-94b8-9cd7cd607bba)
+
+Os gráficos oferecem uma representação visual do comportamento da velocidade em três viagens distintos do ônibus durante um dia. Cada período horário reflete a maneira como cada motorista aborda o trajeto, evidenciado pela variação nas cores dentro da imagem. A suavidade das curvas na velocidade indica que a aceleração e desaceleração do ônibus são graduais, sem mudanças bruscas. Esse enfoque resulta na ausência de picos extremos na velocidade, mantendo-se em uma faixa suave entre 0 km/h quando o veículo está parado até o valor máximo de 60 km/h quando está em movimento. Esses gráficos proporcionam uma compreensão visual da dinâmica da viagem em diferentes momentos o dia. 
+
+
+#### Gráfico de Perda do Gerador vs Discriminador
+* Últimas perdas ao longo de épocas
+  ![Loss140](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/b88bb0e7-ecf2-49dc-9a17-b2a97463bf5f)
+
+###### Perda D (azul): 
+Esta perda mostra uma tendência de estabilização com pequenas flutuações à medida que o número de épocas aumenta. Inicia com alguns picos iniciais e, em seguida, parece convergir para um valor consistente.
+###### Perda G (vermelha):
+A perda generativa tem um comportamento muito mais volátil com picos significativos e quedas. Embora haja uma tendência geral de diminuição ao longo das épocas, as flutuações são notáveis e há períodos de aumento repentino na perda.
+
+* Últimas perdas carregadas ao longo de épocas
+![Loss200](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/6cd79426-cdf7-487e-bdfb-8efa085c1328)
+
+###### Perda D (azul): 
+Semelhante à primeira gráfica, a perda discriminatória parece ter menos variabilidade e tende a estabilizar à medida que as épocas avançam, com alguns picos no final.
+###### Perda G (vermelha): 
+Nesta gráfica, a perda generativa mostra um comportamento ainda mais errático e volátil do que na primeira imagem. Os picos são muito pronunciados, especialmente no final, indicando possíveis problemas de estabilidade ou convergência no processo de treinamento.
 
 #### Discussão e limitações: 
 
-* Os perfis de velocidade gerados para o ônibus elétrico refletem uma visão geral, contudo na prática, a dinâmica desses perfis é influenciada por uma gama mais ampla de variáveis do que as consideradas neste projeto. Para futuros aprimoramentos na geração de perfis de velocidade mais realistas, recomenda-se a inclusão de novas variáveis que apresentem forte correlação, tais como aceleração, consumo elétrico, entre outras. Isso proporcionaria uma compreensão mais abrangente e refinada do comportamento desses perfis, contribuindo para uma representação mais fiel das condições reais.
+* Ao comparar os gráficos de dados reais e sintéticos da série temporal de velocidade, observamos diferenças marcantes. Nos dados reais, a representação visual destaca a suavidade das curvas, indicando acelerações e desacelerações graduais do ônibus. No entanto, os dados sintéticos gerados pelo melhor modelo de GAN apresentam um comportamento distinto. A presença de picos na velocidade sugere uma maior variabilidade e eventos abruptos no trajeto sintético. Nota-se uma parada no final do percurso, mas a modelagem ainda não consegue distinguir claramente os padrões de viagem. Além disso, a ausência de curvas suaves contrasta com a fluidez observada nos dados reais.
 * Uma limitação significativa observada foi a presença de dados de velocidades com sequências variáveis, o que apresentou desafios ao incorporar essas informações nas Redes Generativas Adversariais Profundas (GANs). Isso resultou em dificuldades para padronizar uma entrada única dos dados de velocidade na rede. Essa limitação destaca a complexidade inerente à variabilidade nas sequências de velocidade e aponta para a necessidade de estratégias mais robustas para lidar com essa diversidade.
 *  A ausência de recursos computacionais adequados representou uma limitação crucial, limitando a capacidade de conduzir um grande número de treinamentos de modelos. Isso, por sua vez, pode ter impactado a exploração extensiva de arquiteturas e parâmetros. Este desafio computacional é uma consideração significativa ao avaliar os resultados, indicando a necessidade de recursos mais robustos para futuros projetos semelhantes.
+(MLP + LSTM + GRU)
 
 ### Ferramentas a serem utilizadas.
 
@@ -177,7 +222,7 @@ Entropia Cruzada Binária
 - Python / Linguagem de programação
 - Laptop Toshiba i7-6th, 16 RAM, 1TB de SSD
 - Laptop Dell-Inspiron i7-7th, 12 RAM, 512 SSD
-- Laptop Dell G15 i7-13th, 16 RAM, 556 SSD
+- Laptop Dell G15 i7-13th, 16 RAM, 512 SSD
   
  ![ferramentas](https://github.com/teaching-FEEC/dgm-2023.2/assets/35360195/cf605275-688b-4996-bf34-35366088a6f9)
 
@@ -188,7 +233,8 @@ Entropia Cruzada Binária
   
 ## Trabalho Futuro:
 
-Para trabalhos futuros, sugere-se a exploração de arquiteturas alternativas, como a aplicação de Transformers com um enfoque de atenção. Essas arquiteturas têm o potencial de capturar de forma mais eficaz padrões complexos e contextos temporais, resultando em perfis de velocidade mais realistas e adaptáveis às nuances do comportamento do ônibus elétrico. Essa abordagem representa uma direção promissora para aprimorar ainda mais a qualidade e a generalização na geração de perfis de velocidade.
+Para aprimorar objetivamente a avaliação dos modelos geradores de dados sintéticos, é necessário incorporar métricas de avaliação quantitativa e qualitativa. Isso permitirá uma análise mais rigorosa e precisa do desempenho dos modelos, indo além da interpretação subjetiva baseada nos gráficos presentes. Dado o atual estágio da pesquisa, é evidente a necessidade de explorar alternativas arquitetônicas. Uma estratégia promissora consiste na aplicação de Transformers, com ênfase especial nos mecanismos de atenção. Acreditamos que as camadas de atenção têm a capacidade de capturar de maneira mais eficaz padrões complexos e contextos temporais, permitindo assim lidar de maneira mais eficiente com a natureza dinâmica e multifacetada dos dados de mobilidade urbana. Essa abordagem não apenas resultaria em perfis de velocidade mais realistas, mas também os tornaria adaptáveis às nuances do comportamento do ônibus elétrico.
+
 
 ## Referências Bibliográficas
 * [1] RPUBS - Cluster Analysis in R. (n.d.-b). https://rpubs.com/odenipinedo/cluster-analysis-in-R
