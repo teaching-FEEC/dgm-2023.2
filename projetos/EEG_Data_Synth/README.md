@@ -168,11 +168,11 @@ A rede discriminativa classifica os dados de entrada como reais ou falsos. Ela r
 
 ```
 
-### Configuração de treinamento da GAN
+### Configuração de treinamento da CGAN
 
-O treinamento da GAN foi feito com os dados EEG do indivíduo três do dataset, utilizando todas as 12 runs (treino + validação). Todos os eletrodos foram selecionados e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foi transformada no formato one-hot encoding para posterior concatenação com o ruído de entrada no gerador e com os dados da entrada do classificador.
+O treinamento da CGAN foi feito com os dados EEG do indivíduo três do dataset, utilizando todas as 12 runs (treino + validação). Todos os eletrodos foram selecionados e as classes `'feet': 0, 'left_hand': 1, 'right_hand': 2, 'tongue': 3` de cada amostra foram transformadas em formato one-hot encoding.  Posteriormente, houve a concatenação destes labels com o ruído de entrada no gerador e com os dados da entrada do classificador.
 
-As configurações de treinamento da rede e o algoritmo de treinamento são mostrados a seguir:
+As configurações de treinamento da rede e o algoritmo de treinamento são mostrados na tabela abaixo:
 
 | Parâmetros | Valor | 
 |:---------:|:-----:|
@@ -241,14 +241,14 @@ model = EEGNetv4(
 
 Nesta métrica, o objetivo é, inicialmente, treinar o classificador no conjunto completo de dados reais de EEG, obtendo um valor base de acurácia. Após o treinamento da GAN, utiliza-se o gerador para gerar novas amostras que irão compor o conjunto original de dados, processo conhecido como data augmentation. Espera-se, portanto, que o classificador treinado neste novo conjunto de dados (reais + falsos) apresente melhores valores de acurácia, melhorando o processo de classificação dos movimentos para este paradigma cérebro-computador. Foram utilizados diferentes valores de augmentation para comparação da eficiência na classificação: 
 
-   ``0% (base), '5%', '10%', '20%', '50%', '70%', '100%', '200%' ``
+   ``0% (base), 5%, 10%, 15%, 20%, 25%, 30%, 40%, 50%, 70%, 100% ``
 
 ### Divergência de Jensen Shannon (JS)
 <!-- A divergencia de Jensen Shannon é uma métrica que mede o quanto duas distribuições divergem entre si. É baseado na divergência de Kullback-Leibler, mas é simétrica. Utilizamos a biblioteca scipy para [implementação](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb). -->
 
 A divergência de Jensen-Shannon é um método para medir a similaridade entre duas distribuições de probabilidade. Ela é baseada na divergência de Kullback-Leibler, com simetria entre as distribuições e sempre com um valor finito. A raiz quadrada da divergência de Jensen-Shannon é referida como a distância de Jensen-Shannon.
 
-A fórmula para calcular a divergência de Jensen-Shannon é uma combinação ponderada das divergências de Kullback-Leibler entre as distribuições de probabilidade de interesse e sua média. Isso resulta em uma medida que captura tanto as semelhanças quanto as diferenças entre as distribuições, tornando-a uma métrica valiosa para tarefas de classificação, clusterização e recuperação de informações. A implementação utilizada neste trabalho pode ser encontrada neste [link](https://github.com/jbarbon/dgm-2023.2/tree/main/projetos/EEG_Data_Synth/notebooks/GANs/JS_metric.ipynb).
+A fórmula para calcular a divergência de Jensen-Shannon é uma combinação ponderada das divergências de Kullback-Leibler entre as distribuições de probabilidade de interesse e sua média. Isso resulta em uma medida que captura tanto as semelhanças quanto as diferenças entre as distribuições, tornando-a uma métrica valiosa para tarefas de classificação, clusterização e recuperação de informações. A implementação utilizada neste trabalho pode ser encontrada neste [notebook](https://github.com/jbarbon/dgm-2023.2/blob/main/projetos/EEG_Data_Synth/notebooks/GANs/Metrics_Entrega_Final.ipynb).
 
 
 ### Histogramas
@@ -303,12 +303,12 @@ As predições geradas pelo *encoder* foram submetidas ao métodos do [K-means](
 # Resultados
 
 ## Resultados para o terceiro indivíduo
-Nesta seção inicial, apresentam-se os resultados relacionados aos dados de EEG provenientes do indivíduo 3, uma vez que ele foi utilizado como referência para o ajuste fino dos parâmetros. Na próxima seção, será realizada uma comparação dos resultados entre os indivíduos 1, 3, 7 e 9.
+Nesta seção, apresentamos os resultados relacionados aos dados de EEG provenientes do indivíduo 3, uma vez que ele foi utilizado como referência para o ajuste fino dos parâmetros. Na próxima seção, será realizada uma comparação dos resultados entre os indivíduos 1, 3, 7 e 9.
 
 
 ### Curvas de Loss da GAN
 
-Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas, mostrado na [Figura 2](22ch_batch64_lr37e6_decay7.png). A figura ilustra o comportamento observado para a melhor arquitetura e parâmetros encontrados, com o discriminador convergindo para valores de perda muito próximos `0.5`, e o gerador convergindo para valores próximos de `0.8`, ambos resultados desejáveis no treinamento adversário. 
+Ao final do treinamento da GAN, gerou-se um gráfico exibindo as curvas de perda para o gerador e o discriminador em função das épocas, mostrado na Figura 3. A figura ilustra o comportamento para a melhor arquitetura e parâmetros encontrados, com o discriminador convergindo para valores de perda muito próximos `0.5`, e o gerador convergindo para valores próximos de `0.8`, ambos resultados desejáveis no treinamento adversário. 
 
 |![Loss Curve](./figure/subject_3/22ch_batch64_lr37e6_decay7.png "Loss Curve")**Figura 3: Convergência da curva de loss do gerador e discriminador**|
 |:--:| 
@@ -337,15 +337,14 @@ Assim, os resultados destacam que o modelo não respondeu da forma esperada para
 A divergência de Jensen-Shannon (JS) foi calculada entre os dados reais e os dados gerados pela rede generativa condicional. Essa métrica é utilizada para avaliar a "distância" ou similaridade entre duas distribuições de probabilidade, sendo que  valores menores dessa métrica indicam que as distribuições estão mais próximas, enquanto valores maiores indicam que as distribuições são mais distintas. A comparação foi realizada para cada classe e para cada canal das duas distribuições. Ambos conjuntos de dados reais possuem dimensão (1152, 22), representando 288 amostras para cada classe em cada canal. 
 
 
-A matriz abaixo, [Figura 3](JS_Metric_Heatmap.png), apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito 3. As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, indicando boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
+A matriz abaixo, Figura 4, apresenta os valores da métrica JS calculados para cada classe e eletrodo apenas para o sujeito três. As cores em azul representam valores mais próximos de 0 e em vermelho representam valores mais próximo de 1. O melhor resultado foi obtido pelo eletrodo FC2, que para todos as classes teve valor menor do que 0.43, ou seja, as distribuições estão próximas uma da outra. O eletrodo C2 gerou valores de JS abaixo de 0.5 para 3 classes ("right hand", "feet" e "tongue"), enquanto Fz obteve resultados satisfatórios para duas classes ("right hand" e "feet"), com valores de JS melhor do que para o eletrodo FC2, indicando boa similaridade entre os dados reais e gerados por essas classe. Os eletrodos CP4 e P2 obteve valores abaixo de 0.5 apenas para uma classe ("left hand" e "right hand"), respectivamente. Em contra partida, os piores resultados foram obtidos pelos eletrodos FC3, C3 e CP3, com valores de JS acima de 0.8, sugerindo que as distribuições geradas estão distantes das distribuições reais.
 
 |![Heatmap](./figure/subject_3/JS_Metric_Heatmap.png "Heatmap da Métrica JS")**Figura 4: Heatmap da métrica JS**|
 |:--:| 
 
 ### Histogramas de Distribuição
-Comparamos a distribuição de frequência dos dados reais com os dados sintéticos a partir do histograma apenas para os eletrodos (FC2, C3, Cz, C2 e C4) [Figura 4](Real_and_Fake_Histogram_Comparison.png). Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2, indicando, assim como mostrado pela métrica JS, que obtiveram os melhores resultados. Entre esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
+Comparamos a distribuição de frequência dos dados reais com os dados sintéticos a partir do histograma apenas para os eletrodos (FC2, C3, Cz, C2 e C4) Figura 5. Visualmente, o melhor resultado é observado no histograma do eletrodo FC2, no entanto o resultado do eletrodo C2 é bastante semelhante ao do FC2, indicando, assim como mostrado pela métrica JS, que obtiveram os melhores resultados. Entre esses eletrodos, o C3 e o C4 apresentaram os piores resultados, com distribuições significativamente diferentes.  
 
-Comparando as distribuições de frequência entre os dados reais e sintéticos através do histograma para os eletrodos (FC2, C3, Cz, C2 e C4) [Figura 4](Real_and_Fake_Histogram_Comparison.png). Observa-se que o eletrodo FC2 apresenta o melhor resultado. No entanto, o eletrodo C2 exibe uma semelhança significativa com o FC2, indicando, conforme refletido pela métrica JS, que ambos obtiveram resultados positivos. Por outro lado, os eletrodos C3 e C4 revelaram os piores resultados, exibindo distribuições significativamente diferentes.
 
 |![Histogramas](./figure/subject_3/Real_and_Fake_Histogram_Comparison.png "Histogramas")**Figura 5: Histogramas das distribuições de dados reais e sintéticos**|
 |:--:| 
@@ -358,11 +357,11 @@ Os manifolds para os dados reais e os dados sintéticos são mostrados na Figura
 |:--:| 
 
 ## Comparação da acurácia entre indivíduos 1, 3, 7 e 9
-Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais para verificar variabilidade dos indivíduos no processo de aquisição de dados, e ao adicionar augmentation de ('5%', '10%', '20%', '50%', '70%', '100%' e '200%') para verificar o impacto da variabilidade e também da adição dos dados gerados no classificador [Figura 7](EEGNet_Accuracy_vs_Augmentation.png). 
+Comparamos a acurácia do classificados para os sujeitos 1, 3, 7 e 9 apenas com os dados reais para verificar variabilidade dos indivíduos no processo de aquisição de dados, e ao adicionar augmentation de (5%, 10%, 15%, 20%, 25%, 30%, 40%, 50%, 70%, 100%) para verificar o impacto da variabilidade e também da adição dos dados gerados no classificador (Figura 7). 
 
 Ao analisar os resultados apenas com dados reais, observa-se variabilidade relevante entre os sujeitos, com exceção dos sujeitos 3 e 7, que apresentaram valores de acurácia muito próximo. Isso pode ter ocorrido devido a variabilidade de movimentos diferentes entre sujeitos durante a aquisição dos dados. Para esses dois sujeitos (3 e 7) a semelhança no valor da acurácia se mantém apenas com 20% de augmentation, porém houve uma diminuição no valor do acurácia de pelo menos 0.1.  
 
-Percebe-se que existe diminuição significativa nos valores da acurácia ao adicionar os dados sintéticos para todos os sujeitos, com exceção do sujeito 7, que ao adicionar 5% de dados sintéticos apresentou melhor desempenho em relação ao treinar apenas com dados reais. Ou seja, quanto mais adicionamos dados sintéticos, menor é o desempenho do classificador. Isso indica que os dados gerados pelo modelo proposto, pode não ser bom o suficiente para melhorar o desempenho do classificador.
+Percebe-se que existe diminuição significativa nos valores da acurácia ao adicionar os dados sintéticos para todos os sujeitos, com exceção do sujeito 7, que ao adicionar 5% de dados sintéticos apresentou pequeno ganho de desempenho em relação ao treinar apenas com dados reais. Isso indica que os dados gerados pelo modelo proposto não são bons o suficiente para melhorar o desempenho do classificador.
 
 Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo ser comparável om o sujeito 3. Os piores resultados foram obtidos pelo sujeito 1.  
 
@@ -409,8 +408,9 @@ Nota-se ainda que o melhor resultado para esses testes foi o sujeito 7, podendo 
 ## Dificuldades e limitações
 ### Dificuldades:
 * Convergência do modelo: tivemos dificuldade em encontrar um bom conjunto de hiperparâmetros da rede e pré-processamento de dados para fazer a arquitetura CGAN convergir para um bom resultado.
+* Definição das métricas e configuração da VAE: encontrar as métricas mais apropriadas para avaliar a qualidade das distribuições foi um desafio, uma vez que não há uma abordagem única ou padrão para essa tarefa. Isso também se aplica à configuração da VAE, que ainda pode ser mais refinada para atender ao objetivo proposto.
 ### Limitações: 
-* Acesso a GPU: para treinar uma arquitetura como uma GAN, é necessário ter acesso a bons recursos computacionais. Recursos disponíveis para uso, como o Colab, quase sempre não permite finalizar um treinamento longo, impossibilitando o treinamento de uma GAN para mais épocas.
+* Acesso a GPU: para treinar uma arquitetura como a GAN, é necessário ter acesso a bons recursos computacionais. Recursos disponíveis para uso, como o Colab, nem sempre permitem finalizar um treinamento longo, impossibilitando o treinamento de uma GAN para mais épocas.
 * Diversidade entre sujeitos: por se tratar de dados de EEG adquiridos por diferentes sujeitos, existe grande variabilidade entre os movimentos realizados ou imaginados. Isso imposibilita, para um projeto de curta duração, utilizar mais de um sujeito para treinamento. É necessário avaliar se usar dados de vários sujeitos é viável, estudar a melhor forma de colocar isso em prática e quais pré-processamento de dados devem ser realizados.
 
 ## Conclusão
