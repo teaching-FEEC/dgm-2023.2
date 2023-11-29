@@ -15,7 +15,6 @@ oferecida no segundo semestre de 2023, na Unicamp, sob supervisão da Profa. Dra
 <h2 id="resumo">Resumo (Abstract)</h2>
 Este projeto utiliza a geração de dados sintéticos para prever informações de velocidade ao longo do tempo. Embora o enfoque principal seja na velocidade, características como latitude, altitude, longitude e tempo foram incorporadas para enriquecer a obtenção de dados. Além das metodologias tradicionais de processamento de dados, integra-se uma Rede Generativa Adversarial Profunda (GAN) para aprimorar a qualidade dos dados sintéticos. A metodologia envolve a coleta abrangente de dados de ônibus da Universidade de Campinas, filtragem e rotulagem, com ênfase especial nos dados de 2022. A aplicação do GAN contribui para conjuntos de dados sintéticos mais precisos e realistas, abordando a escassez de conjuntos de dados abertos para pesquisa em mobilidade urbana e transporte. Esses conjuntos de dados enriquecidos são inestimáveis para o estudo e a melhoria dos sistemas de transporte urbano, promovendo o desenvolvimento sustentável na área.
 
-
 <h2 id="descrição-do-projeto">Descrição do Projeto</h2>
 Nosso projeto tem como foco a geração sintética de dados de velocidade do ônibus, utilizando modelos de redes generativas. O objetivo é lidar com a escassez de conjuntos de dados abertos para pesquisa e desenvolvimento em mobilidade urbana e transporte. Esses dados sintéticos fornecerão uma alternativa em termos de privacidade e segurança, reduzindo a necessidade de uma coleta intensiva de dados físicos e permitindo a criação de cenários diversos não disponíveis nos dados do mundo real. Os dados sintéticos gerados serão valiosos para testar algoritmos, simular ambientes e melhorar aplicativos baseados em dados relacionados a ônibus, contribuindo para o avanço da mobilidade urbana.
 
@@ -234,6 +233,10 @@ Nesta gráfica, a perda generativa mostra um comportamento ainda mais errático 
 ## Trabalho Futuro:
 
 Para aprimorar objetivamente a avaliação dos modelos geradores de dados sintéticos, é necessário incorporar métricas de avaliação quantitativa e qualitativa. Isso permitirá uma análise mais rigorosa e precisa do desempenho dos modelos, indo além da interpretação subjetiva baseada nos gráficos presentes. Dado o atual estágio da pesquisa, é evidente a necessidade de explorar alternativas arquitetônicas. Uma estratégia promissora consiste na aplicação de Transformers, com ênfase especial nos mecanismos de atenção. Acreditamos que as camadas de atenção têm a capacidade de capturar de maneira mais eficaz padrões complexos e contextos temporais, permitindo assim lidar de maneira mais eficiente com a natureza dinâmica e multifacetada dos dados de mobilidade urbana. Essa abordagem não apenas resultaria em perfis de velocidade mais realistas, mas também os tornaria adaptáveis às nuances do comportamento do ônibus elétrico.
+
+## Link para a Pasta com Informações do Projeto 
+
+* https://drive.google.com/file/d/1-NRvjGaCyYpWaS9DvcSat3SdqlEn5U88/view?usp=sharing
 
 
 ## Referências Bibliográficas
