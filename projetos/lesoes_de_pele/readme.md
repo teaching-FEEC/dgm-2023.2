@@ -35,11 +35,19 @@ checkpoint da ACGAN e PROGAN treinadas, guardadas no Drive local Google Colab + 
 ![Workflow](reports/figures/workflow_ia376.png)
 
 ## Experimentos, Resultados e Discussão dos Resultados
-Foram realizados experimentos envolvendo a GAN tradicional na geração de imagens sintéticas para o HAM10000, com o objetivo de verificar a viabilidade da abordagem. Os resultados qualitativos obtidos foram satisfatórios visualmente para as classes com uma boa quantidade de imagens disponíveis (+1000), porém houve uma grande dificuldade em gerar dados sintéticos para os dados com menos exemplos. Além disso, a fim de validar o código criado para a ACGAN, foi criado um notebook que implementa o modelo para a base de dados MNIST, uma vez que a variabilidade entre as classes pode ser facilmente identificada. 
+Foram realizados experimentos envolvendo a ACGAN na geração de imagens sintéticas para o HAM10000, com o objetivo de verificar a viabilidade da abordagem. Os resultados qualitativos obtidos foram satisfatórios visualmente para as classes com uma boa quantidade de imagens disponíveis (+1000), porém houve uma grande dificuldade em gerar dados sintéticos para os dados com menos exemplos. Além disso, a fim de validar o código criado para a ACGAN, foi criado um notebook que implementa o modelo para a base de dados MNIST, uma vez que a variabilidade entre as classes pode ser facilmente identificada. 
+
+*Imagens sintéticas geradas com a ACGAN: MNIST* 
 
 ![Mnist samples generated using ACGAN](reports/figures/mnist/acgan_mnist_final.jpg)
 
-![HAM10000 samples generated using GAN](reports/figures/ham10000/sintetico_ham.jpg)
+Notebook de treino da ACGAN para o MNIST: [link](notebooks/acgan_mnist_ia376.ipynb)
+
+*Imagens sintéticas geradas com a ACGAN: HAM10000* 
+
+![HAM10000 samples generated using ACGAN](reports/figures/ham10000/sintetico_ham.jpg)
+
+Notebook de treino da ACGAN para o HAM10000: [link](notebooks/acgan_ham10000_ia376.ipynb)
 
  | Data Augmentation | Num samples | Num classes | Validation Acc |
  |--|--|--| -- |
@@ -48,7 +56,7 @@ Foram realizados experimentos envolvendo a GAN tradicional na geração de image
  | No | - | 3 | 0.75 |
  | Yes | 500 | 3 | 0.75 |
 
- Podemos perceber que as embora as imagens geradas pela GAN de fato sejam semelhantes às imagens reais, a qualidade das imagens geradas não é suficiente para melhorar a precisão do classificador.
+ Podemos perceber que as embora as imagens geradas pela GAN de fato sejam semelhantes às imagens reais visualmente, a qualidade das imagens geradas não foi suficiente para melhorar a precisão do classificador.
 
 
 ## Conclusão
