@@ -39,14 +39,13 @@ poderosa na geração de imagens plausíveis com alta qualidade perceptual.
 ## Metodologia Proposta
 
 Ao pesquisar referências nos deparamos com algumas bases de dados bastante citadas dentro do contexto de
-super-resolução como a CelebA e Unplash, usadas para treinamento de modelos, a BSD e a Set14 , usadas para
-validação, por fim, a base de dados biológica para super-resolução microscópica BioSR. 
+super-resolução como a VOC2012 e Unplash, usadas para treinamento de modelos, a BSD e a Set14 , usadas para
+validação.
 
-    - CelebA: http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
     - BSD: https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/
     - Set14: https://huggingface.co/datasets/eugenesiow/Set14
     - Unsplash: https://www.kaggle.com/datasets/quadeer15sh/image-super-resolution-from-unsplash
-    - BioSR: https://figshare.com/articles/dataset/BioSR/13264793
+    - VOC2012: https://www.kaggle.com/datasets/gopalbhattrai/pascal-voc-2012-dataset
 
 Visto que é o primeiro contato dos participantes do projeto com modelos gerativos, optou-se por explorar
 o uso de GANs na tarefa de SISR a partir da reprodução, avaliação e comparação de resultados de arquiteturas
@@ -58,7 +57,9 @@ já difundidas na literatura da área. Os principais artigos que vão nortear o 
     - Evaluation and development of deep neural networks for image super-resolution in optical microscopy (Chang Qiao, 2021)
     - Deep Neural Networks for Image Super-Resolution in Optical Microscopy by Using Modified Hybrid Task Cascade U-Net (Dawei Gong, 2021)
 
-Objetiva-se iniciar os trabalhos a partir da implementação e avaliação da SRGAN com a base de dados CelebA. Em seguida, deseja-se implementar e avaliar as arquiteturas DFGAN e MHTCUN na base de dados biológicos BioSR. 
+Objetiva-se iniciar os trabalhos a partir da implementação e avaliação da SRGAN com a base de dados VOC2012. Em seguida, deseja-se implementar a métrica LPIPS para melhorar a avaliação dos resultados, segue abaixo uma tabela com as métricas que serão utilizadas para avaliação dos resultados:
+
+![metricas](references/metricas.png?raw=True "Métricas")
 
 Neste início de projeto, elencamos as seguintes ferramentas a serem utilizadas:
 
@@ -108,20 +109,42 @@ Imagens em jpg, que facilitam o processamento e a manipulação. Todas as imagen
 ![1000_6](references/1000_6.jpg?raw=True "1000_6")
 
 ## Workflow
+Nesta seção, apresentamos o workflow do projeto, conforme ilustrado na figura abaixo, utilizamos a arquitetura original da SRGAN como base para o projeto, onde utilizamos os datasets VOC 2012 e Unsplash para treinamento do modelo. A partir dos resultados obtidos com a SRGAN utilizamos as métricas SSIM, PSNR e adicionamos LPIPS como contribuição para o trabalho.
+
 ![workflow](references/workflow.png?raw=True "Workflow")
+
+Arquitetura da SRGAN
+
+![arch](references/arch_srgan.png?raw=True "Arquitetura da SRGAN")
 
 ## Experimentos, Resultados e Discussão dos Resultados
 
 > Experimentos:
 
-Atualmente estamos reproduzindo dois repositórios que encontramos:
+Utilizamos como referência dois repositórios encontrados no Github para a implementação da SRGAN, onde os mesmos disponibilizam os datasets utilizados para treinamento e os modelos pré treinados para avaliação dos resultados. Os repositórios são:
     
     1. SRGAN: https://github.com/leftthomas/SRGAN
     2. SRGAN-PyTorch: https://github.com/Lornatang/SRGAN-PyTorch
 
-Enfretamos alguns problemas com a obtenção dos datasets utilizados pelo primeiro repositório (SRGAN leftthhomas), por ser implementado por um time chinês, os links de download foram disponibilizados em uma ferramenta chinesa que se mostrou bastante inacessível, após algumas pesquisas e dificuldade com velocidade baixa de donwload foi possível obter o dataset e agora estamos trabalhando para reproduzir os resultados divulgados.
+Enfretamos alguns problemas com a obtenção dos datasets utilizados pelo primeiro repositório (SRGAN leftthhomas), por ser implementado por um time chinês, os links de download foram disponibilizados em uma ferramenta chinesa que se mostrou bastante inacessível, após algumas pesquisas e dificuldade com velocidade baixa de donwload foi possível obter o dataset VOC 2012.
 
-Enquanto os problemas aconteciam com o primeiro repositório, encontramos o segundo repositório (SRGAN-PyTorch Lornatang), onde o download dos datasets foi bem mais simples pois são disponibilizados scripts shell no próprio repositório. Com isso foi possível executar um teste inicial com os datasets SRGAN-ImageNet e Set5 onde obtivemos PSNR 30.6708 e SSIM 0.8626, utilizando os modelos pré treinados que também são disponibilizados no repositório, no momento estamos trabalhando para iniciar o treinamento localmente e verificar os resultados obtidos ao utilizar os datasets selecionados por este projeto.
+Essa implementação funcionou bem para o dataset VOC 2012, porém ao utilizar o dataset Unsplash, o modelo não convergiu e apresentou resultados ruins. Para o treinamento, utilizamos os valores de hiperparametros definidos no artigo, Learning Rate 1e-5, para os dois casos de treinamento, VOC2012 e Unsplash. Tivemos que ajustar o Batch Size por conta do tamanho do dataset Unsplash ser bem menor que o VOC2012, onde utilizamos 16 para o Unsplash e 64 para o VOC2012. O treinamento foi realizado em uma máquina local com GPU Nvidia RTX 3060 Ti e em uma máquina virtual com Nvidia T4, onde o tempo de treinamento foi de aproximadamente 6 horas para o dataset Unsplash e 16 horas para o dataset VOC2012 na máquina local e 1 hora para o dataset Unsplash e 6 horas para o dataset VOC2012 na máquina virtual. Nos dois casos fizemos o downscale em 4 vezes o tamanho da imagem original e o treinamento ocorreu em 100 épocas.
+
+Enquanto os problemas de download aconteciam com o primeiro repositório, encontramos o segundo repositório (SRGAN-PyTorch Lornatang), onde o download dos datasets foi bem mais simples pois são disponibilizados scripts shell no próprio repositório. Com isso foi possível executar um teste inicial com os datasets  e Set5 onde obtivemos PSNR 30.6708 e SSIM 0.8626, utilizando os modelos pré treinados que também são disponibilizados no repositório. Tentamos iniciar o treinamento localmente e verificar os resultados obtidos ao utilizar os datasets que encontramos, porém o treinamento não iniciou por algum problema no código e seguimos com o primeiro.
+
+> Resultados:
+
+Após o treinamento, obtivemos os seguintes resultados para o dataset VOC2012:
+
+![voc2012](references/voc2012_training.png?raw=True "VOC2012")
+
+Para o dataset Unsplash:
+
+![unsplash](references/unsplash_training.png?raw=True "Unsplash")
+
+> Discussão dos Resultados:
+
+
 
 ## Cronograma
 > Proposta inicial de cronograma:
