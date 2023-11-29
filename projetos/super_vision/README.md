@@ -155,6 +155,11 @@ Nessa segunda imagem podemos perceber que por se tratar de uma imagem com textur
 ![table_imag1](references/table_img2.png?raw=True "Tabela Imagem 2")
 ![img1](references/img2.png?raw=True "Imagem 2")
 
+> Conclusões:
+
+Por fim, o trabalho realizou o que se propôs a fazer, conseguimos implementar e avaliar a SRGAN utilizando o modelo disponibilizado pelo leftthomas, além disso adicionamos a métrica LPIPS que representa melhor a percepção visual do sistema humano em comparação com a SSIM. Percebemos que imagens com maior conteúdo de alta frequência (textura) são mais difíceis de serem super resolvidas independente do dataset utilizado para treinamento, tanto com o VOC2012 com mais de 16 mil imagens em 480p como o Unsplash com menos de 2 mil imagens em 1080p.
+Para trabalhos futuros, segurimos testar a implementação da utilização da LPIPS na função de perda e atualizar a arquitetura da GAN para ESRGAN ou Real-ESRGAN. Além de fazer um estudo de hiperparâmetros utilizando ferramentas de tracking como MLFlow.
+
 ## Cronograma
 > Proposta inicial de cronograma:
 >
