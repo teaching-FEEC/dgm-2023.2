@@ -144,7 +144,16 @@ Para o dataset Unsplash:
 
 > Discussão dos Resultados:
 
+Para o benchmark dos resultados obtidos com os dois modelos treinados com os datatests VOC2012 e Unsplash, foi utilizado um conjunto de imagens dos datasets BSD100, Set5, Set14 e Urban100, facilitando a comparação entre os dois. Percebe-se que pelo tamanho do dataset VOC2012 ser 10 vezes maior que o Unsplash, a média geral de resultados ficou muito melhor e podemos analisar a LPIPS que indica a similaridade entre a imagem original e a imagem super resolvida, perceptivelmente se assemelha ao que analisamos ao observar as imagens, onde quanto menor o LPIPS melhor a qualidade.
+Abaixo temos um exemplo de imagem que foi super resolvida utilizando os dois modelos e com valores próximos da média geral:
 
+![table_imag1](references/table_img1.png?raw=True "Tabela Imagem 1")
+![img1](references/img1.png?raw=True "Imagem 1")
+
+Nessa segunda imagem podemos perceber que por se tratar de uma imagem com texturas mais complexas, ambos os modelos tiveram dificuldades para lidar com a componente de alta frequência.
+
+![table_imag1](references/table_img2.png?raw=True "Tabela Imagem 2")
+![img1](references/img2.png?raw=True "Imagem 2")
 
 ## Cronograma
 > Proposta inicial de cronograma:
